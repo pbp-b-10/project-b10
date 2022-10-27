@@ -14,7 +14,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .forms import ProfileForm
 
 # Create your views here.
-def signup(request):
+def register(request):
     form = UserCreationForm()
 
     if request.method == "POST":
@@ -33,7 +33,7 @@ def signup(request):
     context = {'form':form, 'profile_form':profile_form}
     return render(request, 'signup.html', context)
 
-def signin_user(request):
+def login_user(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -48,7 +48,7 @@ def signin_user(request):
     context = {}
     return render(request, 'signin.html', context)
 
-def signout_user(request):
+def logout_user(request):
     logout(request)
     response = HttpResponseRedirect(reverse('pedulee:login'))
     response.delete_cookie('last_login')
