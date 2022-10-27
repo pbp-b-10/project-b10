@@ -16,7 +16,8 @@ from .forms import ProfileForm
 # Create your views here.
 def register(request):
     form = UserCreationForm()
-
+    profile_form = ProfileForm()
+    
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         profile_form = ProfileForm(request.POST)
