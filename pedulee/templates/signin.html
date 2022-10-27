@@ -6,6 +6,7 @@
         <style>
             body {
                 font-family: 'Montserrat';
+                background-image: url("images/background.png");
             }
             a {
                 font-weight: bold;
@@ -21,7 +22,6 @@
             }
             .left {
                 left: 0;
-                background-color: white;
             }
             .right {
                 right: 0;
@@ -97,15 +97,23 @@
                                 </td>
                             </tr>
                         </table>  
+                        <input class="login_btn" type="submit" value="SIGN IN">
                     </form>
 
-                    <input class="login_btn" type="submit" value="SIGN IN">
+                    
                     <h5 class="signup">Don't have an account? <a href="{% url 'pedulee:register' %}">Sign Up</a></h5>
             </div>
         </div>
+        {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+        {% endif %}   
         <div class="container right">
             <div class="content">
-                <img src="WWW.png">
+                <img src="images/WWW.png">
             </div>
         </div>
     </body>

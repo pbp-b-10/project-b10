@@ -44,7 +44,7 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user) # melakukan login terlebih dahulu
-            response = HttpResponseRedirect(reverse("pedulee:show_pedulee")) # membuat response
+            response = HttpResponseRedirect(reverse("pedulee:home")) # membuat response
             response.set_cookie('last_login', str(datetime.datetime.now())) # membuat cookie last_login dan menambahkannya ke dalam response
             return response
         else:
@@ -57,3 +57,7 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('pedulee:login'))
     response.delete_cookie('last_login')
     return response
+
+@login_required(login_url='/sign-in/')
+def show_home(request):
+    return render(request, "home.html")

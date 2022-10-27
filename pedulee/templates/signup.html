@@ -6,6 +6,7 @@
         <style>
             body {
                 font-family: 'Montserrat';
+                background-image: url("images/background.png");
             }
             a {
                 font-weight: bold;
@@ -30,7 +31,6 @@
             }
             .left {
                 left: 0;
-                background-color: white;
             }
             .right {
                 right: 0;
@@ -134,9 +134,10 @@
                                 </td>
                             </tr>
                         </table>  
+                        <input class="register_btn" type="submit" name="submit" value="SIGN UP" class="form-control">
                     </form>
 
-                    <input class="register_btn" type="submit" name="submit" value="SIGN UP" class="form-control">
+                    
                     <h5 class="signup">Already have an account? <a href="{% url 'pedulee:login' %}">Sign In</a></h5>
             </div>
         </div>
