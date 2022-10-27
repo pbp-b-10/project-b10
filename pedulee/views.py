@@ -1,7 +1,7 @@
 import datetime
 from django.shortcuts import render
 from django.shortcuts import redirect
-from django.contrib.auth.forms import UserCreationForm
+from .forms import ExtendedUserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
@@ -15,11 +15,8 @@ from .forms import ProfileForm
 
 # Create your views here.
 def register(request):
-    form = UserCreationForm()
-    profile_form = ProfileForm()
-    
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = ExtendedUserCreationForm(request.POST)
         profile_form = ProfileForm(request.POST)
 
         if form.is_valid() and profile_form.is_valid():
@@ -28,8 +25,14 @@ def register(request):
             profile = profile_form.save(commit=False)
             profile.user = user
 
+            profile.save()
+
             messages.success(request, 'Your account has been successfully created!')
             return redirect('pedulee:login')
+    else:
+        form = ExtendedUserCreationForm()
+        profile_form = ProfileForm()
+
         
     context = {'form':form, 'profile_form':profile_form}
     return render(request, 'signup.html', context)

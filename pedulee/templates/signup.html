@@ -10,10 +10,19 @@
             a {
                 font-weight: bold;
             }
-            .container {
+            #container-form {
                 height: 100%;
-                width: 50%;
-                position: fixed;
+                width: 70%;
+                position: absolute;
+                top: 0;
+                overflow-x: hidden;
+                padding-top: 20px;
+                text-align: center;
+            }
+            #container-content {
+                height: 100%;
+                width: 30%;
+                position: absolute;
                 z-index: 1;
                 top: 0;
                 overflow-x: hidden;
@@ -34,48 +43,106 @@
                 transform: translate(-50%, -50%);
                 text-align: center;
             }
+            .header{
+                font-style: normal;
+                font-weight: 700;
+                font-size: 40px;
+                text-transform: uppercase;
+                text-align: left;
+            }
+            .description {
+                font-style: normal;
+                font-weight: 500;
+                font-size: 20px;
+                text-align: left;
+            }
+            .signup {
+                font-style: normal;
+                font-weight: 400;
+                font-size: 17px;
+                text-align: center;
+            }
+            .register_btn {
+                margin: 4% 2%;
+                padding: 9px 22px;
+                text-align: center;
+                background: #B1B2FF;
+                border-radius: 90px;
+                display: inline-block;
+                font-size: 16px;
+                font-weight: 1000;
+                color: white;
+            }
+            .register_btn:hover {
+                background-color: white;
+                color: black;
+            }
+            table {
+                width: 100%;
+            }
+            td { 
+                padding: 1%;
+            }
         </style>
-        <title>Sign in</title>
+        <title>Sign up</title>
     </head>
     <body>
-        <div class="container left">
+        <div class="container left" id="container-form">
             <div class="content">
-                <h1>CREATE<br>ACCOUNT</h1>
-                <h4>Register to create your account</h4>
+                <h1 class="header">CREATE ACCOUNT</h1>
+                <h4 class="description">Register to create your account</h4>
                     <form method="POST" >  
+                        {% csrf_token %}
                         <table>
                             <tr>
+                                <th style="width: 42%"></th>
+                                <th scope="col" colspan="2"></th>
+                            </tr>
+                            <tr>
                                 <td>
-                                    <input type="text" id="username" name="username" placeholder="Create Username">
+                                    <input type="text" name="username" maxlength="150" autocapitalize="none" autocomplete="username" autofocus="" required="" id="id_username" placeholder="Create Username" class="form-control">
+                                </td>
+                                <td>
+                                    <input type="text" name="first_name" maxlength="200" autocapitalize="none" autocomplete="given-name" autofocus="" required="" id="id_first_name" placeholder="First Name" class="form-control">
+                                </td>
+                                <td>
+                                    <input type="text" name="last_name" maxlength="200" autocapitalize="none" autocomplete="family-name" autofocus="" required="" id="id_last_name" placeholder="Last Name" class="form-control">
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="text" id="password" name="password" placeholder="Create Password">
+                                    <input type="email" name="email" maxlength="150" autocapitalize="none" autocomplete="email" autofocus="" required="" id="id_email" placeholder="Email" class="form-control">
+                                </td>
+                                <td colspan="2">
+                                    <input type="number" name="phone" maxlength="16" autocapitalize="none" autocomplete="number" autofocus="" required="" id="id_phone" placeholder="Phone Number" class="form-control">
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="text" id="cfpassword" name="cfpassword" placeholder="Confirm Password">
+                                    <input type="password" name="password1" autocomplete="new-password" required="" id="id_password1" placeholder="Create Password" class="form-control">
+                                </td>
+                                <td colspan="2">
+                                    <input type="date" name="birthdate" autocomplete="date" autofocus="" required="" id="id_date" placeholder="Date of Birth" class="form-control">
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="submit" value="SIGN UP">
+                                    <input type="password" name="password2" autocomplete="new-password" required="" id="id_password2" placeholder="Confirm Password" class="form-control">
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Already have an account? <a href="{% url 'pedulee:register' %}">Sign In</a></h5>
+                                <td colspan="2">
+                                    <input type="text" name="address" maxlength="255" autocapitalize="none" autocomplete="street-address" autofocus="" required="" id="id_address" placeholder="Address" class="form-control">
                                 </td>
                             </tr>
                         </table>  
                     </form>
+
+                    <input class="register_btn" type="submit" name="submit" value="SIGN UP" class="form-control">
+                    <h5 class="signup">Already have an account? <a href="{% url 'pedulee:login' %}">Sign In</a></h5>
             </div>
         </div>
-        <div class="container right">
+        <div class="container right" id="container-content">
             <div class="content">
-                <img src="WWW.png">
+                <img src="images/WWW.png">
             </div>
         </div>
     </body>

@@ -34,38 +34,73 @@
                 transform: translate(-50%, -50%);
                 text-align: center;
             }
+            
+            .header{
+                font-style: normal;
+                font-weight: 700;
+                font-size: 40px;
+                text-transform: uppercase;
+                text-align: left;
+            }
+            .description {
+                font-style: normal;
+                font-weight: 500;
+                font-size: 20px;
+                text-align: left;
+            }
+            .signup {
+                font-style: normal;
+                font-weight: 400;
+                font-size: 17px;
+                text-align: center;
+            }
+            .login_btn {
+                margin: 4% 2%;
+                padding: 9px 22px;
+                text-align: center;
+                background: #B1B2FF;
+                border-radius: 90px;
+                display: inline-block;
+                font-size: 16px;
+                font-weight: 1000;
+                color: white;
+            }
+            .login_btn:hover {
+                background-color: white;
+                color: black;
+            }
+            table {
+                width: 100%;
+            }
+            td { 
+                padding: 1%;
+            }
         </style>
         <title>Sign in</title>
     </head>
     <body>
         <div class="container left">
             <div class="content">
-                <h1>WELCOME TO<br>PEDULEE</h1>
-                <h4>Sign in to your account</h4>
-                    <form method="POST" >  
+                <h1 class="header">WELCOME TO PEDULEE</h1>
+                <h4 class="description">Sign in to your account</h4>
+                    <form method="POST" > 
+                        {% csrf_token %} 
                         <table>
                             <tr>
                                 <td>
-                                    <input type="text" id="username" name="username" placeholder="Username or email">
+                                    <input type="text" name="username" placeholder="Username" class="form-control">
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="text" id="password" name="password" placeholder="Password">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="submit" value="SIGN IN">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Don't have an account? <a href="{% url 'pedulee:register' %}">Sign Up</a></h5>
+                                    <input type="password" name="password" placeholder="Password" class="form-control">
                                 </td>
                             </tr>
                         </table>  
                     </form>
+
+                    <input class="login_btn" type="submit" value="SIGN IN">
+                    <h5 class="signup">Don't have an account? <a href="{% url 'pedulee:register' %}">Sign Up</a></h5>
             </div>
         </div>
         <div class="container right">
