@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+    
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pedulee</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: 'Montserrat';
+            text-align: center;
+            background-image: url("images/background.png");   
+        }
+        .nav-link {
+            font-weight: bold;
+            font-style: normal;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .card {
+            will-change: transform;
+            transition: transform 450ms;
+            height: 100%;
+        }
+        .card:hover {
+            transition: transform 150ms;
+            transform: translateY(-10px);
+            shadow: 5px 5px;
+        }
+        .navbar {
+            background: #FDF3EA;
+            height: auto;
+            position: sticky;
+            padding: 1% 1%;
+        }
+    </style>
+</head>
+  
+<body>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <a class="nav-link" href="/home">HOME</a>
+            <a class="nav-link" href="/projects">PROJECTS</a>
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">DONATE</a>
+                <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item">CLOTHES</a>
+                    <a href="#" class="dropdown-item">MONEY</a>
+                    <a href="#" class="dropdown-item">GROCERIES</a>
+                    <a href="#" class="dropdown-item">BLOOD DONORS</a>
+                </div>
+            </div>
+
+            <a class="navbar-brand" href="/home">
+                <img src="images/logo.png">
+            </a>
+
+            <a class="nav-link" href="/volunteer">VOLUNTEER</a>
+            <a class="nav-link" href="/about-us">ABOUT US</a>
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">PROFILE</a>
+                <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item">MY PROFILE</a>
+                    <a href="#" class="dropdown-item">LOGOUT</a>
+                </div>
+            </div>
+            
+        </div>
+      </nav>
+
+</body>
+</html>
