@@ -1,12 +1,12 @@
 from django.urls import path
-from pedulee.views import register
-from pedulee.views import login_user
-from pedulee.views import logout_user
+from pedulee.views import signup
+from pedulee.views import signin_user
+from pedulee.views import signout_user
 
 app_name = 'pedulee'
 
 urlpatterns = [
-    path('register/', register, name='register'),
-    path('login/', login_user, name='login'),
-    path('logout/', logout_user, name='logout'),
+    path('sign-up/', signup, name='signup'),
+    path('sign-in/', signin_user, name='signin'),
+    path('sign-out/', signout_user, name='signout'),
 ]
