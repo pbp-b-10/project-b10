@@ -12,6 +12,7 @@ from django.core import serializers
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import ProfileForm
+from .models import Cloth
 
 # Create your views here.
 @login_required(login_url="/sign-in")
@@ -21,6 +22,14 @@ def show_home(request):
         'username': username,
     }
     return render(request, "home.html", context)
+
+@login_required(login_url="/sign-in")
+def show_history(request):
+    username = request.user
+    context = {
+        'username': username,
+    }
+    return render(request, "history.html", context)
 
 def register(request):
     if request.method == "POST":
@@ -65,4 +74,44 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('pedulee:login'))
     response.delete_cookie('last_login')
     return response
+
+login_required(login_url="/sign-in")
+def show_clothes_history(request):
+    username = request.user
+    context = {
+        'username': username,
+    }
+    return render(request, "clothes-history.html", context)
+
+login_required(login_url="/sign-in")
+def show_money_history(request):
+    username = request.user
+    context = {
+        'username': username,
+    }
+    return render(request, "money-history.html", context)
+
+login_required(login_url="/sign-in")
+def show_groceries_history(request):
+    username = request.user
+    context = {
+        'username': username,
+    }
+    return render(request, "groceries-history.html", context)
+
+login_required(login_url="/sign-in")
+def show_blood_history(request):
+    username = request.user
+    context = {
+        'username': username,
+    }
+    return render(request, "blood-history.html", context)
+
+login_required(login_url="/sign-in")
+def show_volunteer_history(request):
+    username = request.user
+    context = {
+        'username': username,
+    }
+    return render(request, "volunteer-history.html", context)
 
