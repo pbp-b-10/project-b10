@@ -1,122 +1,121 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-        <style>
-            body {
-                font-family: 'Montserrat';
-                text-align: center;
-                background-image: url("../static/background.png");  
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-attachment: fixed;
-            }
-            a {
-                font-weight: bold;
-            }
-            .container {
-                height: 100%;
-                width: 50%;
-                position: absolute;
-                top: 0;
-                padding-top: 20px;
-            }
-            .left {
-                left: 0;
+{% extends 'base.html' %}
 
-            }
-            .right {
-                right: 0;
-                background-color: #AAC4FF;
-            }
-            .content {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                text-align: center;
-            }
-            .header{
-                font-style: normal;
-                font-weight: 700;
-                font-size: 40px;
-                text-transform: uppercase;
-                text-align: left;
-            }
-            .description {
-                font-style: normal;
-                font-weight: 500;
-                font-size: 20px;
-                text-align: left;
-            }
-            .signup {
-                font-style: normal;
-                font-weight: 400;
-                font-size: 17px;
-                text-align: center;
-            }
-            .login_btn {
-                margin: 4% 2%;
-                padding: 9px 22px;
-                text-align: center;
-                background: #B1B2FF;
-                border-radius: 90px;
-                display: inline-block;
-                font-size: 16px;
-                font-weight: 1000;
-                color: white;
-            }
-            .login_btn:hover {
-                background-color: white;
-                color: black;
-            }
-            table {
-                width: 100%;
-            }
-            td { 
-                padding: 1%;
-            }
-        </style>
-        <title>Sign in</title>
-    </head>
-    <body>
-        <div class="container left">
-            <div class="content">
-                <h1 class="header">WELCOME TO PEDULEE</h1>
-                <h4 class="description">Sign in to your account</h4>
-                    <form method="POST" > 
-                        {% csrf_token %} 
-                        <table>
-                            <tr>
-                                <td>
-                                    <input type="text" name="username" placeholder="Username" class="form-control">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="password" name="password" placeholder="Password" class="form-control">
-                                </td>
-                            </tr>
-                        </table>  
-                        <input class="login_btn" type="submit" value="SIGN IN">
-                    </form>
+{% load static %}
 
-                    
-                    <h5 class="signup">Don't have an account? <a href="{% url 'pedulee:register' %}">Sign Up</a></h5>
-            </div>
+{% block meta %}
+  <title>Sign in</title>
+{% endblock meta %}
+
+{% block styles %}
+    <style>
+        body {
+            font-family: 'Montserrat';
+            background-image: url("images/background.png");
+        }
+        a {
+            font-weight: bold;
+        }
+        .container {
+            height: 100%;
+            width: 50%;
+            position: absolute;
+            top: 0;
+            padding-top: 20px;
+        }
+        .left {
+            left: 0;
+        }
+        .right {
+            right: 0;
+            background-color: #AAC4FF;
+        }
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .header{
+            font-style: normal;
+            font-weight: 700;
+            font-size: 40px;
+            text-transform: uppercase;
+            text-align: left;
+        }
+        .description {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 20px;
+            text-align: left;
+        }
+        .signup {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 17px;
+            text-align: center;
+        }
+        .login_btn {
+            margin: 4% 2%;
+            padding: 9px 22px;
+            text-align: center;
+            background: #B1B2FF;
+            border-radius: 90px;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: 1000;
+            color: white;
+        }
+        .login_btn:hover {
+            background-color: white;
+            color: black;
+        }
+        table {
+            width: 100%;
+        }
+        td {
+            padding: 1%;
+        }
+    </style>
+{% endblock styles %}
+
+{% block content %}
+    <div class="container left">
+        <div class="content">
+            <h1 class="header">WELCOME TO PEDULEE</h1>
+            <h4 class="description">Sign in to your account</h4>
+                <form method="POST" >
+                    {% csrf_token %}
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="text" name="username" placeholder="Username" class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="password" name="password" placeholder="Password" class="form-control">
+                            </td>
+                        </tr>
+                    </table>
+                    <input class="login_btn" type="submit" value="SIGN IN">
+                </form>
+
+
+                <h5 class="signup">Don't have an account? <a href="{% url 'pedulee:register' %}">Sign Up</a></h5>
         </div>
-        {% if messages %}
-                {% for message in messages %}
-                <div class="alert alert-danger" role="alert">
-                    {{ message }}
-                </div>
-                {% endfor %}
-        {% endif %}   
-        <div class="container right">
-            <div class="content">
-                <img src="../static/WWW.png" alt="image" style="width: 100%; display: block; margin-left: auto; margin-right: auto;"/>
+    </div>
+    {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
             </div>
+            {% endfor %}
+    {% endif %}
+    <div class="container right">
+        <div class="content">
+            <img src="/static/images/WWW.png">
         </div>
-    </body>
-</html>
+    </div>
+{% endblock content %}

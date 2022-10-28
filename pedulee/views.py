@@ -161,3 +161,8 @@ def create_cloth(request):
         form = ClothForm()
 
     return render(request, 'donasi-pakaian.html', {'form': form})
+
+def show_projects(request):
+    context = {}
+    return render(request, 'projects.html', context)
+

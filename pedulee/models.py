@@ -58,4 +58,13 @@ class Cloth(models.Model):
                             choices = TYPE_CHOICES,
                             default = "perempuan",
                             )
-    
+                            
+class Project(models.Model):
+    title = models.CharField(max_length=256)
+    description = models.CharField(max_length=1024)
+    link = models.CharField(max_length=256)
+    amount = models.BigIntegerField()
+    akhir_waktu = models.DateField()
+
+    def __str__(self):
+        return self.title

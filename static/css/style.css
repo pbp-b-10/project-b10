@@ -1,0 +1,8 @@
+* {
+    font-family: 'Montserrat';
+    background-image: url("images/background.png");
+}
+
+.bg-navbar {
+    background: #FDF3EA;
+}
