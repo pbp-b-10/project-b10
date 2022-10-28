@@ -132,3 +132,7 @@ def add_cloth(request):
         return HttpResponse(b"CREATED", status=201)
 
     return HttpResponseNotFound()
+
+def show_projects(request):
+    context = {}
+    return render(request, 'projects.html', context)
