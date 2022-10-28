@@ -1,6 +1,6 @@
 * {
     font-family: 'Montserrat';
-    background-image: url("images/background.png");
+    background-image: url("/static/images/background.png");
 }
 
 .bg-navbar {
