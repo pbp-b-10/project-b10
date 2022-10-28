@@ -13,3 +13,48 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+class Cloth(models.Model):
+    MODEL_CHOICES = [
+        ("kemeja", "Kemeja"),
+        ("kaos", "Kaos"),
+        ("celana", "Celana"),
+        ("rok", "Rok"),
+        ("sepatu", "Sepatu"),
+        ("aksesoris", "Aksesoris"),
+        ("lainnya", "Lainnya"),
+    ]
+    MATERIAL_CHOICES = [
+        ("katun", "Katun"),
+        ("linen", "Linen"),
+        ("denim", "Denim"),
+        ("kulit", "Kulit"),
+        ("polyester", "Polyester"),
+        ("suede", "Suede"),
+        ("sutra", "Sutra"),
+        ("velvet", "Velvet"),
+        ("rajut", "Rajut"),
+        ("rayon", "Rayon"),
+        ("jersey", "Jersey"),
+        ("twistcone", "Twistcone"),
+        ("lainnya", "Lainnya"),
+    ]
+    TYPE_CHOICES = [
+        ("perempuan", "Perempuan"),
+        ("laki", "Laki-laki"),
+        ("anakPerempuan", "Anak perempuan"),
+        ("anakLaki", "Anak laki-laki"),
+    ]
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+    model = models.CharField(max_length=30,
+                            choices = MODEL_CHOICES,
+                            default = "kemeja",
+                            )
+    type = models.CharField(max_length=30,
+                            choices = TYPE_CHOICES,
+                            default = "perempuan",
+                            )
+    material = models.CharField(max_length=30,
+                            choices = MATERIAL_CHOICES,
+                            default = "katun",
+                            )

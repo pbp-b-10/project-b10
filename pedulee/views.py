@@ -115,3 +115,20 @@ def show_volunteer_history(request):
     }
     return render(request, "volunteer-history.html", context)
 
+def show_json_cloth(request):
+    data = Cloth.objects.filter(user = request.user)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+def add_cloth(request):
+    if request.method == 'POST':
+        model = request.POST.get("model")
+        type = request.POST.get("type")
+        material = request.POST.get("material")
+        user = request.user
+
+        new_cloth = Cloth(user=user, model=model, type=type, material=material)
+        new_cloth.save()
+
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()
