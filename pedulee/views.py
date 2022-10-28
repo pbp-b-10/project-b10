@@ -14,6 +14,14 @@ from django.views.decorators.csrf import csrf_exempt
 from .forms import ProfileForm
 
 # Create your views here.
+@login_required(login_url="/sign-in")
+def show_home(request):
+    username = request.user
+    context = {
+        'username': username,
+    }
+    return render(request, "home.html", context)
+
 def register(request):
     if request.method == "POST":
         form = ExtendedUserCreationForm(request.POST)
@@ -58,6 +66,3 @@ def logout_user(request):
     response.delete_cookie('last_login')
     return response
 
-@login_required(login_url='/sign-in/')
-def show_home(request):
-    return render(request, "home.html")
