@@ -14,7 +14,7 @@ class Profile(models.Model):
         return self.user.username
 
 class Cloth(models.Model):
-    MODEL_CHOICES = [
+    CLOTH_MODEL_CHOICES = [
         ("kemeja", "Kemeja"),
         ("kaos", "Kaos"),
         ("celana", "Celana"),
@@ -46,19 +46,19 @@ class Cloth(models.Model):
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
-    model = models.CharField(max_length=30,
-                            choices = MODEL_CHOICES,
+    cloth_model = models.CharField(max_length=30,
+                            choices = CLOTH_MODEL_CHOICES,
                             default = "kemeja",
-                            )
-    type = models.CharField(max_length=30,
-                            choices = TYPE_CHOICES,
-                            default = "perempuan",
                             )
     material = models.CharField(max_length=30,
                             choices = MATERIAL_CHOICES,
                             default = "katun",
                             )
-
+    type = models.CharField(max_length=30,
+                            choices = TYPE_CHOICES,
+                            default = "perempuan",
+                            )
+                            
 class Project(models.Model):
     title = models.CharField(max_length=256)
     description = models.CharField(max_length=1024)

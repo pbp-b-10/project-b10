@@ -127,29 +127,9 @@
                             </div>
                             </div>`
           })
-
           document.getElementById("row").innerHTML = htmlString
     }
-
-    function addTask() {
-        fetch("{% url 'todolist:add_task' %}", {
-            method: "POST",
-            body: new FormData(document.querySelector('#form'))
-        }).then(refreshTodolist)
-        return false
-    }
-
-    function deleteTask(id) {
-        $.ajax({
-            url: `/todolist/delete/${id}`,
-            type: "DELETE",
-            success: function() {
-                $(`#${id}`).remove();
-            }
-        }).then(refreshTodolist)
-    }
-
-    document.getElementById("button").onclick = addTask
-    refreshTodolist()
-</script>
+    
+    refreshCloth()
+   </script>
 {% endblock scripts %}
