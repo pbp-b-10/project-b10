@@ -89,7 +89,7 @@
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">DONATE</a>
                 <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">CLOTHES</a>
+                    <a href="/clothes" class="dropdown-item">CLOTHES</a>
                     <a href="#" class="dropdown-item">MONEY</a>
                     <a href="#" class="dropdown-item">GROCERIES</a>
                     <a href="#" class="dropdown-item">BLOOD DONORS</a>
@@ -106,7 +106,7 @@
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">PROFILE</a>
                 <div class="dropdown-menu">
                     <a href="/my-profile" class="dropdown-item">{{ username }}</a>
-                    <a href="/history" class="dropdown-item">History</a>
+                    <a href="/history" class="dropdown-item">HISTORY</a>
                     <form method="post" action="">
                         {% csrf_token %}
                         <a href="{% url 'pedulee:logout' %}" class="dropdown-item">LOGOUT</a>

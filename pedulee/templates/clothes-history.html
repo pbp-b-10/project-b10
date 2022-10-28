@@ -41,6 +41,14 @@
             position: sticky;
             padding: 1% 1%;
         }
+        .header{
+            font-weight: 900;
+            font-size: 20px;
+            text-transform: uppercase;
+            margin-top: 2%;
+            margin-bottom: 2%;
+        }
+
     </style>
 </head>
   
@@ -69,7 +77,7 @@
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">PROFILE</a>
                 <div class="dropdown-menu">
                     <a href="/my-profile" class="dropdown-item">{{ username }}</a>
-                    <a href="/history" class="dropdown-item">History</a>
+                    <a href="/history" class="dropdown-item">HISTORY</a>
                     <form method="post" action="">
                         {% csrf_token %}
                         <a href="{% url 'pedulee:logout' %}" class="dropdown-item">LOGOUT</a>
@@ -80,13 +88,16 @@
         </div>
     </nav>
 
+    <h1 class="header">{{ username }}'s CLOTHES DONATION HISTORY</h1>
+
     <div class="container-fluid" id="cloth-table">
             <table style="text-align: center;" class="table table-striped">
                 <thead>
-                  <tr style="background-color: white;">
-                    <th>Nama Barang</th>
-                    <th>Harga Barang</th>
-                    <th>Deskripsi</th>
+                    <tr style="background-color: white;">
+                        <th>Model</th>
+                        <th>Material</th>
+                        <th>Type</th>
+                        <th>Date</th>
                     </tr>
                 </thead>
         
@@ -112,7 +123,7 @@
       
         async function refreshCloth() {
               document.getElementById("row").innerHTML = ""
-              const todolist = await getTodolist()
+              const todolist = await getCloth()
               let htmlString = ''
               todolist.forEach((item) => {
                 htmlString += `\n<div class="col-12 col-md-6 col-lg-4">
@@ -168,26 +179,7 @@
               document.getElementById("row").innerHTML = htmlString
         }
 
-        function addTask() {
-            fetch("{% url 'todolist:add_task' %}", {
-                method: "POST",
-                body: new FormData(document.querySelector('#form'))
-            }).then(refreshTodolist)
-            return false
-        }
-
-        function deleteTask(id) {
-            $.ajax({
-                url: `/todolist/delete/${id}`,
-                type: "DELETE",
-                success: function() {
-                    $(`#${id}`).remove();
-                }
-            }).then(refreshTodolist)
-        }
-
-        document.getElementById("button").onclick = addTask
-        refreshTodolist()
+        refreshCloth()
     </script>
 
 </body>
