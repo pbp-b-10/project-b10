@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile
+from .models import Cloth, Profile
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -27,3 +27,9 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('phone', 'birthdate', 'address')
+
+class ClothForm(forms.ModelForm):
+    
+    class Meta:
+        model = Cloth
+        fields = ['cloth_model', 'material', 'type']

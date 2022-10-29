@@ -1,0 +1,35 @@
+{% load static %}
+
+<nav class="navbar bg-navbar">
+    <div class="container-fluid">
+        <a class="nav-link" href="/home">HOME</a>
+        <a class="nav-link" href="/projects">PROJECTS</a>
+        <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">DONATE</a>
+            <div class="dropdown-menu">
+                <a href="#" class="dropdown-item">CLOTHES</a>
+                <a href="#" class="dropdown-item">MONEY</a>
+                <a href="#" class="dropdown-item">GROCERIES</a>
+                <a href="#" class="dropdown-item">BLOOD DONORS</a>
+            </div>
+        </div>
+
+        <a class="navbar-brand" href="/home">
+            <img src="/static/images/logo.png" style="height: 4rem;">
+        </a>
+
+        <a class="nav-link" href="/volunteer">VOLUNTEER</a>
+        <a class="nav-link" href="/about-us">ABOUT US</a>
+        <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">PROFILE</a>
+            <div class="dropdown-menu">
+                <a href="/my-profile" class="dropdown-item">{{ username }}</a>
+                <a href="/history" class="dropdown-item">History</a>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <a href="{% url 'pedulee:logout' %}" class="dropdown-item">LOGOUT</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>

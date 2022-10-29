@@ -1,7 +1,7 @@
 import datetime
 from django.shortcuts import render
 from django.shortcuts import redirect
-from .forms import ExtendedUserCreationForm
+from .forms import ClothForm, ExtendedUserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
@@ -119,16 +119,50 @@ def show_json_cloth(request):
     data = Cloth.objects.filter(user = request.user)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
+login_required(login_url="/sign-in")
+def show_clothes(request):
+    username = request.user
+    context = {
+        'username': username,
+    }
+    return render(request, "donasi-pakaian.html", context)
+
 def add_cloth(request):
     if request.method == 'POST':
-        model = request.POST.get("model")
-        type = request.POST.get("type")
+        cloth_model = request.POST.get("cloth_model")
         material = request.POST.get("material")
+        type = request.POST.get("type")
         user = request.user
 
-        new_cloth = Cloth(user=user, model=model, type=type, material=material)
+        new_cloth = Cloth(user=user, cloth_model=cloth_model, material=material, type=type)
         new_cloth.save()
 
         return HttpResponse(b"CREATED", status=201)
 
     return HttpResponseNotFound()
+
+login_required(login_url="/sign-in")
+def create_cloth(request):
+    if request.method == 'POST':
+        form = ClothForm(request.POST)
+
+        if form.is_valid():
+            cloth_model = form.cleaned_data['cloth_model']
+            material = form.cleaned_data['material']
+            type = form.cleaned_data['type']
+            user = request.user
+
+            new_cloth = Cloth(user=user, cloth_model=cloth_model, material=material, type=type)
+            new_cloth.save()
+            return HttpResponseRedirect('clothes')
+            
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = ClothForm()
+
+    return render(request, 'donasi-pakaian.html', {'form': form})
+
+def show_projects(request):
+    context = {}
+    return render(request, 'projects.html', context)
+
