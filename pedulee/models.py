@@ -15,48 +15,48 @@ class Profile(models.Model):
 
 class Cloth(models.Model):
     CLOTH_MODEL_CHOICES = [
-        ("kemeja", "Kemeja"),
-        ("kaos", "Kaos"),
-        ("celana", "Celana"),
-        ("rok", "Rok"),
-        ("sepatu", "Sepatu"),
-        ("aksesoris", "Aksesoris"),
-        ("lainnya", "Lainnya"),
+        ("Kemeja", "Kemeja"),
+        ("Kaos", "Kaos"),
+        ("Celana", "Celana"),
+        ("Rok", "Rok"),
+        ("Sepatu", "Sepatu"),
+        ("Aksesoris", "Aksesoris"),
+        ("Lainnya", "Lainnya"),
     ]
     MATERIAL_CHOICES = [
-        ("katun", "Katun"),
-        ("linen", "Linen"),
-        ("denim", "Denim"),
-        ("kulit", "Kulit"),
-        ("polyester", "Polyester"),
-        ("suede", "Suede"),
-        ("sutra", "Sutra"),
-        ("velvet", "Velvet"),
-        ("rajut", "Rajut"),
-        ("rayon", "Rayon"),
-        ("jersey", "Jersey"),
-        ("twistcone", "Twistcone"),
-        ("lainnya", "Lainnya"),
+        ("Katun", "Katun"),
+        ("Kinen", "Linen"),
+        ("Kenim", "Denim"),
+        ("Kulit", "Kulit"),
+        ("Kolyester", "Polyester"),
+        ("Suede", "Suede"),
+        ("Sutra", "Sutra"),
+        ("Velvet", "Velvet"),
+        ("Rajut", "Rajut"),
+        ("Rayon", "Rayon"),
+        ("Jersey", "Jersey"),
+        ("Twistcone", "Twistcone"),
+        ("Lainnya", "Lainnya"),
     ]
     TYPE_CHOICES = [
-        ("perempuan", "Perempuan"),
-        ("laki", "Laki-laki"),
-        ("anakPerempuan", "Anak perempuan"),
-        ("anakLaki", "Anak laki-laki"),
+        ("Perempuan", "Perempuan"),
+        ("Laki-laki", "Laki-laki"),
+        ("Anak perempuan", "Anak perempuan"),
+        ("Anak laki-laki", "Anak laki-laki"),
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
     cloth_model = models.CharField(max_length=30,
                             choices = CLOTH_MODEL_CHOICES,
-                            default = "kemeja",
+                            default = "Kemeja",
                             )
     material = models.CharField(max_length=30,
                             choices = MATERIAL_CHOICES,
-                            default = "katun",
+                            default = "Katun",
                             )
     type = models.CharField(max_length=30,
                             choices = TYPE_CHOICES,
-                            default = "perempuan",
+                            default = "Perempuan",
                             )
                             
 class Project(models.Model):
