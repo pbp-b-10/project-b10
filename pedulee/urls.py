@@ -12,6 +12,7 @@ from pedulee.views import show_volunteer_history
 from pedulee.views import show_json_cloth
 from pedulee.views import create_cloth
 from pedulee.views import show_projects
+from pedulee.views import delete_cloth
 
 app_name = 'pedulee'
 
@@ -19,7 +20,6 @@ urlpatterns = [
     path('', show_home, name='home'),
     path('home', show_home, name='home'),
     path('history', show_history, name='history'),
-    path('clothes-history', show_clothes_history, name='clothes_history'),
     path('money-history', show_money_history, name='money_history'),
     path('groceries-history', show_groceries_history, name='groceries_history'),
     path('blood-history', show_blood_history, name='blood_history'),
@@ -30,4 +30,6 @@ urlpatterns = [
     path('sign-out/', logout_user, name='logout'),
     path('json-cloth/', show_json_cloth, name='show_json_cloth'),
     path('clothes/', create_cloth, name='create_cloth'),
+    path('clothes-history', show_clothes_history, name='clothes_history'),
+    path('delete-cloth/<int:i>/', delete_cloth, name="delete_cloth")
 ]

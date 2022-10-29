@@ -123,14 +123,6 @@ def show_json_cloth(request):
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
 @login_required(login_url="/sign-in")
-def show_clothes(request):
-    username = request.user
-    context = {
-        'username': username,
-    }
-    return render(request, "donasi-pakaian.html", context)
-
-@login_required(login_url="/sign-in")
 def create_cloth(request):
     form = ClothForm()
     if request.method == 'POST':
@@ -142,8 +134,15 @@ def create_cloth(request):
             cloth.save()
             return HttpResponse(b"CREATED", status=201)
 
-    context = {'form': form}
+    context = {'form': form, 'username': request.user}
     return render(request, 'donasi-pakaian.html', context)
+
+@csrf_exempt
+def delete_cloth(request, i):
+    if request.method == "DELETE":
+        cloth = Cloth.objects.get(id=i)
+        cloth.delete()
+    return HttpResponse(b"DELETE")
 
 def show_projects(request):
     context = {}
