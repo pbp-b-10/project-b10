@@ -1,15 +1,12 @@
-<!doctype html>
-<html lang="en">
-    
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pedulee</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block meta %}
+    <title>Clothes Donation</title>
+{% endblock meta %}
+
+{% block styles %}
     <style>
         body {
             font-family: 'Montserrat';
@@ -118,44 +115,10 @@
             color: black;
         }
     </style>
-</head>
+{% endblock styles %}
   
-<body>
-    <nav class="navbar">
-        <div class="container-fluid">
-            <a class="nav-link" href="/home">HOME</a>
-            <a class="nav-link" href="/projects">PROJECTS</a>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">DONATE</a>
-                <div class="dropdown-menu">
-                    <a href="/clothes" class="dropdown-item">CLOTHES</a>
-                    <a href="#" class="dropdown-item">MONEY</a>
-                    <a href="#" class="dropdown-item">GROCERIES</a>
-                    <a href="#" class="dropdown-item">BLOOD DONORS</a>
-                </div>
-            </div>
-
-                <img src="../../static/images/logo.png" style="width: 20%;" alt="">
-            </a>
-            
-
-            <a class="nav-link" href="/volunteer">VOLUNTEER</a>
-            <a class="nav-link" href="/about-us">ABOUT US</a>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">PROFILE</a>
-                <div class="dropdown-menu">
-                    <a href="/my-profile" class="dropdown-item">{{ username }}</a>
-                    <a href="/history" class="dropdown-item">HISTORY</a>
-                    <form method="post" action="">
-                        {% csrf_token %}
-                        <a href="{% url 'pedulee:logout' %}" class="dropdown-item">LOGOUT</a>
-                    </form>
-                </div>
-            </div>
-            
-        </div>
-      </nav>
-
+{% block content %}
+    {% include 'navbar.html' %}
       <h1 class="header">CLOTHES DONATION</h1>
 
       <div class="row">
@@ -212,7 +175,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <form method="post" action="{% url 'pedulee:volunteer_history' %}">
+                            <form method="post" action="{% url 'pedulee:create_cloth' %}">
                                 {% csrf_token %}
                                 <button id="button-add" type="submit" class="submit_btn">Submit</button>
                             </form>
@@ -229,6 +192,4 @@
       </div>
       
       
-      
-</body>
-</html>
+{% endblock content %}
