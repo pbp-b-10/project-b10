@@ -172,25 +172,26 @@
 
 {% block scripts %}
 <script>
-
-    function refreshPageAfterSubmit() {
+    async function successAfterSubmit() {
         document.getElementById("success").innerHTML = ""
         htmlString = `\n<div class="alert alert-success" role="alert">\n
                         Thank you for your donation!\n
                         </div>`
         document.getElementById("success").innerHTML = htmlString
-        setInterval(refreshPage, 1000)
+        setInterval(exitSuccess,1000)
     }
 
-    function refreshPage() {
-        location.reload(true);
+    function exitSuccess() {
+        document.getElementById("success").innerHTML = ""
+        htmlString = ``
+        document.getElementById("success").innerHTML = htmlString
     }
 
     function submitCloth() {
         fetch("{% url 'pedulee:create_cloth' %}", {
             method: "POST",
             body: new FormData(document.querySelector('#form'))
-        }).then(refreshPageAfterSubmit)
+        }).then(successAfterSubmit)
         return false
     }
 
