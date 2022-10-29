@@ -16,49 +16,44 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
   }
-  .nav-link {
-    font-weight: bold;
-    font-style: normal;
-    font-weight: 700;
-    text-transform: uppercase;
+  table {
+    width: 100%;
+    margin: 0;
+    padding: 0;
   }
-  .card {
-    will-change: transform;
-    transition: transform 450ms;
-    height: 100%;
+  th {
+    font-weight: 900px;
+    font-size: 17px;
   }
-  .card:hover {
-    transition: transform 150ms;
-    transform: translateY(-10px);
-    shadow: 5px 5px;
-  }
-  .navbar {
-    background: #fdf3ea;
-    height: auto;
-    position: sticky;
-    padding: 1% 1%;
+  .delete-button {
+    font-weight:bold;
+    background-color:#F96666;
+    border: none;
+    padding: 10px 24px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 5px;
   }
 </style>
 {% endblock styles %} 
 
 {% block content %} 
 {% include 'navbar.html' %}
-<div class="container-fluid" id="cloth-table">
+
   <table style="text-align: center" class="table table-striped">
     <thead>
-      <tr style="background-color: white">
+      <tr style="background-color: transparent">
         <th>Model</th>
         <th>Material</th>
         <th>Type</th>
         <th>Date</th>
+        <th>Cancel</th>
       </tr>
     </thead>
 
     <tbody id="data">
-      
     </tbody>
   </table>
-</div>
 {% endblock content %}
 
 {% block scripts %}
@@ -76,6 +71,8 @@
                             </td><td> ${item.fields.material} 
                             </td><td> ${item.fields.type}
                             </td><td> ${item.fields.date} 
+                            </td><td>  <button id="delete-button"> X
+                                            </button>
                             </td></tr>`
           })
           document.getElementById("data").innerHTML = htmlString
