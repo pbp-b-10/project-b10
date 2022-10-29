@@ -16,28 +16,6 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
         }
-        .nav-link {
-            font-weight: bold;
-            font-style: normal;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        .card {
-            will-change: transform;
-            transition: transform 450ms;
-            height: 100%;
-        }
-        .card:hover {
-            transition: transform 150ms;
-            transform: translateY(-10px);
-            shadow: 5px 5px;
-        }
-        .navbar {
-            background: #FDF3EA;
-            height: auto;
-            position: sticky;
-            padding: 1% 1%;
-        }
         .header{
             font-weight: 900;
             font-size: 25px;
@@ -175,7 +153,7 @@
     async function successAfterSubmit() {
         document.getElementById("success").innerHTML = ""
         htmlString = `\n<div class="alert alert-success" role="alert">\n
-                        Thank you for your donation!\n
+                        Thank you for your donation, {{ name }}!\n
                         </div>`
         document.getElementById("success").innerHTML = htmlString
         setInterval(exitSuccess, 1000)
