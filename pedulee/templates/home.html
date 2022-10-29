@@ -42,6 +42,25 @@
 
 {% endblock styles %}
 
+<<<<<<< HEAD
+            <a class="nav-link" href="/volunteer">VOLUNTEER</a>
+            <a class="nav-link" href="/about-us">ABOUT US</a>
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">PROFILE</a>
+                <div class="dropdown-menu">
+                    <a href="/my-profile" class="dropdown-item">{{ username }}</a>
+                    <a href="/history" class="dropdown-item">History</a>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <a href="{% url 'pedulee:logout' %}" class="dropdown-item">LOGOUT</a>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+    </nav>
+=======
+>>>>>>> 326fe638dacc0d6bbd3c77296cee53e3db1eba54
 
 {% block content %}
     {% include 'navbar.html' %}
