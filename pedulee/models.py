@@ -25,10 +25,10 @@ class Cloth(models.Model):
     ]
     MATERIAL_CHOICES = [
         ("Katun", "Katun"),
-        ("Kinen", "Linen"),
-        ("Kenim", "Denim"),
+        ("Linen", "Linen"),
+        ("Denim", "Denim"),
         ("Kulit", "Kulit"),
-        ("Kolyester", "Polyester"),
+        ("Polyester", "Polyester"),
         ("Suede", "Suede"),
         ("Sutra", "Sutra"),
         ("Velvet", "Velvet"),
