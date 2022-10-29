@@ -19,7 +19,6 @@ from .models import Cloth
 
 class HomeViews:
     @staticmethod
-    @login_required(login_url="/sign-in")
     def index(request):
         username = request.user
         context = {
