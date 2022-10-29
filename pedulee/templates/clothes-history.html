@@ -25,15 +25,6 @@
     font-weight: 900px;
     font-size: 17px;
   }
-  .delete-button {
-    font-weight:bold;
-    background-color:#F96666;
-    border: none;
-    padding: 10px 24px;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 5px;
-  }
 </style>
 {% endblock styles %} 
 
@@ -71,13 +62,30 @@
                             </td><td> ${item.fields.material} 
                             </td><td> ${item.fields.type}
                             </td><td> ${item.fields.date} 
-                            </td><td>  <button id="delete-button"> X
-                                            </button>
+                            </td><td>  <button id="delete-button" style="font-weight:bold;
+                                                                          background-color:#F96666;
+                                                                          border: none;
+                                                                          text-decoration: none;
+                                                                          display: inline-block;"
+                                                                          onmouseover="this.style.backgroundColor='#E14D2A';"
+                                                                          onmouseout="this.style.backgroundColor='#F96666';"
+                                                                          onclick="cancelCloth(${item.pk})"
+                                                                          >X</button>
                             </td></tr>`
           })
           document.getElementById("data").innerHTML = htmlString
     }
     
+    function cancelCloth(id) {
+            $.ajax({
+                url: `delete-cloth/${id}`,
+                type: "DELETE",
+                success: function() {
+                  $(`#${id}`).remove();
+                }
+            }).then(refreshClothes)
+        }
+
     refreshClothes()
 </script>
 {% endblock scripts %}
