@@ -13,7 +13,7 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
-class Cloth(models.Model):
+class Cloth(models.Model): #tes
     CLOTH_MODEL_CHOICES = [
         ("kemeja", "Kemeja"),
         ("kaos", "Kaos"),
