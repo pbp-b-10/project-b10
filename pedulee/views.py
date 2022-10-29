@@ -62,8 +62,8 @@ def login_user(request):
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request, user) # melakukan login terlebih dahulu
-            response = HttpResponseRedirect(reverse("pedulee:home")) # membuat response
+            login(request, user)
+            response = HttpResponseRedirect(reverse("pedulee:home"))
             response.set_cookie('last_login', str(datetime.datetime.now()))
             return response
         else:
@@ -116,7 +116,6 @@ def show_volunteer_history(request):
         'username': username,
     }
     return render(request, "volunteer-history.html", context)
-
 
 def show_json_cloth(request):
     data = Cloth.objects.filter(user = request.user)
