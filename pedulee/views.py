@@ -117,7 +117,7 @@ def show_volunteer_history(request):
     }
     return render(request, "volunteer-history.html", context)
 
-@staff_member_required
+
 def show_json_cloth(request):
     data = Cloth.objects.filter(user = request.user)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
