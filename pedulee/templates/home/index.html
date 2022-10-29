@@ -11,7 +11,7 @@
         body {
             font-family: 'Montserrat';
             text-align: center;
-            background-image: url("../../static/images/background.png");
+            background-image: url("{% static 'images/background.png' %}");
         }
         .nav-link {
             font-weight: bold;
@@ -41,7 +41,7 @@
 
 
 {% block content %}
-    {% include 'navbar.html' %}
+    {% include '_components/navbar.html' %}
     <main class="container py-3">
         <section class="d-flex align-items-center justify-content-between">
             <h1>Home</h1>

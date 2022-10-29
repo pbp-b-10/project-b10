@@ -15,154 +15,175 @@ from .forms import ProfileForm
 from .models import Cloth
 
 # Create your views here.
-@login_required(login_url="/sign-in")
-def show_home(request):
-    username = request.user
-    context = {
-        'username': username,
-    }
-    return render(request, "home.html", context)
 
-@login_required(login_url="/sign-in")
-def show_history(request):
-    username = request.user
-    context = {
-        'username': username,
-    }
-    return render(request, "history.html", context)
 
-def register(request):
-    if request.method == "POST":
-        form = ExtendedUserCreationForm(request.POST)
-        profile_form = ProfileForm(request.POST)
+class HomeViews:
+    @staticmethod
+    @login_required(login_url="/sign-in")
+    def index(request):
+        username = request.user
+        context = {
+            'username': username,
+        }
+        return render(request, "home/index.html", context)
 
-        if form.is_valid() and profile_form.is_valid():
-            user = form.save()
+class UserViews:
+    @staticmethod
+    def register(request):
+        if request.method == "POST":
+            form = ExtendedUserCreationForm(request.POST)
+            profile_form = ProfileForm(request.POST)
 
-            profile = profile_form.save(commit=False)
-            profile.user = user
+            if form.is_valid() and profile_form.is_valid():
+                user = form.save()
 
-            profile.save()
+                profile = profile_form.save(commit=False)
+                profile.user = user
 
-            messages.success(request, 'Your account has been successfully created!')
-            return redirect('pedulee:login')
-    else:
-        form = ExtendedUserCreationForm()
-        profile_form = ProfileForm()
+                profile.save()
 
-        
-    context = {'form':form, 'profile_form':profile_form}
-    return render(request, 'signup.html', context)
-
-def login_user(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user) # melakukan login terlebih dahulu
-            response = HttpResponseRedirect(reverse("pedulee:home")) # membuat response
-            response.set_cookie('last_login', str(datetime.datetime.now())) # membuat cookie last_login dan menambahkannya ke dalam response
-            return response
+                messages.success(request, 'Your account has been successfully created!')
+                return redirect('pedulee:login')
         else:
-            messages.info(request, 'Username or Password is wrong!')
-    context = {}
-    return render(request, 'signin.html', context)
+            form = ExtendedUserCreationForm()
+            profile_form = ProfileForm()
 
-def logout_user(request):
-    logout(request)
-    response = HttpResponseRedirect(reverse('pedulee:login'))
-    response.delete_cookie('last_login')
-    return response
 
-login_required(login_url="/sign-in")
-def show_clothes_history(request):
-    username = request.user
-    context = {
-        'username': username,
-    }
-    return render(request, "clothes-history.html", context)
+        context = {'form':form, 'profile_form':profile_form}
+        return render(request, 'home/signup.html', context)
 
-login_required(login_url="/sign-in")
-def show_money_history(request):
-    username = request.user
-    context = {
-        'username': username,
-    }
-    return render(request, "money-history.html", context)
+    def login(request):
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user) # melakukan login terlebih dahulu
+                response = HttpResponseRedirect(reverse("pedulee:home")) # membuat response
+                response.set_cookie('last_login', str(datetime.datetime.now())) # membuat cookie last_login dan menambahkannya ke dalam response
+                return response
+            else:
+                messages.info(request, 'Username or Password is wrong!')
+        context = {}
+        return render(request, 'signin.html', context)
 
-login_required(login_url="/sign-in")
-def show_groceries_history(request):
-    username = request.user
-    context = {
-        'username': username,
-    }
-    return render(request, "groceries-history.html", context)
+    def logout(request):
+        logout(request)
+        response = HttpResponseRedirect(reverse('pedulee:login'))
+        response.delete_cookie('last_login')
+        return response
 
-login_required(login_url="/sign-in")
-def show_blood_history(request):
-    username = request.user
-    context = {
-        'username': username,
-    }
-    return render(request, "blood-history.html", context)
+class HistoryView:
+    @staticmethod
+    @login_required(login_url="/sign-in")
+    def show_history(request):
+        username = request.user
+        context = {
+            'username': username,
+        }
+        return render(request, "history/index.html", context)
 
-login_required(login_url="/sign-in")
-def show_volunteer_history(request):
-    username = request.user
-    context = {
-        'username': username,
-    }
-    return render(request, "volunteer-history.html", context)
 
-def show_json_cloth(request):
-    data = Cloth.objects.filter(user = request.user)
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+    @staticmethod
+    @login_required(login_url="/sign-in")
+    def show_clothes_history(request):
+        username = request.user
+        context = {
+            'username': username,
+        }
+        return render(request, "history/clothes.html", context)
 
-login_required(login_url="/sign-in")
-def show_clothes(request):
-    username = request.user
-    context = {
-        'username': username,
-    }
-    return render(request, "donasi-pakaian.html", context)
+    @staticmethod
+    @login_required(login_url="/sign-in")
+    def show_money_history(request):
+        username = request.user
+        context = {
+            'username': username,
+        }
+        return render(request, "history/money.html", context)
 
-def add_cloth(request):
-    if request.method == 'POST':
-        cloth_model = request.POST.get("cloth_model")
-        material = request.POST.get("material")
-        type = request.POST.get("type")
-        user = request.user
+    @staticmethod
+    @login_required(login_url="/sign-in")
+    def show_groceries_history(request):
+        username = request.user
+        context = {
+            'username': username,
+        }
+        return render(request, "history/groceries.html", context)
 
-        new_cloth = Cloth(user=user, cloth_model=cloth_model, material=material, type=type)
-        new_cloth.save()
+    @staticmethod
+    @login_required(login_url="/sign-in")
+    def show_blood_history(request):
+        username = request.user
+        context = {
+            'username': username,
+        }
+        return render(request, "history/blood.html", context)
 
-        return HttpResponse(b"CREATED", status=201)
+    @staticmethod
+    @login_required(login_url="/sign-in")
+    def show_volunteer_history(request):
+        username = request.user
+        context = {
+            'username': username,
+        }
+        return render(request, "history/volunteer.html", context)
 
-    return HttpResponseNotFound()
+class DonateView:
+    @staticmethod
+    def show_json_cloth(request):
+        data = Cloth.objects.filter(user = request.user)
+        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
-login_required(login_url="/sign-in")
-def create_cloth(request):
-    if request.method == 'POST':
-        form = ClothForm(request.POST)
+    @staticmethod
+    @login_required(login_url="/sign-in")
+    def show_clothes(request):
+        username = request.user
+        context = {
+            'username': username,
+        }
+        return render(request, "donasi-pakaian.html", context)
 
-        if form.is_valid():
-            cloth_model = form.cleaned_data['cloth_model']
-            material = form.cleaned_data['material']
-            type = form.cleaned_data['type']
+    @staticmethod
+    def add_cloth(request):
+        if request.method == 'POST':
+            cloth_model = request.POST.get("cloth_model")
+            material = request.POST.get("material")
+            type = request.POST.get("type")
             user = request.user
 
             new_cloth = Cloth(user=user, cloth_model=cloth_model, material=material, type=type)
             new_cloth.save()
-            return HttpResponseRedirect('clothes')
-            
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = ClothForm()
 
-    return render(request, 'donasi-pakaian.html', {'form': form})
+            return HttpResponse(b"CREATED", status=201)
 
-def show_projects(request):
-    context = {}
-    return render(request, 'projects.html', context)
+        return HttpResponseNotFound()
+
+    @staticmethod
+    @login_required(login_url="/sign-in")
+    def create_cloth(request):
+        if request.method == 'POST':
+            form = ClothForm(request.POST)
+
+            if form.is_valid():
+                cloth_model = form.cleaned_data['cloth_model']
+                material = form.cleaned_data['material']
+                type = form.cleaned_data['type']
+                user = request.user
+
+                new_cloth = Cloth(user=user, cloth_model=cloth_model, material=material, type=type)
+                new_cloth.save()
+                return HttpResponseRedirect('clothes')
+
+        # if a GET (or any other method) we'll create a blank form
+        else:
+            form = ClothForm()
+
+        return render(request, 'donate/cloth.html', {'form': form})
+
+class ProjectView:
+    @staticmethod
+    def show_projects(request):
+        context = {}
+        return render(request, 'projects/index.html', context)
 

@@ -1,17 +1,17 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
-{% load static %} 
+{% load static %}
 
 {% block meta %}
     <title>Projects</title>
-{% endblock meta %} 
+{% endblock meta %}
 
 {% block styles %}
 <style>
   body {
     font-family: "Montserrat";
     text-align: center;
-    background-image: url("../../static/images/background.png");
+    background-image: url("{% static 'images/background.png' %}");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -39,10 +39,10 @@
     padding: 1% 1%;
   }
 </style>
-{% endblock styles %} 
+{% endblock styles %}
 
-{% block content %} 
-{% include 'includes\navbar.html' %}
+{% block content %}
+{% include '_components\navbar.html' %}
 <div class="container-fluid" id="cloth-table">
   <table style="text-align: center" class="table table-striped">
     <thead>
@@ -129,7 +129,7 @@
           })
           document.getElementById("row").innerHTML = htmlString
     }
-    
+
     refreshCloth()
    </script>
 {% endblock scripts %}
