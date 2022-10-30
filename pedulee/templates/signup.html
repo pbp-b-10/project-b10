@@ -23,10 +23,8 @@
             height: 100%;
             width: 30%;
             position: absolute;
-            z-index: 1;
             top: 0;
             overflow-x: hidden;
-            padding-top: 20px;
         }
         .left {
             left: 0;
@@ -87,6 +85,13 @@
 
 {% block content %}
     <div class="container left" id="container-form">
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-primary" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
         <div class="content">
             <h1 class="header">CREATE ACCOUNT</h1>
             <h4 class="description">Register to create your account</h4>
@@ -136,13 +141,12 @@
                     <input class="register_btn" type="submit" name="submit" value="SIGN UP" class="form-control">
                 </form>
 
-
                 <h5 class="signup">Already have an account? <a href="{% url 'pedulee:login' %}">Sign In</a></h5>
         </div>
     </div>
     <div class="container right" id="container-content">
         <div class="content">
-            <img src='{% static "/images/WWW.png" %}'>
+            <img src='{% static "/images/WWW.png" %}' alt="image" style="width: 120%; display: block; margin-left: auto; margin-right: auto;">
         </div>
     </div>
 {% endblock content %}

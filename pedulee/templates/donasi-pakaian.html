@@ -89,6 +89,9 @@
   
 {% block content %}
     {% include 'navbar.html' %}
+    <div id="welcome">
+
+    </div>
     <div id="success">
         
     </div> 
@@ -142,6 +145,21 @@
 
 {% block scripts %}
 <script>
+    async function welcome() {
+        document.getElementById("welcome").innerHTML = ""
+        htmlString = `\n<div class="alert alert-primary" role="alert">\n
+                        \n{{ visit }}, {{ name }}!
+                        </div>`
+        document.getElementById("success").innerHTML = htmlString
+        setInterval(exitWelcome, 3500)
+    }
+
+    async function exitWelcome() {
+        document.getElementById("welcome").innerHTML = ""
+        htmlString = ``
+        document.getElementById("welcome").innerHTML = htmlString
+    }
+
     async function successAfterSubmit() {
         document.getElementById("success").innerHTML = ""
         htmlString = `\n<div class="alert alert-success" role="alert">\n
@@ -167,5 +185,6 @@
     }
 
     document.getElementById("button-submit").onclick = submitCloth
+    welcome()
 </script>
 {% endblock scripts %}
