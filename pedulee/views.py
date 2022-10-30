@@ -127,9 +127,9 @@ def create_cloth(request):
     request.session.modified = True
 
     if 'visit_clothes' in request.session:
-        times_donate = int(request.session['times_donate_clothes'])
+        times_donate = int(request.session['visit_clothes'])
         times_donate += 1
-        request.session['times_donate_clothes'] = times_donate
+        request.session['visit_clothes'] = times_donate
         if times_donate < 1:
             visit = 'Welcome'
         else:
