@@ -8,14 +8,6 @@
 
 {% block styles %}
     <style>
-        body {
-            font-family: 'Montserrat';
-            text-align: center;
-            background-image: url("../../static/images/background.png");  
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
         .header{
             font-weight: 900;
             font-size: 25px;
@@ -105,7 +97,7 @@
 
       <div class="row">
         <div class="col">
-            <img src="../../static/images/DonasiPakaian.png" width="80%" style="margin: 6%"/>
+            <img src='{% static "/images/DonasiPakaian.png" %}' width="80%" style="margin: 6%"/>
         </div>
         
         <div class="col position-custom">
@@ -160,13 +152,13 @@
         setInterval(exitSuccess, 3500)
     }
 
-    function exitSuccess() {
+    async function exitSuccess() {
         document.getElementById("success").innerHTML = ""
         htmlString = ``
         document.getElementById("success").innerHTML = htmlString
     }
 
-    function submitCloth() {
+    async function submitCloth() {
         fetch("{% url 'pedulee:create_cloth' %}", {
             method: "POST",
             body: new FormData(document.querySelector('#form'))
