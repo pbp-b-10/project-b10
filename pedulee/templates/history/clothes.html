@@ -77,14 +77,14 @@
     }
 
     function cancelCloth(id) {
-            $.ajax({
-                url: `delete-cloth/${id}`,
-                type: "DELETE",
-                success: function() {
-                  $(`#${id}`).remove();
-                }
-            }).then(refreshClothes)
-        }
+        $.ajax({
+            url: `clothes/${id}/delete`,
+            type: "DELETE",
+            success: function() {
+              $(`#${id}`).remove();
+            }
+        }).then(refreshClothes)
+    }
 
     refreshClothes()
 </script>
