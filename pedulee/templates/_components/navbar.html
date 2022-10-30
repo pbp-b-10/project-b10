@@ -34,8 +34,8 @@
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">PROFILE</a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a href="/my-profile" class="dropdown-item">{{ username }}</a>
-                    <a href="/history" class="dropdown-item">HISTORY</a>
+                    <a href="{% url 'pedulee:profile' %}" class="dropdown-item">{{ username }}</a>
+                    <a href="{% url 'pedulee:history' %}" class="dropdown-item">HISTORY</a>
                     <form method="post" action="">
                         {% csrf_token %}
                         <a href="{% url 'pedulee:logout' %}" class="dropdown-item">LOGOUT</a>

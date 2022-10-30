@@ -1,5 +1,5 @@
 from django.urls import path
-from pedulee.views import ClothesView, DonateView, HistoryView, HomeViews, ProjectView, UserViews, VolunteerView
+from pedulee.views import ClothesView, HistoryView, HomeViews, ProjectView, UserViews, VolunteerView
 
 app_name = 'pedulee'
 

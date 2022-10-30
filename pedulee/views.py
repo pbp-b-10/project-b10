@@ -68,6 +68,21 @@ class UserViews:
         context = {}
         return render(request, 'home/signin.html', context)
 
+    def profile(request):
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user) # melakukan login terlebih dahulu
+                response = HttpResponseRedirect(reverse("pedulee:home")) # membuat response
+                response.set_cookie('last_login', str(datetime.datetime.now())) # membuat cookie last_login dan menambahkannya ke dalam response
+                return response
+            else:
+                messages.info(request, 'Username or Password is wrong!')
+        context = {}
+        return render(request, 'home/signin.html', context)
+
     def logout(request):
         logout(request)
         response = HttpResponseRedirect(reverse('pedulee:login'))
@@ -82,7 +97,7 @@ class HistoryView:
         context = {
             'username': username,
         }
-        return render(request, "history/index.html", context)
+        return render(request, "history.html", context)
 
 
     @staticmethod
@@ -92,7 +107,7 @@ class HistoryView:
         context = {
             'username': username,
         }
-        return render(request, "history/clothes.html", context)
+        return render(request, "cloth/history.html", context)
 
     @staticmethod
     @login_required(login_url="/sign-in")
@@ -101,7 +116,7 @@ class HistoryView:
         context = {
             'username': username,
         }
-        return render(request, "history/money.html", context)
+        return render(request, "money/history.html", context)
 
     @staticmethod
     @login_required(login_url="/sign-in")
@@ -110,7 +125,7 @@ class HistoryView:
         context = {
             'username': username,
         }
-        return render(request, "history/groceries.html", context)
+        return render(request, "groceries/history.html", context)
 
     @staticmethod
     @login_required(login_url="/sign-in")
@@ -119,7 +134,7 @@ class HistoryView:
         context = {
             'username': username,
         }
-        return render(request, "history/blood.html", context)
+        return render(request, "blood/history.html", context)
 
     @staticmethod
     @login_required(login_url="/sign-in")
@@ -128,7 +143,7 @@ class HistoryView:
         context = {
             'username': username,
         }
-        return render(request, "history/volunteer.html", context)
+        return render(request, "volunteer/history.html", context)
 
 class ProjectView:
     @staticmethod
@@ -166,8 +181,7 @@ class ClothesView:
                 return HttpResponse(b"CREATED", status=201)
 
         context = {'form': form, 'username': request.user}
-        return render(request, 'donate/cloth.html', context)
-        # return render(request, 'donate/cloth.html', {'form': form})
+        return render(request, 'cloth/form.html', context)
 
     @staticmethod
     @csrf_exempt
