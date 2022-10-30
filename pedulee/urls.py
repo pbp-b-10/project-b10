@@ -14,21 +14,22 @@ home_urls = [
 
 history_urls = [
     path('history/', HistoryView.show_history, name='history'),
-    path('history/clothes', HistoryView.show_clothes_history, name='clothes_history'),
-    path('history/money', HistoryView.show_money_history, name='money_history'),
-    path('history/groceries', HistoryView.show_groceries_history, name='groceries_history'),
-    path('history/blood', HistoryView.show_blood_history, name='blood_history'),
-    path('history/volunteer', HistoryView.show_volunteer_history, name='volunteer_history'),
+    path('history/clothes', HistoryView.show_clothes, name='clothes_history'),
+    path('history/money', HistoryView.show_money, name='money_history'),
+    path('history/groceries', HistoryView.show_groceries, name='groceries_history'),
+    path('history/blood', HistoryView.show_blood, name='blood_history'),
+    path('history/volunteer', HistoryView.show_volunteer, name='volunteer_history'),
 ]
 
 cloth_urls = [
-    path('json-cloth/', ClothesView.show_json_cloth, name='show_json_cloth'),
-    path('clothes/', ClothesView.create_cloth, name='create_cloth'),
+    path('json-cloth/', ClothesView.show_json, name='show_json_cloth'),
+    path('cloth/', ClothesView.show, name='show_cloth'),
+    path('clothes/', ClothesView.create, name='create_cloth'),
     path('clothes/<int:i>/delete', ClothesView.delete, name="delete_cloth")
 ]
 
 projects_urls = [
-    path('projects/', ProjectView.show_projects, name='projects'),
+    path('projects/', ProjectView.show, name='projects'),
 ]
 
 volunteers_urls = [

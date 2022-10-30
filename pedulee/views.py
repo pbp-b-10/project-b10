@@ -87,7 +87,7 @@ class HistoryView:
 
     @staticmethod
     @login_required(login_url="/sign-in")
-    def show_clothes_history(request):
+    def show_clothes(request):
         username = request.user
         context = {
             'username': username,
@@ -96,7 +96,7 @@ class HistoryView:
 
     @staticmethod
     @login_required(login_url="/sign-in")
-    def show_money_history(request):
+    def show_money(request):
         username = request.user
         context = {
             'username': username,
@@ -105,7 +105,7 @@ class HistoryView:
 
     @staticmethod
     @login_required(login_url="/sign-in")
-    def show_groceries_history(request):
+    def show_groceries(request):
         username = request.user
         context = {
             'username': username,
@@ -114,7 +114,7 @@ class HistoryView:
 
     @staticmethod
     @login_required(login_url="/sign-in")
-    def show_blood_history(request):
+    def show_blood(request):
         username = request.user
         context = {
             'username': username,
@@ -123,17 +123,24 @@ class HistoryView:
 
     @staticmethod
     @login_required(login_url="/sign-in")
-    def show_volunteer_history(request):
+    def show_volunteer(request):
         username = request.user
         context = {
             'username': username,
         }
         return render(request, "history/volunteer.html", context)
 
-class DonateView:
+class ProjectView:
+    @staticmethod
+    def show(request):
+        context = {}
+        return render(request, 'projects/index.html', context)
+
+
+class ClothesView:
     @staticmethod
     @login_required(login_url="/sign-in")
-    def show_clothes(request):
+    def show(request):
         username = request.user
         context = {
             'username': username,
@@ -141,58 +148,13 @@ class DonateView:
         return render(request, "donasi-pakaian.html", context)
 
     @staticmethod
-    def add_cloth(request):
-        if request.method == 'POST':
-            cloth_model = request.POST.get("cloth_model")
-            material = request.POST.get("material")
-            type = request.POST.get("type")
-            user = request.user
-
-            new_cloth = Cloth(user=user, cloth_model=cloth_model, material=material, type=type)
-            new_cloth.save()
-
-            return HttpResponse(b"CREATED", status=201)
-
-        return HttpResponseNotFound()
-
-    @staticmethod
-    @login_required(login_url="/sign-in")
-    def create_cloth(request):
-        if request.method == 'POST':
-            form = ClothForm(request.POST)
-
-            if form.is_valid():
-                cloth_model = form.cleaned_data['cloth_model']
-                material = form.cleaned_data['material']
-                type = form.cleaned_data['type']
-                user = request.user
-
-                new_cloth = Cloth(user=user, cloth_model=cloth_model, material=material, type=type)
-                new_cloth.save()
-                return HttpResponseRedirect('clothes')
-
-        # if a GET (or any other method) we'll create a blank form
-        else:
-            form = ClothForm()
-
-        return render(request, 'donate/cloth.html', {'form': form})
-
-class ProjectView:
-    @staticmethod
-    def show_projects(request):
-        context = {}
-        return render(request, 'projects/index.html', context)
-
-
-class ClothesView:
-    @staticmethod
-    def show_json_cloth(request):
+    def show_json(request):
         data = Cloth.objects.filter(user = request.user)
         return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
     @staticmethod
     @login_required(login_url="/sign-in")
-    def create_cloth(request):
+    def create(request):
         form = ClothForm()
         if request.method == 'POST':
             form = ClothForm(request.POST)
