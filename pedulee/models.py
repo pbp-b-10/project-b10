@@ -84,4 +84,4 @@ class Volunteer(models.Model):
     durasi = models.BigIntegerField()
 
     def __str__(self):
-        return self.user.username + self.project.title + self.divisi + self.durasi
+        return self.user.username + self.project.title + self.divisi + str(self.durasi)
