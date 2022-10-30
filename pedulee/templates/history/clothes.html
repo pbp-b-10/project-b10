@@ -16,120 +16,76 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
   }
-  .nav-link {
-    font-weight: bold;
-    font-style: normal;
-    font-weight: 700;
-    text-transform: uppercase;
+  table {
+    width: 100%;
+    margin: 0;
+    padding: 0;
   }
-  .card {
-    will-change: transform;
-    transition: transform 450ms;
-    height: 100%;
-  }
-  .card:hover {
-    transition: transform 150ms;
-    transform: translateY(-10px);
-    shadow: 5px 5px;
-  }
-  .navbar {
-    background: #fdf3ea;
-    height: auto;
-    position: sticky;
-    padding: 1% 1%;
+  th {
+    font-weight: 900px;
+    font-size: 17px;
   }
 </style>
 {% endblock styles %}
 
 {% block content %}
 {% include '_components\navbar.html' %}
-<div class="container-fluid" id="cloth-table">
+
   <table style="text-align: center" class="table table-striped">
     <thead>
-      <tr style="background-color: white">
-        <th>Nama Barang</th>
-        <th>Harga Barang</th>
-        <th>Deskripsi</th>
+      <tr style="background-color: transparent">
+        <th>Model</th>
+        <th>Material</th>
+        <th>Type</th>
+        <th>Date</th>
+        <th>Cancel</th>
       </tr>
     </thead>
 
-    <tbody>
-      {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
-      {% for barang in list_barang %}
-      <tr>
-        <td>{{barang.nama_barang}}</td>
-        <td>{{barang.harga_barang}}</td>
-        <td>{{barang.deskripsi}}</td>
-      </tr>
-      {% endfor %}
+    <tbody id="data">
     </tbody>
   </table>
-</div>
 {% endblock content %}
 
 {% block scripts %}
 <script>
-    async function getCloth() {
+    async function getClothes() {
       return fetch("{% url 'pedulee:show_json_cloth' %}").then((res) => res.json())
     }
 
-    async function refreshCloth() {
-          document.getElementById("row").innerHTML = ""
-          const todolist = await getTodolist()
+    async function refreshClothes() {
+          document.getElementById("data").innerHTML = ""
+          const clothes = await getClothes()
           let htmlString = ''
-          todolist.forEach((item) => {
-            htmlString += `\n<div class="col-12 col-md-6 col-lg-4">
-                            <div class="card">
-                            <div class="card-body">
-                            <h5 class="card-title">${item.fields.title}</h5>
-                            <p class="card-text">${item.fields.description}</p>
-                            <hr class="line-status">`
-
-            if (item.fields.is_finished) {
-                htmlString += `<p class="status" style="color:#8e9295;">Selesai</p>
-                            <div class="container-sm">
-                                <div class="row">
-                                    <div class="col">
-                                        <form action="check-task/${item.pk}/" method = "post">{% csrf_token %}
-                                            <input style="font-weight:bold; background-color:#FFD24C; border: none; padding: 10px 24px;
-                                            text-decoration: none; display: inline-block; cursor: pointer; margin-top: 5px;"
-                                            onmouseover="this.style.backgroundColor='#FFC300';" onmouseout="this.style.backgroundColor='#FFD24C';"
-                                            type="submit" value="Undone">
-                                        </form>
-                                    </div>`
-
-            } else {
-                htmlString += `<p class="status" style="color:#8e9295;" >Belum selesai</p>
-                            <div class="container-sm" id="button">
-                                <div class="row">
-                                    <div class="col">
-                                        <form action="check-task/${item.pk}/" method = "post">{% csrf_token %}
-                                            <input style="font-weight:bold; background-color:#84DFFF; border: none; padding: 10px 24px;
-                                            text-decoration: none; display: inline-block; cursor: pointer; margin-top: 5px;"
-                                            onmouseover="this.style.backgroundColor='#92B4EC';" onmouseout="this.style.backgroundColor='#84DFFF';"
-                                            type="submit" value="Done">
-                                        </form>
-                                    </div>`
-            }
-            htmlString += `<div class="col">
-                                        <button style="font-weight:bold; background-color:#F96666; border: none; padding: 10px 24px;
-                                            text-decoration: none; display: inline-block; cursor: pointer; margin-top: 5px;"
-                                            onmouseover="this.style.backgroundColor='#E14D2A';" onmouseout="this.style.backgroundColor='#F96666';"
-                                            onclick="deleteTask(${item.pk})"> Delete
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="card-footer">
-                            <small class="text-muted">Created at ${item.fields.date}</small>
-                            </div>
-                            </div>
-                            </div>`
+          clothes.forEach((item) => {
+            htmlString += `\n<tr><td> ${item.fields.cloth_model}
+                            </td><td> ${item.fields.material}
+                            </td><td> ${item.fields.type}
+                            </td><td> ${item.fields.date}
+                            </td><td>  <button id="delete-button" style="font-weight:bold;
+                                                                          background-color:#F96666;
+                                                                          border: none;
+                                                                          text-decoration: none;
+                                                                          display: inline-block;"
+                                                                          onmouseover="this.style.backgroundColor='#E14D2A';"
+                                                                          onmouseout="this.style.backgroundColor='#F96666';"
+                                                                          onclick="cancelCloth(${item.pk})"
+                                                                          >X</button>
+                            </td></tr>`
           })
-          document.getElementById("row").innerHTML = htmlString
+          document.getElementById("data").innerHTML = htmlString
     }
 
-    refreshCloth()
-   </script>
+    function cancelCloth(id) {
+            $.ajax({
+                url: `delete-cloth/${id}`,
+                type: "DELETE",
+                success: function() {
+                  $(`#${id}`).remove();
+                }
+            }).then(refreshClothes)
+        }
+
+    refreshClothes()
+</script>
 {% endblock scripts %}

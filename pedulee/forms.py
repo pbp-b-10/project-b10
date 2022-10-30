@@ -29,7 +29,6 @@ class ProfileForm(forms.ModelForm):
         fields = ('phone', 'birthdate', 'address')
 
 class ClothForm(forms.ModelForm):
-    
     class Meta:
         model = Cloth
         fields = ['cloth_model', 'material', 'type']

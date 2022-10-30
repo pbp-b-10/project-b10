@@ -1,4 +1,5 @@
 import datetime
+from multiprocessing import context
 from django.shortcuts import render
 from django.shortcuts import redirect
 from .forms import ClothForm, ExtendedUserCreationForm
@@ -6,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.urls import reverse
 from django.core import serializers
@@ -64,7 +66,7 @@ class UserViews:
             else:
                 messages.info(request, 'Username or Password is wrong!')
         context = {}
-        return render(request, 'signin.html', context)
+        return render(request, 'home/signin.html', context)
 
     def logout(request):
         logout(request)
@@ -130,11 +132,6 @@ class HistoryView:
 
 class DonateView:
     @staticmethod
-    def show_json_cloth(request):
-        data = Cloth.objects.filter(user = request.user)
-        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
-
-    @staticmethod
     @login_required(login_url="/sign-in")
     def show_clothes(request):
         username = request.user
@@ -186,3 +183,34 @@ class ProjectView:
         context = {}
         return render(request, 'projects/index.html', context)
 
+
+class ClothesView:
+    @staticmethod
+    def show_json_cloth(request):
+        data = Cloth.objects.filter(user = request.user)
+        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+    @staticmethod
+    @login_required(login_url="/sign-in")
+    def create_cloth(request):
+        form = ClothForm()
+        if request.method == 'POST':
+            form = ClothForm(request.POST)
+
+            if form.is_valid():
+                cloth = form.save(commit=False)
+                cloth.user = request.user
+                cloth.save()
+                return HttpResponse(b"CREATED", status=201)
+
+        context = {'form': form, 'username': request.user}
+        return render(request, 'donate/cloth.html', context)
+        # return render(request, 'donate/cloth.html', {'form': form})
+
+    @staticmethod
+    @csrf_exempt
+    def delete (request, i):
+        if request.method == "DELETE":
+            cloth = Cloth.objects.get(id=i)
+            cloth.delete()
+        return HttpResponse(b"DELETE")
