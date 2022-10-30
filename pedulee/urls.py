@@ -9,6 +9,7 @@ home_urls = [
     path('sign-up/', UserViews.register, name='register'),
     path('sign-in/', UserViews.login, name='login'),
     path('sign-out/', UserViews.logout, name='logout'),
+    path('profile/', UserViews.profile, name='profile')
 ]
 
 
@@ -24,8 +25,8 @@ history_urls = [
 cloth_urls = [
     path('json-cloth/', ClothesView.show_json, name='show_json_cloth'),
     path('cloth/', ClothesView.show, name='show_cloth'),
-    path('clothes/', ClothesView.create, name='create_cloth'),
-    path('clothes/<int:i>/delete', ClothesView.delete, name="delete_cloth")
+    path('cloth/create', ClothesView.create, name='create_cloth'),
+    path('cloth/<int:i>/delete', ClothesView.delete, name="delete_cloth")
 ]
 
 projects_urls = [

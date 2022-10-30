@@ -78,7 +78,7 @@
 
     function cancelCloth(id) {
         $.ajax({
-            url: `clothes/${id}/delete`,
+            url: `cloth/${id}/delete`,
             type: "DELETE",
             success: function() {
               $(`#${id}`).remove();
