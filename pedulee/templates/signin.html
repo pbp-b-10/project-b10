@@ -8,13 +8,6 @@
 
 {% block styles %}
     <style>
-        body {
-            font-family: 'Montserrat';
-            background-image: url("../../static/images/background.png");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
         a {
             font-weight: bold;
         }
@@ -39,7 +32,6 @@
             transform: translate(-50%, -50%);
             text-align: center;
         }
-
         .header{
             font-style: normal;
             font-weight: 700;
@@ -118,7 +110,7 @@
     {% endif %}
     <div class="container right">
         <div class="content">
-            <img src="../../static/images/WWW.png">
+            <img src='{% static "/images/WWW.png" %}'>
         </div>
     </div>
 {% endblock content %}

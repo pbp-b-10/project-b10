@@ -8,14 +8,6 @@
 
 {% block styles %}
 <style>
-  body {
-    font-family: "Montserrat";
-    text-align: center;
-    background-image: url("../../static/images/background.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-  }
   table {
     width: 100%;
     margin: 0;
@@ -30,7 +22,9 @@
 
 {% block content %} 
 {% include 'navbar.html' %}
+  <div id="success">
 
+  </div>
   <table style="text-align: center" class="table table-striped">
     <thead>
       <tr style="background-color: transparent">
@@ -76,14 +70,30 @@
           document.getElementById("data").innerHTML = htmlString
     }
     
-    function cancelCloth(id) {
+    async function successAfterCancel() {
+        refreshClothes()
+        document.getElementById("success").innerHTML = ""
+        htmlString = `\n<div class="alert alert-primary" role="alert">\n
+                        You have canceled a donation\n
+                        </div>`
+        document.getElementById("success").innerHTML = htmlString
+        setInterval(exitSuccess, 2500)
+    }
+
+    async function exitSuccess() {
+        document.getElementById("success").innerHTML = ""
+        htmlString = ``
+        document.getElementById("success").innerHTML = htmlString
+    }
+
+    async function cancelCloth(id) {
             $.ajax({
                 url: `delete-cloth/${id}`,
                 type: "DELETE",
                 success: function() {
                   $(`#${id}`).remove();
                 }
-            }).then(refreshClothes)
+            }).then(successAfterCancel)
         }
 
     refreshClothes()
