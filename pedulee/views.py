@@ -52,8 +52,7 @@ def register(request):
         form = ExtendedUserCreationForm()
         profile_form = ProfileForm()
 
-        
-    context = {'form':form, 'profile_form':profile_form}
+    context = {'form' : form, 'profile_form' : profile_form}
     return render(request, 'signup.html', context)
 
 def login_user(request):
@@ -124,6 +123,22 @@ def show_json_cloth(request):
 @login_required(login_url="/sign-in")
 def create_cloth(request):
     form = ClothForm()
+    visit = None
+    request.session.modified = True
+
+    if 'visit_clothes' in request.session:
+        times_donate = int(request.session['times_donate_clothes'])
+        times_donate += 1
+        request.session['times_donate_clothes'] = times_donate
+        if times_donate < 1:
+            visit = 'Welcome'
+        else:
+            visit = 'Welcome back'
+    else:
+        request.session['visit_clothes'] = 0
+        visit = 'Welcome'
+
+    context = {'form': form, 'username': request.user, 'visit' : visit, 'name' : request.user.get_full_name()}
     if request.method == 'POST':
         form = ClothForm(request.POST)
         
@@ -131,9 +146,8 @@ def create_cloth(request):
             cloth = form.save(commit=False)
             cloth.user = request.user
             cloth.save()
-            return HttpResponse(b"CREATED", status=201)
+            return render(request, 'donasi-pakaian.html', context)
 
-    context = {'form': form, 'username': request.user}
     return render(request, 'donasi-pakaian.html', context)
 
 @csrf_exempt
