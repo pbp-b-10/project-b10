@@ -2,7 +2,7 @@ import datetime
 from multiprocessing import context
 from django.shortcuts import render
 from django.shortcuts import redirect
-from .forms import ClothForm, ExtendedUserCreationForm
+from .forms import ClothForm, ExtendedUserCreationForm, VolunteerForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
@@ -214,3 +214,21 @@ class ClothesView:
             cloth = Cloth.objects.get(id=i)
             cloth.delete()
         return HttpResponse(b"DELETE")
+
+
+class VolunteerView:
+    @staticmethod
+    def create(request):
+        form = VolunteerForm()
+        if request.method == 'POST':
+            form = VolunteerForm(request.POST)
+
+            if form.is_valid():
+                volunteer = form.save(commit=False)
+                volunteer.user = request.user
+                volunteer.save()
+                return HttpResponse(b"CREATED", status=201)
+
+        context = {'form': form, 'username': request.user}
+        return render(request, 'volunteer/form.html', context)
+

@@ -70,9 +70,17 @@ class Project(models.Model):
         return self.title
 
 class Volunteer(models.Model):
+    DIVISI_CHOICES = [
+        ("Logistics", "Logistics"),
+        ("Secretary", "Secretary"),
+        ("Worker", "Worker"),
+    ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    divisi = models.CharField(max_length=255)
+    divisi = models.CharField(max_length=255,
+                            choices = DIVISI_CHOICES,
+                            default = "Logistics",
+                            )
     durasi = models.BigIntegerField()
 
     def __str__(self):
