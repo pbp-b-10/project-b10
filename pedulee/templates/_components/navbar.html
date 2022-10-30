@@ -21,16 +21,16 @@
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="navbarDropdown" role="button">DONATE</a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="{% url 'pedulee:create_cloth' %}">CLOTHES</a></li>
-                    <li><a class="dropdown-item" href="/money">MONEY</a></li>
-                    <li><a class="dropdown-item" href="/groceries">GROCERIES</a></li>
-                    <li><a class="dropdown-item" href="/blood-donors">BLOOD DONORS</a></li>
+                    <li><a class="dropdown-item" href="{% url 'pedulee:create_money' %}">MONEY</a></li>
+                    <li><a class="dropdown-item" href="{% url 'pedulee:create_groceries' %}">GROCERIES</a></li>
+                    <li><a class="dropdown-item" href="{% url 'pedulee:create_blood' %}">BLOOD DONORS</a></li>
                 </ul>
             </li>
             <a class="navbar-brand d-none d-lg-block" href="/home">
                 <img src="/static/images/logo.png" style="height: 4rem;" >
             </a>
-            <a class="nav-link" href="/volunteer">VOLUNTEER</a>
-            <a class="nav-link" href="/about-us">ABOUT US</a>
+            <a class="nav-link" href="{% url 'pedulee:create_volunteer' %}">VOLUNTEER</a>
+            <a class="nav-link" href="{% url 'pedulee:about' %}">ABOUT US</a>
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">PROFILE</a>
                 <div class="dropdown-menu dropdown-menu-end">

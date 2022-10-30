@@ -9,7 +9,8 @@ home_urls = [
     path('sign-up/', UserViews.register, name='register'),
     path('sign-in/', UserViews.login, name='login'),
     path('sign-out/', UserViews.logout, name='logout'),
-    path('profile/', UserViews.profile, name='profile')
+    path('profile/', UserViews.profile, name='profile'),
+    path('about/', UserViews.profile, name='about')
 ]
 
 
@@ -34,7 +35,19 @@ projects_urls = [
 ]
 
 volunteers_urls = [
-    path('volunteer/', VolunteerView.create, name='create_volunteer'),
+    path('volunteer/create', VolunteerView.create, name='create_volunteer'),
+]
+
+money_urls = [
+    path('money/create', VolunteerView.create, name='create_money'),
+]
+
+grocery_urls = [
+    path('grocery/create', VolunteerView.create, name='create_groceries'),
+]
+
+blood_urls = [
+    path('blood/create', VolunteerView.create, name='create_blood'),
 ]
 
 urlpatterns = [
@@ -43,4 +56,8 @@ urlpatterns = [
     *cloth_urls,
     *projects_urls,
     *volunteers_urls,
+    *money_urls,
+    *grocery_urls,
+    *blood_urls,
+
 ]
