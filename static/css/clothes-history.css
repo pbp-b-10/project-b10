@@ -1,0 +1,15 @@
+table {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+th {
+    font-weight: 900px;
+    font-size: 17px;
+}
+.header{
+    font-weight: 900;
+    font-size: 25px;
+    text-transform: uppercase;
+    margin-top: 2%;
+}

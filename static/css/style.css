@@ -1,8 +1,11 @@
 body {
-    font-family: 'Montserrat';
+    font-family: "Montserrat";
     text-align: center;
+    background-image: url('../images/background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
-
 .bg-navbar {
     background: #FDF3EA;
 }
