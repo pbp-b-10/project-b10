@@ -7,7 +7,6 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.urls import reverse
 from django.core import serializers
@@ -48,6 +47,8 @@ def register(request):
 
             messages.success(request, 'Your account has been successfully created!')
             return redirect('pedulee:login')
+        else:
+            messages.info(request, 'Failed to create account, please provide correct input!')
     else:
         form = ExtendedUserCreationForm()
         profile_form = ProfileForm()
@@ -78,10 +79,16 @@ def logout_user(request):
 
 @login_required(login_url="/sign-in")
 def show_clothes_history(request):
-    username = request.user
-    context = {
-        'username': username,
-    }
+    if request.user.is_staff:
+        context = {
+            'username' : request.user,
+            'status' : 'staff'
+        }
+    else:
+        context = {
+            'username': request.user,
+            'status' : 'non-staff'
+        }
     return render(request, "clothes-history.html", context)
 
 @login_required(login_url="/sign-in")
@@ -116,9 +123,13 @@ def show_volunteer_history(request):
     }
     return render(request, "volunteer-history.html", context)
 
+@login_required(login_url="/sign-in")
 def show_json_cloth(request):
-    data = Cloth.objects.filter(user = request.user)
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+    if request.user.is_staff:
+        data_user = Cloth.objects.all()
+    else:
+        data_user = Cloth.objects.filter(user = request.user)
+    return HttpResponse(serializers.serialize("json", data_user), content_type="application/json")
 
 @login_required(login_url="/sign-in")
 def create_cloth(request):
@@ -145,6 +156,7 @@ def create_cloth(request):
         if form.is_valid():
             cloth = form.save(commit=False)
             cloth.user = request.user
+            cloth.username = request.user.get_username()
             cloth.save()
             return render(request, 'donasi-pakaian.html', context)
 

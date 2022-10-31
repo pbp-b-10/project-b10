@@ -17,6 +17,12 @@
     font-weight: 900px;
     font-size: 17px;
   }
+  .header{
+            font-weight: 900;
+            font-size: 25px;
+            text-transform: uppercase;
+            margin-top: 2%;
+        }
 </style>
 {% endblock styles %} 
 
@@ -25,9 +31,13 @@
   <div id="success">
 
   </div>
+  <h1 class="header">CLOTHES DONATION HISTORY</h1>
   <table style="text-align: center" class="table table-striped">
     <thead>
       <tr style="background-color: transparent">
+        {% if user.is_staff %}
+        <th>User</th>
+        {% endif %}
         <th>Model</th>
         <th>Material</th>
         <th>Type</th>
@@ -50,9 +60,14 @@
     async function refreshClothes() {
           document.getElementById("data").innerHTML = ""
           const clothes = await getClothes()
+          var user = '{{ status }}'
           let htmlString = ''
           clothes.forEach((item) => {
-            htmlString += `\n<tr><td> ${item.fields.cloth_model} 
+            htmlString += `\n<tr>`
+            if (user === 'staff') {
+              htmlString += `<td> ${item.fields.username}`
+            }
+            htmlString += `<td> ${item.fields.cloth_model} 
                             </td><td> ${item.fields.material} 
                             </td><td> ${item.fields.type}
                             </td><td> ${item.fields.date} 

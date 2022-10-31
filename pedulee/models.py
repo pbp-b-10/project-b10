@@ -44,6 +44,7 @@ class Cloth(models.Model):
         ("Anak laki-laki", "Anak laki-laki"),
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    username = models.CharField(max_length=40, null=True)
     date = models.DateField(auto_now_add=True)
     cloth_model = models.CharField(max_length=30,
                             choices = CLOTH_MODEL_CHOICES,
