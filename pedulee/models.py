@@ -75,7 +75,7 @@ class Volunteer(models.Model):
         ("Secretary", "Secretary"),
         ("Worker", "Worker"),
     ]
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     divisi = models.CharField(max_length=255,
                             choices = DIVISI_CHOICES,

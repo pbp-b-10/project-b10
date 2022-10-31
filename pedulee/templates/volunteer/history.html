@@ -78,13 +78,17 @@
             fields[0].innerHTML = item.fields.project
             fields[1].innerHTML = item.fields.divisi
             fields[2].innerHTML = item.fields.durasi
+            fields[3].innerHTML = `<button class="delete-button"
+                    onmouseover="this.style.backgroundColor='#E14D2A';"
+                    onmouseout="this.style.backgroundColor='#F96666';"
+                    onclick="cancelVolunteer(${item.pk})">X</button>`
             table.appendChild(duplicate)
         })
     }
 
     function cancelVolunteer(id) {
         $.ajax({
-            url: `volunteer/${id}/delete`,
+            url: `/volunteer/${id}/delete`,
             type: "DELETE",
             success: function() {
               $(`#${id}`).remove();

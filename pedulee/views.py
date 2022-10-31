@@ -191,7 +191,6 @@ class ClothesView:
             cloth.delete()
         return HttpResponse(b"DELETE")
 
-
 class VolunteerView:
     @staticmethod
     def create(request):
@@ -207,6 +206,35 @@ class VolunteerView:
 
         context = {'form': form, 'username': request.user}
         return render(request, 'volunteer/form.html', context)
+
+    @staticmethod
+    def show_json(request):
+        data = Volunteer.objects.filter(user = request.user).prefetch_related('project')
+        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+    
+    @staticmethod
+    @csrf_exempt
+    def delete (request, i):
+        if request.method == "DELETE":
+            volunteer = Volunteer.objects.get(id=i)
+            volunteer.delete()
+        return HttpResponse(b"DELETE")
+
+class BloodView:
+    @staticmethod
+    def create(request):
+        form = VolunteerForm()
+        if request.method == 'POST':
+            form = VolunteerForm(request.POST)
+
+            if form.is_valid():
+                volunteer = form.save(commit=False)
+                volunteer.user = request.user
+                volunteer.save()
+                return HttpResponse(b"CREATED", status=201)
+
+        context = {'form': form, 'username': request.user}
+        return render(request, 'blood/form.html', context)
 
     @staticmethod
     def show_json(request):

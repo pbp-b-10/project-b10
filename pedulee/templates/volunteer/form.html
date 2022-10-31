@@ -92,7 +92,7 @@
         document.getElementById("success").innerHTML = ""
         htmlString = `\n<div class="alert alert-success" role="alert">\n
                         {% csrf_token %}
-                        \nThank you for your volunteer! <!-- See your donation history <a href="{% url 'pedulee:clothes_history' %}" class="alert-link">here</a> -->\n
+                        \nThank you for your volunteer! <!-- See your donation history <a href="{% url 'pedulee:volunteer_history' %}" class="alert-link">here</a> -->\n
                         </div>`
         document.getElementById("success").innerHTML = htmlString
         setInterval(exitSuccess, 3500)
@@ -105,7 +105,7 @@
     }
 
     function submitVolunteer() {
-        fetch("{% url 'pedulee:create_cloth' %}", {
+        fetch("{% url 'pedulee:create_volunteer' %}", {
             method: "POST",
             body: new FormData(document.querySelector('#form'))
         }).then(successAfterSubmit)
