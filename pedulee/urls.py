@@ -36,6 +36,7 @@ projects_urls = [
 
 volunteers_urls = [
     path('volunteer/create', VolunteerView.create, name='create_volunteer'),
+    path('api/volunteer/', VolunteerView.show_json, name='show_json_volunteer'),
 ]
 
 money_urls = [

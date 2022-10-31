@@ -14,7 +14,7 @@ from django.core import serializers
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import ProfileForm
-from .models import Cloth
+from .models import Cloth, Volunteer
 
 # Create your views here.
 
@@ -208,3 +208,7 @@ class VolunteerView:
         context = {'form': form, 'username': request.user}
         return render(request, 'volunteer/form.html', context)
 
+    @staticmethod
+    def show_json(request):
+        data = Volunteer.objects.filter(user = request.user).prefetch_related('project')
+        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
