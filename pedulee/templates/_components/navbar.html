@@ -1,0 +1,48 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-navbar fw-bolder text-uppercase fst-normal">
+    <div class="container-fluid mx-auto">
+        <a class="navbar-brand mx-auto d-lg-none" href="/">
+            <img src="/static/images/logo.png" style="height: 3rem;">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav w-100 d-lg-flex align-items-center justify-content-between">
+            <li class="nav-item">
+                <a class="nav-link" href="/home">HOME</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/projects">PROJECTS</a>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="navbarDropdown" role="button">DONATE</a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="{% url 'pedulee:create_cloth' %}">CLOTHES</a></li>
+                    <li><a class="dropdown-item" href="{% url 'pedulee:create_money' %}">MONEY</a></li>
+                    <li><a class="dropdown-item" href="{% url 'pedulee:create_groceries' %}">GROCERIES</a></li>
+                    <li><a class="dropdown-item" href="{% url 'pedulee:create_blood' %}">BLOOD DONORS</a></li>
+                </ul>
+            </li>
+            <a class="navbar-brand d-none d-lg-block" href="/home">
+                <img src="/static/images/logo.png" style="height: 4rem;" >
+            </a>
+            <a class="nav-link" href="{% url 'pedulee:create_volunteer' %}">VOLUNTEER</a>
+            <a class="nav-link" href="{% url 'pedulee:about' %}">ABOUT US</a>
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">PROFILE</a>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <a href="{% url 'pedulee:profile' %}" class="dropdown-item">{{ username }}</a>
+                    <a href="{% url 'pedulee:history' %}" class="dropdown-item">HISTORY</a>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <a href="{% url 'pedulee:logout' %}" class="dropdown-item">LOGOUT</a>
+                    </form>
+                </div>
+            </div>
+        </ul>
+        </div>
+    </div>
+</nav>

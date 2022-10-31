@@ -1,24 +1,39 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
-{% load static %} 
+{% load static %}
 
 {% block meta %}
     <title>Projects</title>
-    <link rel="stylesheet" href="{% static 'css/clothes-history.css' %}">
-{% endblock meta %} 
+{% endblock meta %}
 
-{% block content %} 
-{% include 'navbar.html' %}
-  <div id="success">
+{% block styles %}
+<style>
+  body {
+    font-family: "Montserrat";
+    text-align: center;
+    background-image: url("{% static 'images/background.png' %}");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  table {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  th {
+    font-weight: 900px;
+    font-size: 17px;
+  }
+</style>
+{% endblock styles %}
 
-  </div>
-  <h1 class="header">CLOTHES DONATION HISTORY</h1>
+{% block content %}
+{% include '_components\navbar.html' %}
+
   <table style="text-align: center" class="table table-striped">
     <thead>
       <tr style="background-color: transparent">
-        {% if user.is_staff %}
-        <th>User</th>
-        {% endif %}
         <th>Model</th>
         <th>Material</th>
         <th>Type</th>
@@ -41,17 +56,12 @@
     async function refreshClothes() {
           document.getElementById("data").innerHTML = ""
           const clothes = await getClothes()
-          var user = '{{ status }}'
           let htmlString = ''
           clothes.forEach((item) => {
-            htmlString += `\n<tr>`
-            if (user === 'staff') {
-              htmlString += `<td> ${item.fields.username}`
-            }
-            htmlString += `<td> ${item.fields.cloth_model} 
-                            </td><td> ${item.fields.material} 
+            htmlString += `\n<tr><td> ${item.fields.cloth_model}
+                            </td><td> ${item.fields.material}
                             </td><td> ${item.fields.type}
-                            </td><td> ${item.fields.date} 
+                            </td><td> ${item.fields.date}
                             </td><td>  <button id="delete-button" style="font-weight:bold;
                                                                           background-color:#F96666;
                                                                           border: none;
@@ -65,32 +75,16 @@
           })
           document.getElementById("data").innerHTML = htmlString
     }
-    
-    async function successAfterCancel() {
-        refreshClothes()
-        document.getElementById("success").innerHTML = ""
-        htmlString = `\n<div class="alert alert-primary" role="alert">\n
-                        You have canceled a donation\n
-                        </div>`
-        document.getElementById("success").innerHTML = htmlString
-        setInterval(exitSuccess, 2500)
-    }
 
-    async function exitSuccess() {
-        document.getElementById("success").innerHTML = ""
-        htmlString = ``
-        document.getElementById("success").innerHTML = htmlString
+    function cancelCloth(id) {
+        $.ajax({
+            url: `cloth/${id}/delete`,
+            type: "DELETE",
+            success: function() {
+              $(`#${id}`).remove();
+            }
+        }).then(refreshClothes)
     }
-
-    async function cancelCloth(id) {
-            $.ajax({
-                url: `delete-cloth/${id}`,
-                type: "DELETE",
-                success: function() {
-                  $(`#${id}`).remove();
-                }
-            }).then(successAfterCancel)
-        }
 
     refreshClothes()
 </script>

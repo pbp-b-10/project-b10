@@ -8,6 +8,10 @@
 
 {% block styles %}
     <style>
+        body {
+            font-family: 'Montserrat';
+            background-image: url("{% static 'images/background.png' %}");
+        }
         a {
             font-weight: bold;
         }
@@ -108,7 +112,7 @@
                 <h5 class="signup">Don't have an account? <a href="{% url 'pedulee:register' %}">Sign Up</a></h5>
         </div>
     </div>
-    
+
     <div class="container right">
         <div class="content">
             <img src='{% static "/images/WWW.png" %}' style="width: 120%; display: block; margin-left: auto; margin-right: auto;" alt="image"/>

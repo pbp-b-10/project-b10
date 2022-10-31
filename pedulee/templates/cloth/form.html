@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block meta %}
+    <title>Clothes Donation</title>
+{% endblock meta %}
+
+{% block styles %}
+    <style>
+        body {
+            font-family: 'Montserrat';
+            text-align: center;
+            background-image: url("{% static 'images/background.png' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .header{
+            font-weight: 900;
+            font-size: 25px;
+            text-transform: uppercase;
+            margin-top: 2%;
+        }
+        table {
+            text-align: left;
+        }
+        td {
+            padding-top: 5%;
+        }
+        .position-custom {
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-right: 0;
+        }
+        .center {
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left: 5%;
+            margin-right: auto;
+        }
+        select {
+            background-color: #EEF1FF;
+            border: 1px solid grey;
+            padding: 7%;
+            margin: 2%;
+            width: 170%;
+            font-size: 18px;
+        }
+        .left {
+            left: 0;
+        }
+        .right {
+            right: 0;
+        }
+        .col {
+            padding: 0;
+            text-align: center;
+        }
+        .label {
+            margin-bottom: 0;
+        }
+        .submit_btn {
+            margin: 4% 2%;
+            padding: 6px 33px;
+            text-align: center;
+            background: #AAC4FF;
+            border-radius: 90px;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: 1000;
+            color: white;
+            border: 1px solid black;
+        }
+        .submit_btn:hover {
+            background-color: white;
+            color: black;
+        }
+        .discard_btn {
+            margin: 4% 2%;
+            padding: 6px 33px;
+            text-align: center;
+            background: red;
+            border-radius: 90px;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: 1000;
+            color: white;
+            border: 1px solid black;
+        }
+        .discard_btn:hover {
+            background-color: white;
+            color: black;
+        }
+    </style>
+{% endblock styles %}
+
+{% block content %}
+    {% include '_components\navbar.html' %}
+    <div id="success">
+
+    </div>
+
+      <h1 class="header">CLOTHES DONATION</h1>
+
+      <div class="row">
+        <div class="col">
+            <img src="../../static/images/DonasiPakaian.png" width="80%" style="margin: 6%"/>
+        </div>
+
+        <div class="col position-custom">
+            <table class="center">
+                <form id="form" onsubmit="return false;">
+                    {% csrf_token %}
+                    <tr>
+                        <td>
+                            <p class="label">Model</p>
+                            {{ form.cloth_model }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="label">Material</p>
+                            {{ form.material }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="label">Type</p>
+                            {{ form.type }}
+                        </td>
+                    </tr>
+                </form>
+                    <tr>
+                        <td>
+                            <button id="button-submit" type="submit" class="submit_btn">Submit</button>
+                        </td>
+                        <td>
+                            <form method="post" action="{% url 'pedulee:home' %}">
+                                {% csrf_token %}
+                                <button type="submit" href="home" class="discard_btn">Discard</button>
+                            </form>
+                        </td>
+                    </tr>
+            </table>
+          </div>
+      </div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    async function successAfterSubmit() {
+        document.getElementById("success").innerHTML = ""
+        htmlString = `\n<div class="alert alert-success" role="alert">\n
+                        {% csrf_token %}
+                        \nThank you for your donation! See your donation history <a href="{% url 'pedulee:clothes_history' %}" class="alert-link">here</a>\n
+                        </div>`
+        document.getElementById("success").innerHTML = htmlString
+        setInterval(exitSuccess, 3500)
+    }
+
+    function exitSuccess() {
+        document.getElementById("success").innerHTML = ""
+        htmlString = ``
+        document.getElementById("success").innerHTML = htmlString
+    }
+
+    function submitCloth() {
+        fetch("{% url 'pedulee:create_cloth' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(successAfterSubmit)
+        return false
+    }
+
+    document.getElementById("button-submit").onclick = submitCloth
+</script>
+{% endblock scripts %}
