@@ -1,0 +1,10 @@
+.card {
+    will-change: transform;
+    transition: transform 450ms;
+    height: 100%;
+}
+.card:hover {
+    transition: transform 150ms;
+    transform: translateY(-10px);
+    shadow: 5px 5px;
+}
