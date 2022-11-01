@@ -1,35 +1,63 @@
 from django.urls import path
-from pedulee.views import register
-from pedulee.views import login_user
-from pedulee.views import logout_user
-from pedulee.views import show_home
-from pedulee.views import show_history
-from pedulee.views import show_clothes_history
-from pedulee.views import show_money_history
-from pedulee.views import show_groceries_history
-from pedulee.views import show_blood_history
-from pedulee.views import show_volunteer_history
-from pedulee.views import show_json_cloth
-from pedulee.views import create_cloth
-from pedulee.views import show_projects
-from pedulee.views import delete_cloth
+from pedulee.views import ClothesView, HistoryView, HomeViews, ProjectView, UserViews, VolunteerView
 
 app_name = 'pedulee'
 
+home_urls = [
+    path('', HomeViews.index, name='home'),
+    path('home', HomeViews.index, name='home'),
+    path('sign-up/', UserViews.register, name='register'),
+    path('sign-in/', UserViews.login, name='login'),
+    path('sign-out/', UserViews.logout, name='logout'),
+    path('profile/', UserViews.profile, name='profile'),
+    path('about/', UserViews.profile, name='about')
+]
+
+
+history_urls = [
+    path('history/', HistoryView.show_history, name='history'),
+    path('history/clothes', HistoryView.show_clothes, name='clothes_history'),
+    path('history/money', HistoryView.show_money, name='money_history'),
+    path('history/groceries', HistoryView.show_groceries, name='groceries_history'),
+    path('history/blood', HistoryView.show_blood, name='blood_history'),
+    path('history/volunteer', HistoryView.show_volunteer, name='volunteer_history'),
+]
+
+cloth_urls = [
+    path('api/cloth/', ClothesView.show_json, name='show_json_cloth'),
+    path('cloth/', ClothesView.show, name='show_cloth'),
+    path('cloth/create', ClothesView.create, name='create_cloth'),
+    path('cloth/<int:i>/delete', ClothesView.delete, name="delete_cloth")
+]
+
+projects_urls = [
+    path('projects/', ProjectView.show, name='projects'),
+]
+
+volunteers_urls = [
+    path('volunteer/create', VolunteerView.create, name='create_volunteer'),
+    path('api/volunteer/', VolunteerView.show_json, name='show_json_volunteer'),
+]
+
+money_urls = [
+    path('money/create', VolunteerView.create, name='create_money'),
+]
+
+grocery_urls = [
+    path('grocery/create', VolunteerView.create, name='create_groceries'),
+]
+
+blood_urls = [
+    path('blood/create', VolunteerView.create, name='create_blood'),
+]
+
 urlpatterns = [
-    path('', show_home, name='home'),
-    path('home', show_home, name='home'),
-    path('history', show_history, name='history'),
-    path('money-history', show_money_history, name='money_history'),
-    path('groceries-history', show_groceries_history, name='groceries_history'),
-    path('blood-history', show_blood_history, name='blood_history'),
-    path('volunteer-history', show_volunteer_history, name='volunteer_history'),
-    path('projects/', show_projects, name='projects'),
-    path('sign-up/', register, name='register'),
-    path('sign-in/', login_user, name='login'),
-    path('sign-out/', logout_user, name='logout'),
-    path('json-cloth/', show_json_cloth, name='show_json_cloth'),
-    path('clothes/', create_cloth, name='create_cloth'),
-    path('clothes-history', show_clothes_history, name='clothes_history'),
-    path('delete-cloth/<int:i>/', delete_cloth, name="delete_cloth")
+    *home_urls,
+    *history_urls,
+    *cloth_urls,
+    *projects_urls,
+    *volunteers_urls,
+    *money_urls,
+    *grocery_urls,
+    *blood_urls,
 ]

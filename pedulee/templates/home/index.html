@@ -8,8 +8,32 @@
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock meta %}
 
+{% block styles %}
+    <style>
+        body {
+            font-family: 'Montserrat';
+            text-align: center;
+            background-image: url("/static/images/background.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .card {
+            will-change: transform;
+            transition: transform 450ms;
+            height: 100%;
+        }
+        .card:hover {
+            transition: transform 150ms;
+            transform: translateY(-10px);
+            shadow: 5px 5px;
+        }
+    </style>
+
+{% endblock styles %}
+
 {% block content %}
-    {% include 'navbar.html' %}
+    {% navbar %}
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>

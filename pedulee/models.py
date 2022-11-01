@@ -58,7 +58,7 @@ class Cloth(models.Model):
                             choices = TYPE_CHOICES,
                             default = "Perempuan",
                             )
-                            
+
 class Project(models.Model):
     title = models.CharField(max_length=256)
     description = models.CharField(max_length=1024)
@@ -68,3 +68,20 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+
+class Volunteer(models.Model):
+    DIVISI_CHOICES = [
+        ("Logistics", "Logistics"),
+        ("Secretary", "Secretary"),
+        ("Worker", "Worker"),
+    ]
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    divisi = models.CharField(max_length=255,
+                            choices = DIVISI_CHOICES,
+                            default = "Logistics",
+                            )
+    durasi = models.BigIntegerField()
+
+    def __str__(self):
+        return self.user.username + self.project.title + self.divisi + str(self.durasi)
