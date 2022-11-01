@@ -102,10 +102,16 @@ class HistoryView:
     @staticmethod
     @login_required(login_url="/sign-in")
     def show_clothes(request):
-        username = request.user
-        context = {
-            'username': username,
-        }
+        if request.user.is_staff:
+            context = {
+                'username' : request.user,
+                'status' : 'staff'
+            }
+        else:
+            context = {
+                'username': request.user,
+                'status' : 'non-staff'
+            }
         return render(request, "cloth/history.html", context)
 
     @staticmethod
@@ -159,12 +165,15 @@ class ClothesView:
         context = {
             'username': username,
         }
-        return render(request, "donasi-pakaian.html", context)
+        return render(request, "cloth/form.html", context)
 
     @staticmethod
     def show_json(request):
-        data = Cloth.objects.filter(user = request.user)
-        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+        if request.user.is_staff:
+            data_user = Cloth.objects.all()
+        else:
+            data_user = Cloth.objects.filter(user = request.user)
+        return HttpResponse(serializers.serialize("json", data_user), content_type="application/json")
 
     @staticmethod
     @login_required(login_url="/sign-in")

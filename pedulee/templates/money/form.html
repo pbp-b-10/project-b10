@@ -41,7 +41,7 @@
 {% endblock styles %} 
 
 {% block content %}
-{% include 'navbar.html' %}
+{% include '_components\navbar.html' %}
 <body>
     <nav class="navbar">
         <div class="container-fluid">
@@ -208,4 +208,5 @@
         </form>
     </div>
 </body>
+{% include '_components\footer.html' %}
 {% endblock content %}
