@@ -27,7 +27,7 @@ cloth_urls = [
     path('api/cloth/', ClothesView.show_json, name='show_json_cloth'),
     path('cloth/', ClothesView.show, name='show_cloth'),
     path('cloth/create', ClothesView.create, name='create_cloth'),
-    path('cloth/<int:i>/delete', ClothesView.delete, name="delete_cloth")
+    path('history/cloth/<int:i>/delete', ClothesView.delete, name="delete_cloth")
 ]
 
 projects_urls = [

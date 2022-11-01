@@ -8,7 +8,7 @@
 {% endblock meta %}
   
 {% block content %}
-    {% include 'navbar.html' %}
+    {% include '_components\navbar.html' %}
     <div id="welcome">
 
     </div>
@@ -61,6 +61,7 @@
           </div>
       </div>
       <br><br>
+      {% include '_components\footer.html' %}
 {% endblock content %}
 
 {% block scripts %}
