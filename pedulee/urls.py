@@ -12,6 +12,7 @@ from pedulee.views import show_volunteer_history
 from pedulee.views import show_json_cloth
 from pedulee.views import create_cloth
 from pedulee.views import show_projects
+from pedulee.views import show_blood
 
 app_name = 'pedulee'
 
@@ -30,4 +31,5 @@ urlpatterns = [
     path('sign-out/', logout_user, name='logout'),
     path('json-cloth/', show_json_cloth, name='show_json_cloth'),
     path('clothes/', create_cloth, name='create_cloth'),
+    path('blood-donors/',show_blood, name='show_blood'),
 ]

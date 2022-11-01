@@ -1,3 +1,4 @@
+from operator import mod
 from random import choices
 from django.db import models
 from django.contrib.auth.models import User
@@ -68,3 +69,28 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+
+class Blood(models.Model):
+    goldar =(
+        ("A", "A"),
+        ("B", "B"),
+        ("O", "O"),
+        ("AB", "AB"),
+    )
+    lokasi = (
+        ("Jakarta", "Jakarta"),
+        ("Depok", "Depok"),
+        ("Bogor", "Bogor"),
+        ("bandung", "Bandung"),
+        )
+
+    rhesus_darah = (
+        ("+", "+"),
+        ("-", "-"),
+        )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+    golongan = models.CharField(choices = goldar,max_length=30)
+    rhesus = models.CharField(choices = rhesus_darah,max_length=30)
+    penyakit_bawaan = models.CharField(max_length=30)
+    lokasi_donor = models.CharField(choices=lokasi,max_length=30)

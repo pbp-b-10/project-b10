@@ -1,5 +1,6 @@
 import datetime
 from multiprocessing import context
+from django import views
 from django.shortcuts import render
 from django.shortcuts import redirect
 from .forms import ClothForm, ExtendedUserCreationForm
@@ -13,8 +14,8 @@ from django.urls import reverse
 from django.core import serializers
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from .forms import ProfileForm
-from .models import Cloth
+from .forms import ProfileForm, BloodForm
+from .models import Cloth,Blood
 
 # Create your views here.
 @login_required(login_url="/sign-in")
@@ -149,3 +150,23 @@ def show_projects(request):
     context = {}
     return render(request, 'projects.html', context)
 
+@login_required(login_url="/sign-in")
+def show_blood(request):
+    if request.method == "POST":
+        form = BloodForm(request.POST)
+        if form.is_valid():
+            blood = form.save(commit=False)
+            blood.user = request.user
+            blood.save()
+            loc = form.cleaned_data["lokasi_donor"]
+            number = Blood.objects.filter(lokasi_donor = loc).count()
+            context = {'form':form,'number':number}
+            return render(request, 'donor-darah.html',context)
+    else:
+        form = BloodForm()
+    context = {'form':form}
+    return render(request, 'donor-darah.html', context)
+
+def show_json_blood(request):
+    task = BloodForm.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize("json", task), content_type="application/json")
