@@ -1,5 +1,5 @@
 from django import forms
-from .models import Cloth, Profile, Volunteer
+from .models import Cloth, Profile, Volunteer, Money
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -32,6 +32,11 @@ class ClothForm(forms.ModelForm):
     class Meta:
         model = Cloth
         fields = ['cloth_model', 'material', 'type']
+
+class MoneyForm(forms.ModelForm):
+    class Meta:
+        model = Money
+        fields = ['name', 'email', 'pnumber', 'donation', 'message', 'ccnumber']
 
 
 class VolunteerForm(forms.ModelForm):
