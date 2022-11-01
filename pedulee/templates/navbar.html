@@ -14,7 +14,7 @@
     }
 </style>
 
-<nav class="navbar bg-navbar sticky-top">
+<nav class="navbar bg-navbar sticky-top" id="navbar-scroll">
     <div class="container-fluid">
         <a class="nav-link" href="/home">HOME</a>
         <a class="nav-link" href="/projects">PROJECTS</a>
@@ -29,11 +29,11 @@
         </div>
 
         <a class="navbar-brand" href="/home">
-            <img src="/static/images/logo.png" style="height: 4rem;">
+            <img src='{% static "/images/logo.png" %}' style="height: 4rem;">
         </a>
 
         <a class="nav-link" href="/volunteer">VOLUNTEER</a>
-        <a class="nav-link" href="/about-us">ABOUT US</a>
+        <a class="nav-link" href="#about-us">ABOUT US</a>
         <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">PROFILE</a>
             <div class="dropdown-menu">
