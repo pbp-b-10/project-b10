@@ -41,7 +41,7 @@
 {% endblock styles %} 
 
 {% block content %}
-{% include 'navbar.html' %}
+{% include '_components\navbar.html' %}
 <body>
     <nav class="navbar">
         <div class="container-fluid">
@@ -126,18 +126,8 @@
                         </div>
                     </td>
                     <td>
-                        <div>
-                            <input type="radio" id="sepuluh" name="sepuluh" value="10">
-                            <label for="sepuluh">10</label>
-                            <input type="radio" id="duapuluh" name="duapuluh" value="20">
-                            <label for="duapuluh">20</label>
-                            <input type="radio" id="limapuluh" name="limapuluh" value="50">
-                            <label for="limapuluh">50</label>
-                            <input type="radio" id="seratus" name="seratus" value="100">
-                            <label for="seratus">100</label>
-                        </div>
                         <div class="form-input">
-                            <input type="text" step="1" id="donation" name="nominal" placeholder="Rp." style="width: 100%">
+                            <input type="text" step="1" id="donation" name="donation" placeholder="Rp." style="width: 100%">
                         </div>
                     </td>
                 </tr>
@@ -161,13 +151,7 @@
                     </td>
                     <td>
                         <div class="form-input">
-                            <select id="pmethod" name="pmethod">
-                                <option selected="selected">Select...</option>
-                                <option value="mandiri">Mandiri</option>
-                                <option value="bni">BNI</option>
-                                <option value="bri">BRI</option>
-                                <option value="bca">BCA</option>
-                            </select>
+                            {{ form.pmethod }}
                         </div>
                     </td>
                 </tr>

@@ -1,5 +1,5 @@
 from django.urls import path
-from pedulee.views import ClothesView, HistoryView, HomeViews, ProjectView, UserViews, VolunteerView
+from pedulee.views import ClothesView, HistoryView, HomeViews, ProjectView, UserViews, VolunteerView, MoneyView
 
 app_name = 'pedulee'
 
@@ -40,7 +40,7 @@ volunteers_urls = [
 ]
 
 money_urls = [
-    path('money/create', VolunteerView.create, name='create_money'),
+    path('money/create', MoneyView.show, name='create_money'),
 ]
 
 grocery_urls = [

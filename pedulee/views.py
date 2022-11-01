@@ -2,7 +2,7 @@ import datetime
 from multiprocessing import context
 from django.shortcuts import render
 from django.shortcuts import redirect
-from .forms import ClothForm, ExtendedUserCreationForm, VolunteerForm
+from .forms import ClothForm, ExtendedUserCreationForm, VolunteerForm, MoneyForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
@@ -14,7 +14,7 @@ from django.core import serializers
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import ProfileForm
-from .models import Cloth, Volunteer
+from .models import Cloth, Volunteer, Money
 
 # Create your views here.
 
@@ -210,4 +210,15 @@ class VolunteerView:
     @staticmethod
     def show_json(request):
         data = Volunteer.objects.filter(user = request.user).prefetch_related('project')
+        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+class MoneyView:
+    @staticmethod
+    def show(request):
+        context = {}
+        return render(request, 'money/form.html', context)
+
+    @staticmethod
+    def show_json(request):
+        data = Money.objects.filter(user = request.user).prefetch_related('project')
         return HttpResponse(serializers.serialize("json", data), content_type="application/json")
