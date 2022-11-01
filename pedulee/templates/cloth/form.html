@@ -4,14 +4,14 @@
 
 {% block meta %}
     <title>Clothes Donation</title>
-    <link rel="stylesheet" href="{% static 'css/donasi-pakaian.css' %}">
+    <link rel="stylesheet" href="{% static 'css/clothes-form.css' %}">
 {% endblock meta %}
   
 {% block content %}
     {% include '_components\navbar.html' %}
-    <div id="welcome">
-
-    </div>
+    <p id="welcome">
+        {{ visit }}, {{ username }}!
+    </p>
     <div id="success">
         
     </div> 
@@ -62,50 +62,12 @@
       </div>
       <br><br>
       {% include '_components\footer.html' %}
+      <script type="text/javascript" src="{% static 'js/clothes-form.js' %}"></script>
 {% endblock content %}
 
 {% block scripts %}
 <script>
-    async function welcome() {
-        document.getElementById("welcome").innerHTML = ""
-        htmlString = `\n<div class="alert alert-primary" role="alert">\n
-                        \n{{ visit }}, {{ name }}!
-                        </div>`
-        document.getElementById("welcome").innerHTML = htmlString
-        setInterval(exitWelcome, 3500)
-    }
-
-    async function exitWelcome() {
-        document.getElementById("welcome").innerHTML = ""
-        htmlString = ``
-        document.getElementById("welcome").innerHTML = htmlString
-    }
-
-    async function successAfterSubmit() {
-        document.getElementById("success").innerHTML = ""
-        htmlString = `\n<div class="alert alert-success" role="alert">\n
-                        {% csrf_token %} 
-                        \nThank you for your donation! See your donation history <a href="{% url 'pedulee:clothes_history' %}" class="alert-link">here</a>\n
-                        </div>`
-        document.getElementById("success").innerHTML = htmlString
-        setInterval(exitSuccess, 3500)
-    }
-
-    async function exitSuccess() {
-        document.getElementById("success").innerHTML = ""
-        htmlString = ``
-        document.getElementById("success").innerHTML = htmlString
-    }
-
-    async function submitCloth() {
-        fetch("{% url 'pedulee:create_cloth' %}", {
-            method: "POST",
-            body: new FormData(document.querySelector('#form'))
-        }).then(successAfterSubmit)
-        return false
-    }
-
-    document.getElementById("button-submit").onclick = submitCloth
-    welcome()
+    var visit = '{{ visit }}';
+    var name = '{{ name }}';
 </script>
 {% endblock scripts %}

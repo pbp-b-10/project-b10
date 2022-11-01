@@ -74,3 +74,6 @@ select {
     background-color: white;
     color: black;
 }
+#welcome {
+    padding-top: 2%;
+}
