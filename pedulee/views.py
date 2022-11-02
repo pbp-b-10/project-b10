@@ -154,7 +154,6 @@ class ClothesView:
     @login_required(login_url="/sign-in")
     def show(request):
         form = ClothForm()
-        username = request.user
         visit = None
         request.session.modified = True
         if 'visit_clothes' in request.session:
@@ -169,11 +168,10 @@ class ClothesView:
             request.session['visit_clothes'] = 0
             visit = 'Welcome'
         context = {
-            'username': username,
             'form' : form,
             'visit' : visit,
         }
-        return render(request, "cloth/form.html", context)
+        return my_render(request, "cloth/form.html", context)
 
     @staticmethod
     def show_json(request):
@@ -284,7 +282,7 @@ class MoneyView:
                 context = {
                     'form': form
                 }
-                return render(request, 'money/form.html', context)
+                return my_render(request, 'money/form.html', context)
 
         context = {
             'form': form
@@ -312,7 +310,6 @@ class GroceriesView:
     @login_required(login_url="/sign-in")
     def show(request):
         form = GroceriesForm()
-        username = request.user
         visit = None
         request.session.modified = True
         if 'visit_groceries' in request.session:
@@ -327,11 +324,10 @@ class GroceriesView:
             request.session['visit_groceries'] = 0
             visit = 'Welcome'
         context = {
-            'username': username,
             'form' : form,
             'visit' : visit,
         }
-        return render(request, "groceries/form.html", context)
+        return my_render(request, "groceries/form.html", context)
 
     @staticmethod
     def show_json(request):
@@ -369,9 +365,9 @@ class GroceriesView:
                 grocery.user = request.user
                 grocery.username = request.user.get_username()
                 grocery.save()
-                return render(request, 'groceries/form.html', context)
+                return my_render(request, 'groceries/form.html', context)
 
-        return render(request, 'groceries/form.html', context)
+        return my_render(request, 'groceries/form.html', context)
 
     @staticmethod
     @csrf_exempt

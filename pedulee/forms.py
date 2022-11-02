@@ -46,7 +46,7 @@ class VolunteerForm(forms.ModelForm):
             visible.field.widget.attrs['class'] = 'form-control col'
     class Meta:
         model = Volunteer
-        fields = ['project', 'durasi', 'divisi']
+        fields = ['project', 'divisi']
 
 class GroceriesForm(forms.ModelForm):
     class Meta:
