@@ -1,5 +1,3 @@
-<!--MASIH MAU DI EDIT-->
-
 {% extends 'base.html' %}
 
 {% load static %}
@@ -13,21 +11,23 @@
     <main class="container py-3">
         <section class="d-flex align-items-center justify-content-between">
             <h1>On-going project</h1>
-            <button class="btn btn-primary btn-sm rounded">
+            {% comment %} <button class="btn btn-primary btn-sm rounded">
                 + New Project
-            </button>
+            </button> {% endcomment %}
         </section>
         <section class="row gap">
-            <div class="col-3">
+            {% for project in projects  %}
+            <div class="col-sm-6 col-md-4 p-1 p-md-2">
                 <div class="card" style="width: 18rem;">
-                    <img src="{% static 'images/background.png' %}" class="card-img-top" alt="...">
+                    <img src="{% static 'images/background.png' %}" class="card-img-top" alt="">
                     <div class="card-body">
-                        <h5 class="card-title">Nama Projek</h5>
-                        <p class="card-text">Deskripsi project lorem ipsim idanui...</p>
+                        <h5 class="card-title">{{ project.title }}</h5>
+                        <p class="card-text">{{ project.description }}</p>
                         <a href="#" class="btn btn-primary text-center">Go somewhere</a>
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </section>
     </main>
     {% include 'footer.html' %}
