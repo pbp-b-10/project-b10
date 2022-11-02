@@ -105,7 +105,7 @@ class Volunteer(models.Model):
                             )
 
     def __str__(self):
-        return self.user.username + self.project.title + self.divisi + str(self.durasi)
+        return self.user.username + self.project.title + self.divisi
 
 class Groceries(models.Model):
     SEMBAKO_CHOICES = [
