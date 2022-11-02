@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block meta %}
+    <title>Volunteer</title>
+{% endblock meta %}
+
+{% block styles %}
+    <style>
+        body {
+            font-family: 'Montserrat';
+            text-align: center;
+            background-image: url("{% static 'images/background.png' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .submit_btn {
+            padding: 6px 33px;
+            text-align: center;
+            background: #AAC4FF;
+            border-radius: 90px;
+            display: block;
+            font-size: 16px;
+            font-weight: 1000;
+            color: white;
+            border: 1px solid black;
+        }
+        .discard_btn {
+            padding: 6px 33px;
+            background: red;
+            border-radius: 90px;
+            display: block;
+            font-size: 16px;
+            font-weight: 1000;
+            color: white;
+            border: 1px solid black;
+        }
+        .discard_btn:hover {
+            background-color: white;
+            color: black;
+        }
+    </style>
+{% endblock styles %}
+
+{% block content %}
+    {% include '_components\navbar.html' %}
+    <div id="success">
+
+    </div>
+
+    <h1 class="header p-5">PEDAFTARAN VOLUNTEER</h1>
+    <header>
+        <img src="../../static/images/DonasiPakaian.png" height="200px" style="margin: 6%"/>
+    </header>
+    <main class="container">
+        <form id="form" onsubmit="return false;">
+            {% csrf_token %}
+            <section class="mb-3 row">
+                <label class="form-label col-md-3" for="project">
+                    Daftar Project
+                </label>
+                {{ form.project }}
+            </section>
+            <section class="mb-3 row">
+                <label class="form-label col-md-3" for="divisi">
+                    Bidang Project
+                </label>
+                {{ form.divisi }}
+            </section>
+            <section class="mb-3 row">
+                <label class="form-label col-md-3" for="durasi">
+                    Durasi Project
+                </label>
+                {{ form.durasi }}
+            </section>
+        </form>
+        <section class="mb-3 d-flex flex-row justify-content-center align-items-center gap-4">
+            <button id="button-submit" type="submit" class="submit_btn">Submit</button>
+            <form method="post" action="{% url 'pedulee:home' %}">
+                {% csrf_token %}
+                <button type="submit" href="home" class="discard_btn">Discard</button>
+            </form>
+        </section>
+    </main>
+    {% include '_components\footer.html' %}
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    async function successAfterSubmit() {
+        document.getElementById("success").innerHTML = ""
+        htmlString = `\n<div class="alert alert-success" role="alert">\n
+                        {% csrf_token %}
+                        \nThank you for your volunteer! <!-- See your donation history <a href="{% url 'pedulee:clothes_history' %}" class="alert-link">here</a> -->\n
+                        </div>`
+        document.getElementById("success").innerHTML = htmlString
+        setInterval(exitSuccess, 3500)
+    }
+
+    function exitSuccess() {
+        document.getElementById("success").innerHTML = ""
+        htmlString = ``
+        document.getElementById("success").innerHTML = htmlString
+    }
+
+    function submitVolunteer() {
+        fetch("{% url 'pedulee:create_cloth' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(successAfterSubmit)
+        return false
+    }
+
+    document.getElementById("button-submit").onclick = submitVolunteer
+</script>
+{% endblock scripts %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %} 
+
+{% load static %} 
+
+{% block meta %}
+    <title>Projects</title>
+    <link rel="stylesheet" href="{% static 'css/clothes-history.css' %}">
+{% endblock meta %} 
+
+{% block content %} 
+{% include '_components\navbar.html' %}
+  <div id="success">
+
+  </div>
+  <h1 class="header">BLOOD DONATION HISTORY</h1>
+  <table>
+    <tr>
+      <td>{{history.date}}</td>
+    </tr>
+    <tr>
+      <td>{{history.golongan}}</td>
+    </tr>
+    <tr>
+      <td>{{history.rhesus}}</td>
+    </tr>
+    <tr>
+      <td>{{history.penyakit_bawaan}}</td>
+    </tr>
+    <tr>
+      <td>{{history.lokasi_donor}}</td>
+    </tr>
+  </table>
+{% endblock content %}

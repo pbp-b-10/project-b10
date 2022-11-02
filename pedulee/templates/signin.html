@@ -10,10 +10,7 @@
     <style>
         body {
             font-family: 'Montserrat';
-            background-image: url("../../static/images/background.png");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+            background-image: url("{% static 'images/background.png' %}");
         }
         a {
             font-weight: bold;
@@ -39,7 +36,6 @@
             transform: translate(-50%, -50%);
             text-align: center;
         }
-
         .header{
             font-style: normal;
             font-weight: 700;
@@ -85,6 +81,13 @@
 
 {% block content %}
     <div class="container left">
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-primary" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
         <div class="content">
             <h1 class="header">WELCOME TO PEDULEE</h1>
             <h4 class="description">Sign in to your account</h4>
@@ -109,16 +112,10 @@
                 <h5 class="signup">Don't have an account? <a href="{% url 'pedulee:register' %}">Sign Up</a></h5>
         </div>
     </div>
-    {% if messages %}
-            {% for message in messages %}
-            <div class="alert alert-danger" role="alert">
-                {{ message }}
-            </div>
-            {% endfor %}
-    {% endif %}
+
     <div class="container right">
         <div class="content">
-            <img src="../../static/images/WWW.png">
+            <img src='{% static "/images/WWW.png" %}' style="width: 120%; display: block; margin-left: auto; margin-right: auto;" alt="image"/>
         </div>
     </div>
 {% endblock content %}

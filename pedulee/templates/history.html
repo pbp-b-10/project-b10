@@ -11,7 +11,7 @@
         body {
             font-family: 'Montserrat';
             text-align: center;
-            background-image: url("../../static/images/background.png");
+            background-image: url("{% static 'images/background.png' %}");
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -79,7 +79,7 @@
 {% endblock styles %}
 
 {% block content %}
-    {% include 'navbar.html' %}
+    {% include '_components\navbar.html' %}
     <main class="container py-3">
         <h1 class="header">{{ username }}'s DONATION HISTORY</h1>
         <table class="center">
@@ -125,4 +125,6 @@
           </tr>
       </table>
     </main>
+    <br><br> <br><br> <br><br> <br><br>
+    {% include '_components\footer.html' %}
 {% endblock content %}

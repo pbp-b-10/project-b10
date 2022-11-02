@@ -77,7 +77,6 @@
             margin-left: auto;
             margin-right: auto;
         }
-
     </style>
 </head>
   
@@ -121,11 +120,10 @@
         </tr>
         <tr>
             <td>
-                <h2>{{number}}</h2>
                 <form method="post" action="{% url 'pedulee:show_blood' %}">
                     {% csrf_token %}
                     {{form}}
-                    <button class="btn" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Submit</button>
+                    <button class="btn" type="submit" data-bs-toggle="modal">Submit</button>
                     <button class="btn" type="reset">Discard</button>
                 </form>
             </td>
@@ -135,6 +133,9 @@
                 </form>
             </td>
         </tr>
-    </table>  
+    </table> 
+    <h1> </h1>
+    <h2>Ini nomor antrian kamu ya:</h2> 
+    <h1> {{number}}</h1>
 </body>
 </html>

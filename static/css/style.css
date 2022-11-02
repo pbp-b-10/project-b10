@@ -1,8 +1,6 @@
-body {
-    font-family: 'Montserrat';
-    background-image: url("/static/images/background.png");
-}
-
 .bg-navbar {
     background: #FDF3EA;
+}
+footer {
+    padding-top: 0.5%;
 }
