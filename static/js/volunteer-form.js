@@ -5,14 +5,13 @@ $(document).ready(function(){
         const today = new Date();
         const end_date = new Date(project.fields.akhir_waktu);
         const difference = end_date.getTime() - today.getTime();
-        $('#durasi').val(Math.ceil(difference * (1000 * 3600 * 24)))
+        $('#durasi').val(Math.ceil(difference / (1000 * 3600 * 24)))
     });
 })
 async function successAfterSubmit() {
     document.getElementById("success").innerHTML = ""
     htmlString = `\n<div class="alert alert-success" role="alert">\n
-                    {% csrf_token %}
-                    \nThank you for your volunteer! <!-- See your donation history <a href="{% url 'pedulee:clothes_history' %}" class="alert-link">here</a> -->\n
+                    \nThank you for your volunteer!\n
                     </div>`
     document.getElementById("success").innerHTML = htmlString
     setInterval(exitSuccess, 3500)
@@ -25,7 +24,7 @@ function exitSuccess() {
 }
 
 function submitVolunteer() {
-    fetch("{% url 'pedulee:create_volunteer' %}", {
+    fetch(window.location.href, {
         method: "POST",
         body: new FormData(document.querySelector('#form'))
     }).then(successAfterSubmit)

@@ -2,7 +2,7 @@
 const template = document.getElementsByTagName('template')[0];
 
 function getVolunteers() {
-    return fetch("{% url 'pedulee:show_json_volunteer' %}").then((res) => {
+    return fetch("/api/volunteer").then((res) => {
     return res.json()
     })
 }
