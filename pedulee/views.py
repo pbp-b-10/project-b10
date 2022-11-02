@@ -17,9 +17,11 @@ from django.views.decorators.csrf import csrf_exempt
 from .forms import ProfileForm
 from .models import Cloth, Volunteer, Money, Project, Groceries
 
+# Create your views here.
 def my_render(request, page, context:dict):
     context['username'] = request.user
     return render(request, page, context)
+
 
 class HomeViews:
     @staticmethod
@@ -52,7 +54,7 @@ class UserViews:
             profile_form = ProfileForm()
 
         context = {'form':form, 'profile_form':profile_form}
-        return render(request, 'signup.html', context)
+        return my_render(request, 'signup.html', context)
 
     def login(request):
         if request.method == 'POST':
@@ -67,22 +69,12 @@ class UserViews:
             else:
                 messages.info(request, 'Username or Password is wrong!')
         context = {}
-        return render(request, 'signin.html', context)
+        return my_render(request, 'signin.html', context)
 
     def profile(request):
-        if request.method == 'POST':
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user) # melakukan login terlebih dahulu
-                response = HttpResponseRedirect(reverse("pedulee:home")) # membuat response
-                response.set_cookie('last_login', str(datetime.datetime.now())) # membuat cookie last_login dan menambahkannya ke dalam response
-                return response
-            else:
-                messages.info(request, 'Username or Password is wrong!')
+        # user = User
         context = {}
-        return render(request, 'signin.html', context)
+        return my_render(request, 'profile.html', context)
 
     def logout(request):
         logout(request)
@@ -94,56 +86,48 @@ class HistoryView:
     @staticmethod
     @login_required(login_url="/sign-in")
     def show_history(request):
-        username = request.user
-        context = {
-            'username': username,
-        }
-        return render(request, "history.html", context)
+        context = {}
+        return my_render(request, "history.html", context)
+
 
     @staticmethod
     @login_required(login_url="/sign-in")
     def show_clothes(request):
-        context = {
-            'username' : request.user,
-            'status' : 'staff'
-        }
-        return render(request, "cloth/history.html", context)
+        if request.user.is_staff:
+            context = {
+                'username' : request.user,
+                'status' : 'staff'
+            }
+        else:
+            context = {
+                'username': request.user,
+                'status' : 'non-staff'
+            }
+        return my_render(request, "cloth/history.html", context)
 
     @staticmethod
     @login_required(login_url="/sign-in")
     def show_money(request):
-        username = request.user
-        context = {
-            'username': username,
-        }
-        return render(request, "money/history.html", context)
+        context = {}
+        return my_render(request, "money/history.html", context)
 
     @staticmethod
     @login_required(login_url="/sign-in")
     def show_groceries(request):
-        username = request.user
-        context = {
-            'username': username,
-        }
-        return render(request, "groceries/history.html", context)
+        context = {}
+        return my_render(request, "groceries/history.html", context)
 
     @staticmethod
     @login_required(login_url="/sign-in")
     def show_blood(request):
-        username = request.user
-        context = {
-            'username': username,
-        }
-        return render(request, "blood/history.html", context)
+        context = {}
+        return my_render(request, "blood/history.html", context)
 
     @staticmethod
     @login_required(login_url="/sign-in")
     def show_volunteer(request):
-        username = request.user
-        context = {
-            'username': username,
-        }
-        return render(request, "volunteer/history.html", context)
+        context = {}
+        return my_render(request, "volunteer/history.html", context)
 
 class ProjectView:
     @staticmethod
@@ -159,7 +143,6 @@ class ClothesView:
     @login_required(login_url="/sign-in")
     def show(request):
         form = ClothForm()
-        username = request.user
         visit = None
         request.session.modified = True
         if 'visit_clothes' in request.session:
@@ -174,11 +157,10 @@ class ClothesView:
             request.session['visit_clothes'] = 0
             visit = 'Welcome'
         context = {
-            'username': username,
             'form' : form,
             'visit' : visit,
         }
-        return render(request, "cloth/form.html", context)
+        return my_render(request, "cloth/form.html", context)
 
     @staticmethod
     def show_json(request):
@@ -210,15 +192,14 @@ class ClothesView:
         context = {'form': form, 'username': request.user, 'visit' : visit, 'name' : request.user.get_full_name()}
         if request.method == 'POST':
             form = ClothForm(request.POST)
-            
             if form.is_valid():
                 cloth = form.save(commit=False)
                 cloth.user = request.user
                 cloth.username = request.user.get_username()
                 cloth.save()
-                return render(request, 'cloth/form.html', context)
+                return my_render(request, 'cloth/form.html', context)
 
-        return render(request, 'cloth/form.html', context)
+        return my_render(request, 'cloth/form.html', context)
 
     @staticmethod
     @csrf_exempt
@@ -255,15 +236,16 @@ class VolunteerView:
         data = Volunteer.objects.filter(user = request.user).prefetch_related('project')
         response = []
         for item in data:
+            difference = item.project.akhir_waktu - datetime.date.today()
             response.append({
                 'id': item.pk,
                 'title': item.project.title,
-                'amount': item.project.amount,
-                'divisi': item.divisi
+                'amount': difference.days,
+                'divisi': item.divisi,
             })
             print(item.project.title, item.project.amount)
         return HttpResponse(json.dumps(response), content_type="application/json")
-    
+
     @staticmethod
     @csrf_exempt
     def delete (request, i):
@@ -289,12 +271,12 @@ class MoneyView:
                 context = {
                     'form': form
                 }
-                return render(request, 'money/form.html', context)
+                return my_render(request, 'money/form.html', context)
 
         context = {
             'form': form
         }
-        return render(request, 'money/form.html', context)
+        return my_render(request, 'money/form.html', context)
 
     @staticmethod
     def show_json(request):
@@ -317,7 +299,6 @@ class GroceriesView:
     @login_required(login_url="/sign-in")
     def show(request):
         form = GroceriesForm()
-        username = request.user
         visit = None
         request.session.modified = True
         if 'visit_groceries' in request.session:
@@ -332,11 +313,10 @@ class GroceriesView:
             request.session['visit_groceries'] = 0
             visit = 'Welcome'
         context = {
-            'username': username,
             'form' : form,
             'visit' : visit,
         }
-        return render(request, "groceries/form.html", context)
+        return my_render(request, "groceries/form.html", context)
 
     @staticmethod
     def show_json(request):
@@ -374,9 +354,9 @@ class GroceriesView:
                 grocery.user = request.user
                 grocery.username = request.user.get_username()
                 grocery.save()
-                return render(request, 'groceries/form.html', context)
+                return my_render(request, 'groceries/form.html', context)
 
-        return render(request, 'groceries/form.html', context)
+        return my_render(request, 'groceries/form.html', context)
 
     @staticmethod
     @csrf_exempt
@@ -385,5 +365,3 @@ class GroceriesView:
             grocery = Groceries.objects.get(id=i)
             grocery.delete()
         return HttpResponse(b"DELETE")
-
-    
