@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
 
 # Create your models here.
 
@@ -88,6 +89,7 @@ class Money(models.Model):
                                choices = PAYMENT_MODEL_CHOICES,
                                default = "Select...",
                                )
+    date = models.DateField(blank=True, default=datetime.now())
     ccnumber = models.IntegerField()
 
 class Volunteer(models.Model):

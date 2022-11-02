@@ -9,10 +9,20 @@
 
 {% block content %}
     {% include 'navbar.html' %}
-    <br><br>
+    <div id="success">
+        
+    </div>
+
+    <div class="text-center" style="background-color: rgba(229, 224, 255, 0.498); padding-top: 0;">
+        <p style="padding: 4px;" id="welcome">
+            {{ visit }}, {{ username }}!
+        </p>
+    </div>
+
     <h1 class="header">MONEY DONATION</h1>
+    <br>
     <div class="container-form">
-        <form method="POST">
+        <form method="POST" id="form" onsubmit="return false;">
             {% csrf_token %}
             <table class="center">
                 <tr>
@@ -115,4 +125,5 @@
     </div>
     <br></br>
     {% include 'footer.html' %}
+    <script type="text/javascript" src="{% static 'js/money-form.js' %}"></script>
 {% endblock content %}

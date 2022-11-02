@@ -1,5 +1,5 @@
 async function getMoney() {
-    return fetch("money/json").then((res) => res.json())
+    return fetch("api/money").then((res) => res.json())
   }
 
   async function refreshMoney() {
@@ -8,18 +8,8 @@ async function getMoney() {
         const money = await getMoney()
         let htmlString = ''
         money.forEach((item) => {
-          htmlString += `\n<tr><td> ${item.fields.name}
-                          <td> ${item.fields.donation}
-                          </td><td> ${item.fields.date} 
-                          </td><td>  <button id="delete-button" style="font-weight:bold;
-                                                                        background-color:#F96666;
-                                                                        border: none;
-                                                                        text-decoration: none;
-                                                                        display: inline-block;"
-                                                                        onmouseover="this.style.backgroundColor='#E14D2A';"
-                                                                        onmouseout="this.style.backgroundColor='#F96666';"
-                                                                        onclick="cancelCloth(${item.pk})"
-                                                                        >X</button>
+          htmlString += `\n<tr><td> ${item.fields.donation}
+                          <td> ${item.fields.date}
                           </td></tr>`
         })
         document.getElementById("data").innerHTML = htmlString

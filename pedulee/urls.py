@@ -40,9 +40,9 @@ volunteers_urls = [
 ]
 
 money_urls = [
+    path('money/', MoneyView.show, name='show_money'),
     path('money/create', MoneyView.create, name='create_money'),
-    path('history/money/json', MoneyView.show_json, name='show_json_money'),
-    path('history/money/<str:pk>/delete', MoneyView.delete, name='delete_money')
+    path('history/api/money/', MoneyView.show_json, name='show_json_money')
 ]
 
 grocery_urls = [

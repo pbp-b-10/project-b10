@@ -274,6 +274,29 @@ class VolunteerView:
 class MoneyView:
     @staticmethod
     @login_required(login_url="/sign-in")
+    def show(request):
+        form = MoneyForm()
+        visit = None
+        request.session.modified = True
+        if 'visit_money' in request.session:
+            times_donate = int(request.session['visit_money'])
+            times_donate += 1
+            request.session['visit_money'] = times_donate
+            if times_donate < 1:
+                visit = 'Welcome'
+            else:
+                visit = 'Welcome back'
+        else:
+            request.session['visit_money'] = 0
+            visit = 'Welcome'
+        context = {
+            'form' : form,
+            'visit' : visit,
+        }
+        return my_render(request, "money/form.html", context)
+
+    @staticmethod
+    @login_required(login_url="/sign-in")
     def create(request):
         form = MoneyForm()
         if request.method == 'POST':
@@ -301,14 +324,6 @@ class MoneyView:
         else:
             data_user = Money.objects.filter(user = request.user)
         return HttpResponse(serializers.serialize("json", data_user), content_type="application/json")
-
-    @staticmethod
-    @csrf_exempt
-    def delete (request, i):
-        if request.method == "DELETE":
-            money = Money.objects.get(pk=i)
-            money.delete()
-        return HttpResponse(b"DELETE")
 
 class GroceriesView:
     @staticmethod
