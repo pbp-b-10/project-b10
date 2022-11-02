@@ -7,23 +7,7 @@
 {% endblock meta %}
 
 {% block styles %}
-<style>
-    body {
-        font-family: "Montserrat";
-        text-align: center;
-        background-image: url("{% static 'images/background.png' %}");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    }
-    .delete-button{
-        font-weight:bold;
-        background-color:#F96666;
-        border: none;
-        text-decoration: none;
-        display: inline-block;
-    }
-</style>
+<link rel="stylesheet" href="/static/css/volunteer-history.css">
 {% endblock styles %}
 
 {% block content %}
@@ -61,38 +45,5 @@
 {% endblock content %}
 
 {% block scripts %}
-<script>
-    const template = document.getElementsByTagName('template')[0];
-
-    function getVolunteers() {
-      return fetch("{% url 'pedulee:show_json_volunteer' %}").then((res) => res.json())
-    }
-
-    async function refreshVolunteers() {
-        const volunteers = await getVolunteers()
-        const table =  document.getElementById("data");
-        table.innerHTML = "";
-        volunteers.forEach((item) => {
-            const duplicate = template.cloneNode(true).content
-            /** @type {HTMLElement[]} */
-            const fields = duplicate.querySelectorAll('td')
-            fields[0].innerHTML = item.fields.project
-            fields[1].innerHTML = item.fields.divisi
-            fields[2].innerHTML = item.fields.durasi
-            table.appendChild(duplicate)
-        })
-    }
-
-    function cancelVolunteer(id) {
-        $.ajax({
-            url: `volunteer/${id}/delete`,
-            type: "DELETE",
-            success: function() {
-              $(`#${id}`).remove();
-            }
-        }).then(refreshVolunteers)
-    }
-
-    refreshVolunteers()
-</script>
+<script src="/static/js/volunteer-history.js"></script>
 {% endblock scripts %}

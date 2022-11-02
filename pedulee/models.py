@@ -63,6 +63,7 @@ class Project(models.Model):
     title = models.CharField(max_length=256)
     description = models.CharField(max_length=1024)
     link = models.CharField(max_length=256)
+    image = models.CharField(max_length=256, default="/static/images/background.png")
     amount = models.BigIntegerField()
     akhir_waktu = models.DateField()
 
@@ -91,17 +92,17 @@ class Money(models.Model):
 
 class Volunteer(models.Model):
     DIVISI_CHOICES = [
-        ("Logistics", "Logistics"),
-        ("Secretary", "Secretary"),
-        ("Worker", "Worker"),
+        ("Panitia Inti", "Panitia Inti"),
+        ("Kesehatan", "Kesehatan"),
+        ("Hubungan Masyarakat", "Hubungan Masyarakat"),
+        ("Tenaga Kerja", "Tenaga Kerja"),
     ]
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    divisi = models.CharField(max_length=255,
-                            choices = DIVISI_CHOICES,
-                            default = "Logistics",
+    divisi = models.CharField(  max_length=255,
+                                choices = DIVISI_CHOICES,
+                                default = "Panitia Inti",
                             )
-    durasi = models.BigIntegerField()
 
     def __str__(self):
         return self.user.username + self.project.title + self.divisi + str(self.durasi)
@@ -141,4 +142,3 @@ class Groceries(models.Model):
                                default = "Select...",
                                )
     ccnumber = models.IntegerField()
-    

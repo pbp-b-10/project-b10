@@ -1,0 +1,25 @@
+.submit_btn {
+  padding: 6px 33px;
+  text-align: center;
+  background: #aac4ff;
+  border-radius: 90px;
+  display: block;
+  font-size: 16px;
+  font-weight: 1000;
+  color: white;
+  border: 1px solid black;
+}
+.discard_btn {
+  padding: 6px 33px;
+  background: red;
+  border-radius: 90px;
+  display: block;
+  font-size: 16px;
+  font-weight: 1000;
+  color: white;
+  border: 1px solid black;
+}
+.discard_btn:hover {
+  background-color: white;
+  color: black;
+}

@@ -1,3 +1,5 @@
+<!--MASIH MAU DI EDIT-->
+
 {% extends 'base.html' %}
 
 {% load static %}
@@ -19,11 +21,11 @@
             {% for project in projects  %}
             <div class="col-sm-6 col-md-4 p-1 p-md-2">
                 <div class="card" style="width: 18rem;">
-                    <img src="{% static 'images/background.png' %}" class="card-img-top" alt="">
+                    <img src="{{ project.image }}" class="card-img-top" alt="{{ project.title }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ project.title }}</h5>
                         <p class="card-text">{{ project.description }}</p>
-                        <a href="#" class="btn btn-primary text-center">Go somewhere</a>
+                        <a href="{{ project.link }}" class="btn btn-primary text-center">More info</a>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,15 @@
+body {
+    font-family: "Montserrat";
+    text-align: center;
+    background-image: url("/static/images/background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.delete-button{
+    font-weight:bold;
+    background-color:#F96666;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+}

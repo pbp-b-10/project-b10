@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-navbar fw-bolder text-uppercase fst-normal">
     <div class="container-fluid mx-auto">
         <a class="navbar-brand mx-auto d-lg-none" href="/">
-            <img src='{% static "/images/logo.png" %}' style="height: 3rem;">
+            <img src="/static/images/logo.png" style="height: 3rem;">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -27,7 +27,7 @@
                 </ul>
             </li>
             <a class="navbar-brand d-none d-lg-block" href="/home">
-                <img src='{% static "/images/logo.png" %}' style="height: 4rem;" >
+                <img src="/static/images/logo.png" style="height: 4rem;" >
             </a>
             <a class="nav-link" href="{% url 'pedulee:create_volunteer' %}">VOLUNTEER</a>
             <a class="nav-link" href="#about-us">ABOUT US</a>
