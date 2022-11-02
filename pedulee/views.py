@@ -268,8 +268,7 @@ class BloodView:
     @login_required(login_url="/sign-in")
     def get_show_blood(request):
         if request.method == "GET":
-            history_darah = Blood.objects.filter(user = request.user).last()
-            context = {
-                'history' : history_darah
-            }
-            return render(request, 'blood/history.html',context)
+            history_darah = Blood.objects.filter(user = request.user)
+            return HttpResponse(serializers.serialize("json",history_darah),content_type="application/json")
+
+
