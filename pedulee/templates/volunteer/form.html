@@ -56,7 +56,7 @@
 {% block scripts %}
 <script>
     /** @type {Array} */
-    const projects = {{ projects | safe }}
+    const projects = JSON.parse("{{ projects | safe }}")
 </script>
 <script src="/static/js/volunteer-form.js"></script>
 {% endblock scripts %}
