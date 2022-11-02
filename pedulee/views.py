@@ -9,13 +9,13 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-from django.http import HttpResponseRedirect, HttpResponseNotFound
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.core import serializers
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import ProfileForm
-from .models import Cloth, Project, Volunteer, Money
+from .models import Cloth, Project, Volunteer, Money, Profile
 
 # Create your views here.
 def my_render(request, page, context:dict):
@@ -72,9 +72,20 @@ class UserViews:
         return my_render(request, 'signin.html', context)
 
     def profile(request):
-        # user = User
         context = {}
-        return my_render(request, 'profile.html', context)
+        if request.user.is_staff:
+            return my_render(request, 'profile-admin.html', context)
+        else:
+            fullname = request.user.get_full_name
+            email = request.user.email
+            profile_user = Profile.objects.filter(user = request.user)
+            context = {
+                'fullname' : fullname,
+                'profile' : profile_user,
+                'username' : request.user,
+                'email' : email,
+            }
+            return my_render(request, 'profile.html', context)
 
     def logout(request):
         logout(request)

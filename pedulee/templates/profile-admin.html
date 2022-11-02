@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load templates %}
+
+{% block meta %}
+    <title>Profile</title>
+{% endblock meta %}
+
+{% block styles %}
+    <style>
+        .row {
+            --bs-gutter-x: 0;
+        }
+        .admin {
+            font-weight: bold;
+            font-size: 40px;
+        }
+    </style>
+
+{% endblock styles %}
+
+{% block content %}
+    {% include 'navbar.html' %}
+        <p class="admin text-uppercase text-center" style="padding: 110px;"> You are admin </p>
+    {% include 'footer.html' %}
+{% endblock content %}
