@@ -4,84 +4,18 @@
 
 {% block meta %}
     <title>Donasi Uang</title>
+    <link rel="stylesheet" href="{% static 'css/money-form.css' %}">
 {% endblock meta %}
 
-{% block styles %}
-    <style>
-        body {
-            font-family: 'Montserrat';
-            text-align: center;
-            background-image: url("{% static 'images/background.png' %}");  
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
-        .nav-link {
-            font-weight: bold;
-            font-style: normal;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        .navbar {
-            background: #FDF3EA;
-            height: auto;
-            position: sticky;
-            padding: 1% 1%;
-        }
-        .container-form {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        td {
-            text-align: left;
-        }
-    </style>
-{% endblock styles %} 
-
 {% block content %}
-{% include 'navbar.html' %}
-<body>
-    <nav class="navbar">
-        <div class="container-fluid">
-            <a class="nav-link" href="/home">HOME</a>
-            <a class="nav-link" href="/projects">PROJECTS</a>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">DONATE</a>
-                <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">CLOTHES</a>
-                    <a href="#" class="dropdown-item">MONEY</a>
-                    <a href="#" class="dropdown-item">GROCERIES</a>
-                    <a href="#" class="dropdown-item">BLOOD DONORS</a>
-                </div>
-            </div>
-
-                <img src="../../static/images/logo.png" style="width: 20%;" alt="">
-            </a>
-            
-
-            <a class="nav-link" href="/volunteer">VOLUNTEER</a>
-            <a class="nav-link" href="/about-us">ABOUT US</a>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">PROFILE</a>
-                <div class="dropdown-menu">
-                    <a href="/my-profile" class="dropdown-item">{{ username }}</a>
-                    <a href="/history" class="dropdown-item">History</a>
-                    <form method="post" action="">
-                        {% csrf_token %}
-                        <a href="{% url 'pedulee:logout' %}" class="dropdown-item">LOGOUT</a>
-                    </form>
-                </div>
-            </div>
-            
-        </div>
-    </nav>
+    {% include 'navbar.html' %}
+    <h1 class="header">CLOTHES DONATION</h1>
     <div class="container-form">
-        <form action="action_page.php">
+        <form method="POST">
+            {% csrf_token %}
             <table>
                 <tr>
-                    <th colspan="2" style="text-align: center; background-color: gray;">Donor's Data</th>
+                    <th colspan="2" style="text-align: center;">Donor's Data</th>
                 </tr>
                 <tr>
                     <td>
@@ -151,22 +85,18 @@
                     </td>
                     <td>
                         <div class="form-input">
-                            {{ form.pmethod }}
+                            <select id="pmethod" name="pmethod">
+                                <option selected="selected">Select...</option>
+                                <option value="mandiri">Mandiri</option>
+                                <option value="bni">BNI</option>
+                                <option value="bri">BRI</option>
+                                <option value="bca">BCA</option>
+                            </select>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                    </td>
-                    <td>
-                        <form action="">
-                            <input type="checkbox" id="hidename" name="hidename" value="Hide">
-                            <label for="hidename">Anonymize me</label>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <th colspan="2" style="text-align: center; background-color: gray;">Donation Details</th>
+                    <th colspan="2" style="text-align: center;">Donation Details</th>
                 </tr>
                 <tr>
                     <td>
@@ -185,12 +115,12 @@
 
                     </td>
                     <td>
-                        <input type="submit" value="Submit">
+                        <button id="button-submit" type="submit" class="submit_btn">Submit</button>
                     </td>
                 </tr>
             </table>
         </form>
     </div>
-</body>
-{% include 'footer.html' %}
+    <br></br>
+    {% include 'footer.html' %}
 {% endblock content %}

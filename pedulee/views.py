@@ -275,11 +275,28 @@ class VolunteerView:
 
 class MoneyView:
     @staticmethod
-    def show(request):
-        context = {}
-        return render(request, 'money/form.html', context)
+    @login_required(login_url="/sign-in")
+    def create(request):
+        form = MoneyForm()
+        if request.method == 'POST':
+            form = MoneyForm(request.POST)
+            print(form)
+            if form.is_valid():
+                print('isvalid')
+                Money = form.save(commit=False)
+                Money.user = request.user
+                Money.save()
+                return HttpResponse(b"CREATED", status=201)
+
+        context = {
+            'form': form
+        }
+        return render(request, 'Money/form.html', context)
 
     @staticmethod
     def show_json(request):
-        data = Money.objects.filter(user = request.user).prefetch_related('project')
-        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+        if request.user.is_staff:
+            data_user = Money.objects.all()
+        else:
+            data_user = Money.objects.filter(user = request.user)
+        return HttpResponse(serializers.serialize("json", data_user), content_type="application/json")
