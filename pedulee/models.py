@@ -92,15 +92,16 @@ class Money(models.Model):
 
 class Volunteer(models.Model):
     DIVISI_CHOICES = [
-        ("Logistics", "Logistics"),
-        ("Secretary", "Secretary"),
-        ("Worker", "Worker"),
+        ("Panitia Inti", "Panitia Inti"),
+        ("Kesehatan", "Kesehatan"),
+        ("Hubungan Masyarakat", "Hubungan Masyarakat"),
+        ("Tenaga Kerja", "Tenaga Kerja"),
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     divisi = models.CharField(  max_length=255,
                                 choices = DIVISI_CHOICES,
-                                default = "Logistics",
+                                default = "Panitia Inti",
                             )
 
     def __str__(self):
