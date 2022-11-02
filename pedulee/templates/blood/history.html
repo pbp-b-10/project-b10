@@ -33,9 +33,10 @@
   </tbody>
 </table>
 <br><br> <br><br> <br><br>
-<script>
+<block scripts>
+  <script>
 $(document).ready(function(){
-  $.get("history/blood/json", function(data) {
+  $.get("{% url 'pedulee:blood' %}", function(data) {
    for (i=0;i<data.length;i++){
       $("#container").append(`
     <div class="col">
@@ -46,14 +47,12 @@ $(document).ready(function(){
         <h5 class="card-subtitle mb-2 text-muted">${data[i].fields.rhesus}</h5>
         <h5 class="card-subtitle mb-2 text-muted">${data[i].fields.penyakit_bawaan}</h5>
         <h5 class="card-subtitle mb-2 text-muted">${data[i].fields.lokasi_donor}</h5>
-        <p class="card-text">${data[i].fields.description}</p>
       </div>
     </div>
   </div>`)
     }
   });
 } )
-
 </script>
 {% include '_components\footer.html' %}
 
