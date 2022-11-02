@@ -286,3 +286,13 @@ class MoneyView:
         else:
             data_user = Money.objects.filter(user = request.user)
         return HttpResponse(serializers.serialize("json", data_user), content_type="application/json")
+
+    @staticmethod
+    @csrf_exempt
+    def delete (request, i):
+        if request.method == "DELETE":
+            money = Money.objects.get(pk=i)
+            money.delete()
+        return HttpResponse(b"DELETE")
+
+    

@@ -30,8 +30,8 @@
   <br><br> <br><br> <br><br>
   {% include 'footer.html' %}
   {% if user.is_staff %}
-    <script type="text/javascript" src="{% static 'js/clothes-history-admin.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/money-history-admin.js' %}"></script>
   {% else %}
-    <script type="text/javascript" src="{% static 'js/clothes-history-admin.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/money-history-user.js' %}"></script>
   {% endif %}
 {% endblock content %}
