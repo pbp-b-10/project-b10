@@ -30,7 +30,7 @@ Modul ini digunakan oleh user yang telah login untuk mendonasikan pakaian bekas 
 Modul ini digunakan oleh user yang telah login untuk berdonasi dalam bentuk uang ke proyek yang dipilih. Fitur yang dimiliki oleh modul ini adalah nama, nominal uang, dan pesan donasi. Setelah itu, user akan diminta metode pembayaran / donasi. <br />
 
 **7. Form Donasi Sembako (Rakhan)** <br />
-Modul ini digunakan oleh user yang telah login untuk memberikan donasi berupa sembako. Modul ini akan berisi formulir yang dapat diisi oleh user mengenai bentuk, jenis barang, dan pilihan paket sembako yang akan diberikan. Pilihan paket sembako yang diberikan akan ditampilkan dengan harga dan jumlah sembako yang ingin diberikan. Implementasi form ini akan diambil dari katalog yang ada pada menu Gofood dan Shopee. <br />
+Modul ini digunakan oleh user yang telah login untuk memberikan donasi berupa sembako. Modul ini akan berisi formulir yang dapat diisi oleh user mengenai bentuk, jenis barang, serta banyak jumlahnya. Implementasi ide dari form ini akan diambil dari katalog yang ada pada menu Gofood. <br />
 
 **8. Form Donasi (donor) Darah (Alvin)** <br />
 Modul ini digunakan oleh user yang telah login untuk mendonor darah. Modul ini akan meminta data user berupa nama, tanggal lahir, domisili, golongan darah, rhesus, umur, penyakit bawaan, tempat user ingin donor (pilihan PMI mana). Setelah mendaftar form tersebut, user akan mendapat nomor antrian dan informasi umum yang telah diisi sebelumnya dapat dilihat pada bagian profile user. <br />

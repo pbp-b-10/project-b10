@@ -84,20 +84,49 @@
         td {
             padding: 1%;
         }
+        li {
+            list-style: none;
+        }
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .closebtn:hover {
+            color: black;
+        }
+        .alert {
+            padding: 20px;
+            background-color: #ff3a3aa8;
+            color: white;
+            margin-bottom: 15px;
+            display: block;
+            margin: 0 auto;
+            padding-left: 0px;
+            max-width: 450px;
+        }
     </style>
 {% endblock styles %}
 
 {% block content %}
     <div class="container left" id="container-form">
-        {% if messages %}
-            {% for message in messages %}
-            <div class="alert alert-primary" role="alert">
-                {{ message }}
-            </div>
-            {% endfor %}
-        {% endif %}
         <div class="content">
-            <h1 class="header">CREATE ACCOUNT</h1>
+            {% if form.errors %}
+                <ul>
+                {% for key,value in form.errors.items %}
+                    <div class="alert">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        <li>{{ value|escape }}</li>
+                    </div><br style="content: ''; display: block; margin: 1px;">
+                {% endfor %}
+                </ul>
+            {% endif %}
+            <h1 class="header" style="margin-top: 2px;">CREATE ACCOUNT</h1>
             <h4 class="description">Register to create your account</h4>
                 <form method="POST" >
                     {% csrf_token %}

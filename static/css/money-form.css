@@ -1,0 +1,29 @@
+body {
+    font-family: 'Montserrat'; 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+td {
+    text-align: left;
+}
+.center {
+    margin-right: auto;
+    margin-left: auto;
+}
+.submit_btn {
+    margin: 4% 2%;
+    padding: 6px 33px;
+    text-align: center;
+    background: #AAC4FF;
+    border-radius: 90px;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 1000;
+    color: white;
+    border: 1px solid black;
+}
+.submit_btn:hover {
+    background-color: white;
+    color: black;
+}

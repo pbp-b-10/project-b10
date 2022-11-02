@@ -4,21 +4,24 @@
 
 {% block meta %}
     <title>Clothes Donation</title>
-    <link rel="stylesheet" href="{% static 'css/donasi-pakaian.css' %}">
+    <link rel="stylesheet" href="{% static 'css/clothes-form.css' %}">
 {% endblock meta %}
   
 {% block content %}
-    {% include '_components\navbar.html' %}
-    <div id="welcome">
-
-    </div>
+    {% include 'navbar.html' %}
     <div id="success">
         
-    </div> 
+    </div>
+    
+    <div class="text-center" style="background-color: rgba(229, 224, 255, 0.498); padding-top: 0;">
+        <p style="padding: 4px;" id="welcome">
+            {{ visit }}, {{ username }}!
+        </p>
+    </div>
 
       <h1 class="header">CLOTHES DONATION</h1>
 
-      <div class="row">
+      <div class="row" style="--bs-gutter-x: 0;">
         <div class="col">
             <img src='{% static "/images/DonasiPakaian.png" %}' width="80%" style="margin: 6%"/>
         </div>
@@ -61,51 +64,6 @@
           </div>
       </div>
       <br><br>
-      {% include '_components\footer.html' %}
+      {% include 'footer.html' %}
+      <script type="text/javascript" src="{% static 'js/clothes-form.js' %}"></script>
 {% endblock content %}
-
-{% block scripts %}
-<script>
-    async function welcome() {
-        document.getElementById("welcome").innerHTML = ""
-        htmlString = `\n<div class="alert alert-primary" role="alert">\n
-                        \n{{ visit }}, {{ name }}!
-                        </div>`
-        document.getElementById("welcome").innerHTML = htmlString
-        setInterval(exitWelcome, 3500)
-    }
-
-    async function exitWelcome() {
-        document.getElementById("welcome").innerHTML = ""
-        htmlString = ``
-        document.getElementById("welcome").innerHTML = htmlString
-    }
-
-    async function successAfterSubmit() {
-        document.getElementById("success").innerHTML = ""
-        htmlString = `\n<div class="alert alert-success" role="alert">\n
-                        {% csrf_token %} 
-                        \nThank you for your donation! See your donation history <a href="{% url 'pedulee:clothes_history' %}" class="alert-link">here</a>\n
-                        </div>`
-        document.getElementById("success").innerHTML = htmlString
-        setInterval(exitSuccess, 3500)
-    }
-
-    async function exitSuccess() {
-        document.getElementById("success").innerHTML = ""
-        htmlString = ``
-        document.getElementById("success").innerHTML = htmlString
-    }
-
-    async function submitCloth() {
-        fetch("{% url 'pedulee:create_cloth' %}", {
-            method: "POST",
-            body: new FormData(document.querySelector('#form'))
-        }).then(successAfterSubmit)
-        return false
-    }
-
-    document.getElementById("button-submit").onclick = submitCloth
-    welcome()
-</script>
-{% endblock scripts %}

@@ -4,8 +4,8 @@
 {% load templates %}
 
 {% block meta %}
-    <title>Projects</title>
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
 {% endblock meta %}
 
 {% block styles %}
@@ -62,20 +62,19 @@
     </div>
     <main class="container py-3">
         <section>
-            <h1 class="text-center display-4 text-body">Ongoing Projects</h1>
+            <h1 class="text-center display-4 text-body">About</h1>
             <div class="row">
-                {% for project in projects  %}
-                <div class="col-sm-6 col-md-4 p-1 p-md-2">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ project.image }}" class="card-img-top" alt="{{ project.title }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ project.title }}</h5>
-                            <p class="card-text">{{ project.description }}</p>
-                            <a href="#" class="btn btn-primary text-center">Go somewhere</a>
+                <section class="row gap">
+                    <div class="col-sm-6 col-md-4 p-1 p-md-2">
+                        <div class="card" style="width: 18rem;">
+                            <img src="{% static 'images/background.png' %}" class="card-img-top" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ user }}</h5>
+                                <p class="card-text">{{ user.address }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                {% endfor %}
+                </section>
             </div>
         </section>
     </main>

@@ -1,0 +1,31 @@
+
+$(document).ready(function(){
+    $('#id_project').on('change', function() {
+        $('#durasi').val(projects.find( o => o.pk == this.value )?.fields.amount)
+    });
+})
+async function successAfterSubmit() {
+    document.getElementById("success").innerHTML = ""
+    htmlString = `\n<div class="alert alert-success" role="alert">\n
+                    {% csrf_token %}
+                    \nThank you for your volunteer! <!-- See your donation history <a href="{% url 'pedulee:clothes_history' %}" class="alert-link">here</a> -->\n
+                    </div>`
+    document.getElementById("success").innerHTML = htmlString
+    setInterval(exitSuccess, 3500)
+}
+
+function exitSuccess() {
+    document.getElementById("success").innerHTML = ""
+    htmlString = ``
+    document.getElementById("success").innerHTML = htmlString
+}
+
+function submitVolunteer() {
+    fetch("{% url 'pedulee:create_volunteer' %}", {
+        method: "POST",
+        body: new FormData(document.querySelector('#form'))
+    }).then(successAfterSubmit)
+    return false
+}
+
+document.getElementById("button-submit").onclick = submitVolunteer

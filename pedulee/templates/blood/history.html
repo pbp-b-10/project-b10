@@ -1,31 +1,15 @@
-{% extends 'base.html' %} 
-
-{% load static %} 
-
-{% block meta %}
-    <title>Projects</title>
-    <link rel="stylesheet" href="{% static 'css/clothes-history.css' %}">
-{% endblock meta %} 
-
-{% block content %} 
-{% include '_components\navbar.html' %}
-
-<div id="success">
-
-</div>
-<h1 class="header">BLOOD DONATION HISTORY</h1>
 <table style="text-align: center" class="table table-striped">
   <thead>
     <tr style="background-color: transparent">
-      {% for i in blood %}
-        <tr>
-          <th>{{i.date}}</th>
-          <th>{{i.golongan}}</th>
-          <th>{{i.rhesus}}</th>
-          <th>{{i.penyakit_bawaan}}</th>
-          <th>{{i.lokasi_donor}}</th>
-        </tr>
-      {%endfor%}
+      {% if user.is_staff %}
+      <th>User</th>
+      {% endif %}
+      <th></th>
+      <th>Date</th>
+      <th>Golongan</th>
+      <th>Rhesus</th>
+      <th>CPenyakit Bawaan</th>
+      <th>Lokasi Donor</th>
     </tr>
   </thead>
 
@@ -33,27 +17,10 @@
   </tbody>
 </table>
 <br><br> <br><br> <br><br>
-<block scripts>
-  <script>
-$(document).ready(function(){
-  $.get("{% url 'pedulee:blood' %}", function(data) {
-   for (i=0;i<data.length;i++){
-      $("#container").append(`
-    <div class="col">
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h4 class="card-title">${data[i].fields.date}</h4>
-        <h5 class="card-subtitle mb-2 text-muted">${data[i].fields.golongan}</h5>
-        <h5 class="card-subtitle mb-2 text-muted">${data[i].fields.rhesus}</h5>
-        <h5 class="card-subtitle mb-2 text-muted">${data[i].fields.penyakit_bawaan}</h5>
-        <h5 class="card-subtitle mb-2 text-muted">${data[i].fields.lokasi_donor}</h5>
-      </div>
-    </div>
-  </div>`)
-    }
-  });
-} )
-</script>
-{% include '_components\footer.html' %}
-
+{% include 'footer.html' %}
+{% if user.is_staff %}
+  <script type="text/javascript" src="{% static 'js/blood-history-admin.js' %}"></script>
+{% else %}
+  <script type="text/javascript" src="{% static 'js/blood-history-admin.js' %}"></script>
+{% endif %}
 {% endblock content %}
