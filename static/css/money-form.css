@@ -8,6 +8,10 @@ body {
 td {
     text-align: left;
 }
+.center {
+    margin-right: auto;
+    margin-left: auto;
+}
 .submit_btn {
     margin: 4% 2%;
     padding: 6px 33px;

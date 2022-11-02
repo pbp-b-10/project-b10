@@ -283,15 +283,18 @@ class MoneyView:
             print(form)
             if form.is_valid():
                 print('isvalid')
-                Money = form.save(commit=False)
-                Money.user = request.user
-                Money.save()
-                return HttpResponse(b"CREATED", status=201)
+                money = form.save(commit=False)
+                money.user = request.user
+                money.save()
+                context = {
+                    'form': form
+                }
+                return render(request, 'money/form.html', context)
 
         context = {
             'form': form
         }
-        return render(request, 'Money/form.html', context)
+        return render(request, 'money/form.html', context)
 
     @staticmethod
     def show_json(request):
