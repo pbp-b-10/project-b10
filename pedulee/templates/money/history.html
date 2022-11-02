@@ -3,27 +3,24 @@
 {% load static %} 
 
 {% block meta %}
-    <title>Clothes Donation History</title>
-    <link rel="stylesheet" href="{% static 'css/clothes-history.css' %}">
+    <title>Money Donation History</title>
+    <link rel="stylesheet" href="{% static 'css/money-history.css' %}">
 {% endblock meta %} 
 
 {% block content %} 
-{% include '_components\navbar.html' %}
+{% include 'navbar.html' %}
   <div id="success">
 
   </div>
-  <h1 class="header">CLOTHES DONATION HISTORY</h1>
+  <h1 class="header">MONEY DONATION HISTORY</h1>
   <table style="text-align: center" class="table table-striped">
     <thead>
       <tr style="background-color: transparent">
         {% if user.is_staff %}
         <th>User</th>
         {% endif %}
-        <th>Model</th>
-        <th>Material</th>
-        <th>Type</th>
+        <th>Amount</th>
         <th>Date</th>
-        <th>Cancel</th>
       </tr>
     </thead>
 
@@ -31,10 +28,10 @@
     </tbody>
   </table>
   <br><br> <br><br> <br><br>
-  {% include '_components\footer.html' %}
+  {% include 'footer.html' %}
   {% if user.is_staff %}
-    <script type="text/javascript" src="{% static 'js/clothes-history-admin.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/money-history-admin.js' %}"></script>
   {% else %}
-    <script type="text/javascript" src="{% static 'js/clothes-history-admin.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/money-history-user.js' %}"></script>
   {% endif %}
 {% endblock content %}

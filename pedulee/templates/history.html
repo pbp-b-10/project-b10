@@ -79,7 +79,7 @@
 {% endblock styles %}
 
 {% block content %}
-    {% include 'navbar.html' %}
+    {% include '_components\navbar.html' %}
     <main class="container py-3">
         <h1 class="header">{{ username }}'s DONATION HISTORY</h1>
         <table class="center">
@@ -126,5 +126,5 @@
       </table>
     </main>
     <br><br> <br><br> <br><br> <br><br>
-    {% include 'footer.html' %}
+    {% include '_components\footer.html' %}
 {% endblock content %}
