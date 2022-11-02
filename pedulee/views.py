@@ -47,9 +47,6 @@ class UserViews:
 
                 messages.success(request, 'Your account has been successfully created!')
                 return redirect('pedulee:login')
-            else:
-                messages.info(request, 'Invalid registration details')
-                return render(request, "signup.html", {"form": form})
         else:
             form = ExtendedUserCreationForm()
             profile_form = ProfileForm()
@@ -106,16 +103,10 @@ class HistoryView:
     @staticmethod
     @login_required(login_url="/sign-in")
     def show_clothes(request):
-        if request.user.is_staff:
-            context = {
-                'username' : request.user,
-                'status' : 'staff'
-            }
-        else:
-            context = {
-                'username': request.user,
-                'status' : 'non-staff'
-            }
+        context = {
+            'username' : request.user,
+            'status' : 'staff'
+        }
         return render(request, "cloth/history.html", context)
 
     @staticmethod

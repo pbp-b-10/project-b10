@@ -1,3 +1,6 @@
+.row {
+    --bs-gutter-x: 0;
+}
 .header{
     font-weight: 900;
     font-size: 25px;
