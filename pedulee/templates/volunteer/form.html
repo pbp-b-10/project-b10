@@ -11,14 +11,14 @@
 {% endblock styles %}
 
 {% block content %}
-    {% include '_components\navbar.html' %}
+    {% include 'navbar.html' %}
     <div id="success">
 
     </div>
 
     <h1 class="header p-5">PENDAFTARAN VOLUNTEER</h1>
     <header>
-        <img src="../../static/images/Volunteer.png" height="200px" style="margin: 6%"/>
+        <img src="{% static 'images/Volunteer.png' %}" height="200px" style="margin: 6%"/>
     </header>
     <main class="container">
         <form id="form" onsubmit="return false;">
@@ -50,7 +50,7 @@
             </form>
         </section>
     </main>
-    {% include '_components\footer.html' %}
+    {% include 'footer.html' %}
 {% endblock content %}
 
 {% block scripts %}
