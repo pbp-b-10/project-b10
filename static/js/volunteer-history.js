@@ -15,10 +15,13 @@ async function refreshVolunteers() {
         const duplicate = template.cloneNode(true).content
         /** @type {HTMLElement[]} */
         const fields = duplicate.querySelectorAll('td')
-        fields[0].innerHTML = item.title
-        fields[1].innerHTML = item.divisi
-        fields[2].innerHTML = item.amount
-        fields[3].innerHTML = `<button class="delete-button"
+        let i = -1;
+        fields[++i].innerHTML = item.username
+        fields[++i].innerHTML = item.title
+        fields[++i].innerHTML = item.divisi
+        fields[++i].innerHTML = item.amount
+        fields[++i].innerHTML = item.akhir_waktu
+        fields[++i].innerHTML = `<button class="delete-button"
                 onmouseover="this.style.backgroundColor='#E14D2A';"
                 onmouseout="this.style.backgroundColor='#F96666';"
                 onclick="cancelVolunteer(${item.id})">X</button>`

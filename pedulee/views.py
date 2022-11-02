@@ -244,15 +244,20 @@ class VolunteerView:
 
     @staticmethod
     def show_json(request):
-        data = Volunteer.objects.filter(user = request.user).prefetch_related('project')
+        if request.user.is_staff:
+            data = Volunteer.objects.all().prefetch_related('project')
+        else:
+            data = Volunteer.objects.filter(user = request.user).prefetch_related('project')
         response = []
         for item in data:
             difference = item.project.akhir_waktu - datetime.date.today()
             response.append({
                 'id': item.pk,
+                'username': item.user.username,
                 'title': item.project.title,
                 'amount': difference.days,
                 'divisi': item.divisi,
+                'akhir_waktu': str(item.project.akhir_waktu)
             })
             print(item.project.title, item.project.amount)
         return HttpResponse(json.dumps(response), content_type="application/json")
@@ -359,7 +364,7 @@ class GroceriesView:
         context = {'form': form, 'username': request.user, 'visit' : visit, 'name' : request.user.get_full_name()}
         if request.method == 'POST':
             form = GroceriesForm(request.POST)
-            
+
             if form.is_valid():
                 grocery = form.save(commit=False)
                 grocery.user = request.user

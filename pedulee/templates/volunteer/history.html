@@ -16,9 +16,11 @@
   <table style="text-align: center" class="table table-striped">
     <thead>
       <tr style="background-color: transparent">
+        <th>Username</th>
         <th>Project Name</th>
         <th>Division</th>
         <th>Duration</th>
+        <th>End date</th>
         <th>Cancel</th>
       </tr>
     </thead>
@@ -28,9 +30,11 @@
     <tfoot>
         <template>
         <tr>
+            <td>${item.fields.username}</td>
             <td>${item.fields.cloth_model}</td>
             <td>${item.fields.material}</td>
             <td>${item.fields.type}</td>
+            <td>${item.fields.akhir_waktu}</td>
             <td>
                 <button class="delete-button"
                     onmouseover="this.style.backgroundColor='#E14D2A';"
