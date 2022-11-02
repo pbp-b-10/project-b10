@@ -28,6 +28,7 @@
             transform: translateY(-10px);
             shadow: 5px 5px;
         }
+        
     </style>
 
 {% endblock styles %}
@@ -42,13 +43,13 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-            <img src="https://picsum.photos/1600/500?1" class="d-block w-100" alt="https://picsum.photos/200/300">
+            <img src="{% static 'images/carousel-1.jpg' %}" style="height: 21rem;" class="d-block w-100" alt="https://picsum.photos/200/300">
             </div>
             <div class="carousel-item">
-            <img src="https://picsum.photos/1600/500?2" class="d-block w-100" alt="https://picsum.photos/200/300">
+            <img src="{% static 'images/carousel-2.jpg' %}" style="height: 21rem;" class="d-block w-100" alt="https://picsum.photos/200/300">
             </div>
             <div class="carousel-item">
-            <img src="https://picsum.photos/1600/500?3" class="d-block w-100" alt="https://picsum.photos/200/300">
+            <img src="{% static 'images/carousel-3.jpg' %}" style="height: 21rem;" class="d-block w-100" alt="https://picsum.photos/200/300">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
