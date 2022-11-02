@@ -1,0 +1,40 @@
+{% extends 'base.html' %} 
+
+{% load static %} 
+
+{% block meta %}
+    <title>Groceries Donation History</title>
+    <link rel="stylesheet" href="{% static 'css/groceries-history.css' %}">
+{% endblock meta %} 
+
+{% block content %} 
+{% include 'navbar.html' %}
+  <div id="success">
+
+  </div>
+  <h1 class="header">GROCERIES DONATION HISTORY</h1>
+  <table style="text-align: center" class="table table-striped">
+    <thead>
+      <tr style="background-color: transparent">
+        {% if user.is_staff %}
+        <th>User</th>
+        {% endif %}
+        <th>Donasi</th>
+        <th>Sembako</th>
+        <th>Amount</th>
+        <th>Date</th>
+        <th>Cancel</th>
+      </tr>
+    </thead>
+
+    <tbody id="data">
+    </tbody>
+  </table>
+  <br><br> <br><br> <br><br>
+  {% include 'footer.html' %}
+  {% if user.is_staff %}
+    <script type="text/javascript" src="{% static 'js/groceries-history-admin.js' %}"></script>
+  {% else %}
+    <script type="text/javascript" src="{% static 'js/groceries-history-admin.js' %}"></script>
+  {% endif %}
+{% endblock content %}

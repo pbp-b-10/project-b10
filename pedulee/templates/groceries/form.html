@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block meta %}
+    <title>Groceries Donation</title>
+    <link rel="stylesheet" href="{% static 'css/groceries-form.css' %}">
+{% endblock meta %}
+  
+{% block content %}
+    {% include 'navbar.html' %}
+    <p id="welcome">
+        {{ visit }}, {{ username }}!
+    </p>
+    <div id="success">
+        
+    </div> 
+
+      <h1 class="header">GROCERIES DONATION</h1>
+
+      <div class="row">
+        <header>
+            <img src='{% static "/images/DonasiSembako.png" %}' width="80%" style="margin: 6%"/>
+        </header>
+        
+        <div class="col position-custom">
+            <table class="center">
+                <form id="form" onsubmit="return false;">
+                    {% csrf_token %}
+                    <tr>
+                        <td>
+                            <p class="label">Donasi Uang dalam (Rp)</p>
+                            {{ form.donasi }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="label">Sembako</p>
+                            {{ form.sembako }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>     
+                            <p class="label">Jumlah</p>
+                            {{ form.amount }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>  
+                            <p class="label">Metode Pembayaran</p>
+                            {{ form.pmethod }}               
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>  
+                            <p class="label">Card Number</p>
+                            {{ form.ccnumber }}               
+                        </td>
+                    </tr>
+                </form>
+                    <tr>
+                        <td>
+                            <button id="button-submit" type="submit" class="submit_btn">Submit</button>
+                        </td>
+                        <td>
+                            <form method="post" action="{% url 'pedulee:home' %}">
+                                {% csrf_token %}
+                                <button type="submit" href="home" class="discard_btn">Discard</button>
+                            </form>
+                        </td>
+                    </tr>
+            </table>
+          </div>
+      </div>
+      <br><br>
+      {% include 'footer.html' %}
+      <script type="text/javascript" src="{% static 'js/groceries-form.js' %}"></script>
+{% endblock content %}

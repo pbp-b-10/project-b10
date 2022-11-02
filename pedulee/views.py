@@ -3,7 +3,7 @@ import json
 from multiprocessing import context
 from django.shortcuts import render
 from django.shortcuts import redirect
-from .forms import ClothForm, ExtendedUserCreationForm, VolunteerForm, MoneyForm
+from .forms import ClothForm, ExtendedUserCreationForm, VolunteerForm, MoneyForm, GroceriesForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
@@ -15,7 +15,7 @@ from django.core import serializers
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import ProfileForm
-from .models import Cloth, Volunteer, Money, Project
+from .models import Cloth, Volunteer, Money, Project, Groceries
 
 def my_render(request, page, context:dict):
     context['username'] = request.user
@@ -310,6 +310,80 @@ class MoneyView:
         if request.method == "DELETE":
             money = Money.objects.get(pk=i)
             money.delete()
+        return HttpResponse(b"DELETE")
+
+class GroceriesView:
+    @staticmethod
+    @login_required(login_url="/sign-in")
+    def show(request):
+        form = GroceriesForm()
+        username = request.user
+        visit = None
+        request.session.modified = True
+        if 'visit_groceries' in request.session:
+            times_donate = int(request.session['visit_groceries'])
+            times_donate += 1
+            request.session['visit_groceries'] = times_donate
+            if times_donate < 1:
+                visit = 'Welcome'
+            else:
+                visit = 'Welcome back'
+        else:
+            request.session['visit_groceries'] = 0
+            visit = 'Welcome'
+        context = {
+            'username': username,
+            'form' : form,
+            'visit' : visit,
+        }
+        return render(request, "groceries/form.html", context)
+
+    @staticmethod
+    def show_json(request):
+        if request.user.is_staff:
+            data_user = Groceries.objects.all()
+        else:
+            data_user = Groceries.objects.filter(user = request.user)
+        return HttpResponse(serializers.serialize("json", data_user), content_type="application/json")
+
+    @staticmethod
+    @login_required(login_url="/sign-in")
+    def create(request):
+        form = GroceriesForm()
+        visit = None
+        request.session.modified = True
+
+        if 'visit_groceries' in request.session:
+            times_donate = int(request.session['visit_groceries'])
+            times_donate += 1
+            request.session['visit_groceries'] = times_donate
+            if times_donate < 1:
+                visit = 'Welcome'
+            else:
+                visit = 'Welcome back'
+        else:
+            request.session['visit_groceries'] = 0
+            visit = 'Welcome'
+
+        context = {'form': form, 'username': request.user, 'visit' : visit, 'name' : request.user.get_full_name()}
+        if request.method == 'POST':
+            form = GroceriesForm(request.POST)
+            
+            if form.is_valid():
+                grocery = form.save(commit=False)
+                grocery.user = request.user
+                grocery.username = request.user.get_username()
+                grocery.save()
+                return render(request, 'groceries/form.html', context)
+
+        return render(request, 'groceries/form.html', context)
+
+    @staticmethod
+    @csrf_exempt
+    def delete (request, i):
+        if request.method == "DELETE":
+            grocery = Groceries.objects.get(id=i)
+            grocery.delete()
         return HttpResponse(b"DELETE")
 
     

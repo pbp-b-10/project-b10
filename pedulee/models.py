@@ -105,3 +105,40 @@ class Volunteer(models.Model):
 
     def __str__(self):
         return self.user.username + self.project.title + self.divisi + str(self.durasi)
+
+class Groceries(models.Model):
+    SEMBAKO_CHOICES = [
+        ("Select...", "Select..."),
+        ("Beras", "Beras"),
+        ("Garam", "Garam"),
+        ("Sirup", "Sirup"),
+        ("Gula", "Gula"),
+        ("Kopi", "Kopi"),
+        ("Minyak", "Minyak"),
+        ("Teh", "Teh"),
+        ("Lainnya", "Lainnya"),
+    ]
+
+    PAYMENT_MODEL_CHOICES = [
+        ("Select...", "Select..."),
+        ("Mandiri", "Mandiri"),
+        ("BNI", "BNI"),
+        ("BRI", "BRI"),
+        ("BCA", "BCA"),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    username = models.CharField(max_length=40, null=True)
+    date = models.DateField(auto_now_add=True)
+    donasi = models.IntegerField()
+    sembako = models.CharField(max_length=30,
+                            choices = SEMBAKO_CHOICES,
+                            default = "Select...",
+                            )
+    amount = models.BigIntegerField()
+    pmethod = models.CharField(max_length=30,
+                               choices = PAYMENT_MODEL_CHOICES,
+                               default = "Select...",
+                               )
+    ccnumber = models.IntegerField()
+    
