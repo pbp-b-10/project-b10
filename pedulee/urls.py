@@ -54,7 +54,7 @@ grocery_urls = [
 
 blood_urls = [
      path('blood/create',BloodView.show_blood, name='show_blood'),
-     path('api/blood/', BloodView.get_show_blood, name='get_show_blood'),
+     path('history/api/blood/', BloodView.get_show_blood, name='get_show_blood'),
 ]
 
 urlpatterns = [

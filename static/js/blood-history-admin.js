@@ -1,5 +1,5 @@
 async function getBlood() {
-    return fetch("api/blood/").then((res) => res.json())
+    return fetch("api/blood").then((res) => res.json())
   }
 
   async function refreshBlood() {
