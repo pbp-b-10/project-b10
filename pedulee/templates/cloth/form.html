@@ -8,7 +8,7 @@
 {% endblock meta %}
   
 {% block content %}
-    {% include 'navbar.html' %}
+    {% include '_components\navbar.html' %}
     <div id="success">
         
     </div>
@@ -64,6 +64,6 @@
           </div>
       </div>
       <br><br>
-      {% include 'footer.html' %}
+      {% include '_components\footer.html' %}
       <script type="text/javascript" src="{% static 'js/clothes-form.js' %}"></script>
 {% endblock content %}

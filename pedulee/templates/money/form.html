@@ -8,8 +8,8 @@
 {% endblock meta %}
 
 {% block content %}
-    {% include 'navbar.html' %}
-    <h1 class="header">CLOTHES DONATION</h1>
+{% include '_components\navbar.html' %}
+<h1 class="header">CLOTHES DONATION</h1>
     <div class="container-form">
         <form method="POST">
             {% csrf_token %}
@@ -122,5 +122,5 @@
         </form>
     </div>
     <br></br>
-    {% include 'footer.html' %}
+    {% include '_components\footer.html' %}
 {% endblock content %}

@@ -10,7 +10,6 @@ home_urls = [
     path('sign-in/', UserViews.login, name='login'),
     path('sign-out/', UserViews.logout, name='logout'),
     path('profile/', UserViews.profile, name='profile'),
-    path('about/', UserViews.profile, name='about')
 ]
 
 
@@ -37,6 +36,7 @@ projects_urls = [
 volunteers_urls = [
     path('volunteer/create', VolunteerView.create, name='create_volunteer'),
     path('api/volunteer/', VolunteerView.show_json, name='show_json_volunteer'),
+    path('history/volunteer/<int:i>/delete', VolunteerView.delete, name="delete_volunteer")
 ]
 
 money_urls = [

@@ -27,7 +27,7 @@
 {% endblock styles %}
 
 {% block content %}
-{% include 'navbar.html' %}
+{% include '_components\navbar.html' %}
 
   <table style="text-align: center" class="table table-striped">
     <thead>
@@ -57,7 +57,7 @@
         </template>
     </tfoot>
   </table>
-  {% include 'footer.html' %}
+  {% include '_components\footer.html' %}
 {% endblock content %}
 
 {% block scripts %}
@@ -65,7 +65,9 @@
     const template = document.getElementsByTagName('template')[0];
 
     function getVolunteers() {
-      return fetch("{% url 'pedulee:show_json_volunteer' %}").then((res) => res.json())
+      return fetch("{% url 'pedulee:show_json_volunteer' %}").then((res) => {
+        return res.json()
+      })
     }
 
     async function refreshVolunteers() {
@@ -76,9 +78,13 @@
             const duplicate = template.cloneNode(true).content
             /** @type {HTMLElement[]} */
             const fields = duplicate.querySelectorAll('td')
-            fields[0].innerHTML = item.fields.project
-            fields[1].innerHTML = item.fields.divisi
-            fields[2].innerHTML = item.fields.durasi
+            fields[0].innerHTML = item.title
+            fields[1].innerHTML = item.divisi
+            fields[2].innerHTML = item.amount
+            fields[3].innerHTML = `<button class="delete-button"
+                    onmouseover="this.style.backgroundColor='#E14D2A';"
+                    onmouseout="this.style.backgroundColor='#F96666';"
+                    onclick="cancelVolunteer(${item.id})">X</button>`
             table.appendChild(duplicate)
         })
     }

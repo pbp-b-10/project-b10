@@ -45,7 +45,7 @@
 {% endblock styles %}
 
 {% block content %}
-    {% include 'navbar.html' %}
+    {% include '_components\navbar.html' %}
     <div id="success">
 
     </div>
@@ -73,7 +73,7 @@
                 <label class="form-label col-md-3" for="durasi">
                     Durasi Project
                 </label>
-                {{ form.durasi }}
+                <input type="number" name="durasi" id="durasi" class="form-control col" value="0" readonly>
             </section>
         </form>
         <section class="mb-3 d-flex flex-row justify-content-center align-items-center gap-4">
@@ -84,11 +84,18 @@
             </form>
         </section>
     </main>
-    {% include 'footer.html' %}
+    {% include '_components\footer.html' %}
 {% endblock content %}
 
 {% block scripts %}
 <script>
+    /** @type {Array} */
+    const projects = {{ projects | safe }}
+    $(document).ready(function(){
+        $('#id_project').on('change', function() {
+            $('#durasi').val(projects.find( o => o.pk == this.value )?.fields.amount)
+        });
+    })
     async function successAfterSubmit() {
         document.getElementById("success").innerHTML = ""
         htmlString = `\n<div class="alert alert-success" role="alert">\n
@@ -106,7 +113,7 @@
     }
 
     function submitVolunteer() {
-        fetch("{% url 'pedulee:create_cloth' %}", {
+        fetch("{% url 'pedulee:create_volunteer' %}", {
             method: "POST",
             body: new FormData(document.querySelector('#form'))
         }).then(successAfterSubmit)
@@ -114,5 +121,6 @@
     }
 
     document.getElementById("button-submit").onclick = submitVolunteer
+
 </script>
 {% endblock scripts %}
