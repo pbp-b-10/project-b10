@@ -238,11 +238,12 @@ class VolunteerView:
         data = Volunteer.objects.filter(user = request.user).prefetch_related('project')
         response = []
         for item in data:
+            difference = item.project.akhir_waktu - datetime.date.today()
             response.append({
                 'id': item.pk,
                 'title': item.project.title,
-                'amount': item.project.amount,
-                'divisi': item.divisi
+                'amount': difference.days,
+                'divisi': item.divisi,
             })
             print(item.project.title, item.project.amount)
         return HttpResponse(json.dumps(response), content_type="application/json")
@@ -295,4 +296,3 @@ class MoneyView:
             money.delete()
         return HttpResponse(b"DELETE")
 
-    

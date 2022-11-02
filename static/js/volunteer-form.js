@@ -1,7 +1,11 @@
 
 $(document).ready(function(){
     $('#id_project').on('change', function() {
-        $('#durasi').val(projects.find( o => o.pk == this.value )?.fields.amount)
+        const project = projects.find( o => o.pk == this.value )
+        const today = new Date();
+        const end_date = new Date(project.fields.akhir_waktu);
+        const difference = end_date.getTime() - today.getTime();
+        $('#durasi').val(Math.ceil(difference * (1000 * 3600 * 24)))
     });
 })
 async function successAfterSubmit() {
