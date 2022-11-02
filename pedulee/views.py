@@ -44,6 +44,9 @@ class UserViews:
 
                 messages.success(request, 'Your account has been successfully created!')
                 return redirect('pedulee:login')
+            else:
+                messages.info(request, 'Invalid registration details')
+                return render(request, "signup.html", {"form": form})
         else:
             form = ExtendedUserCreationForm()
             profile_form = ProfileForm()
