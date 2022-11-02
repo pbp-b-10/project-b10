@@ -63,6 +63,7 @@ class Project(models.Model):
     title = models.CharField(max_length=256)
     description = models.CharField(max_length=1024)
     link = models.CharField(max_length=256)
+    image = models.CharField(max_length=256, default="/static/images/background.png")
     amount = models.BigIntegerField()
     akhir_waktu = models.DateField()
 
@@ -91,16 +92,53 @@ class Money(models.Model):
 
 class Volunteer(models.Model):
     DIVISI_CHOICES = [
-        ("Logistics", "Logistics"),
-        ("Secretary", "Secretary"),
-        ("Worker", "Worker"),
+        ("Panitia Inti", "Panitia Inti"),
+        ("Kesehatan", "Kesehatan"),
+        ("Hubungan Masyarakat", "Hubungan Masyarakat"),
+        ("Tenaga Kerja", "Tenaga Kerja"),
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     divisi = models.CharField(  max_length=255,
                                 choices = DIVISI_CHOICES,
-                                default = "Logistics",
+                                default = "Panitia Inti",
                             )
 
     def __str__(self):
         return self.user.username + self.project.title + self.divisi + str(self.durasi)
+
+class Groceries(models.Model):
+    SEMBAKO_CHOICES = [
+        ("Select...", "Select..."),
+        ("Beras", "Beras"),
+        ("Garam", "Garam"),
+        ("Sirup", "Sirup"),
+        ("Gula", "Gula"),
+        ("Kopi", "Kopi"),
+        ("Minyak", "Minyak"),
+        ("Teh", "Teh"),
+        ("Lainnya", "Lainnya"),
+    ]
+
+    PAYMENT_MODEL_CHOICES = [
+        ("Select...", "Select..."),
+        ("Mandiri", "Mandiri"),
+        ("BNI", "BNI"),
+        ("BRI", "BRI"),
+        ("BCA", "BCA"),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    username = models.CharField(max_length=40, null=True)
+    date = models.DateField(auto_now_add=True)
+    donasi = models.IntegerField()
+    sembako = models.CharField(max_length=30,
+                            choices = SEMBAKO_CHOICES,
+                            default = "Select...",
+                            )
+    amount = models.BigIntegerField()
+    pmethod = models.CharField(max_length=30,
+                               choices = PAYMENT_MODEL_CHOICES,
+                               default = "Select...",
+                               )
+    ccnumber = models.IntegerField()
