@@ -1,5 +1,5 @@
 from django import forms
-from .models import Cloth, Groceries, Profile, Volunteer, Money, Groceries
+from .models import Cloth, Groceries, Profile, Volunteer, Money, Groceries, Blood
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -52,3 +52,8 @@ class GroceriesForm(forms.ModelForm):
     class Meta:
         model = Groceries
         fields = ['donasi', 'sembako', 'amount', 'pmethod', 'ccnumber']
+
+class BloodForm(forms.ModelForm):
+    class Meta:
+        model = Blood
+        fields = ["golongan", "rhesus", "penyakit_bawaan", "lokasi_donor"]

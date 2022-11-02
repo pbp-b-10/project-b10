@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+{% extends 'base.html' %} 
+
+{% load static %} 
+
+{% block meta %}
+    <title>Projects</title>
+    <link rel="stylesheet" href="{% static 'css/clothes-history.css' %}">
+{% endblock meta %} 
+
+{% block content %} 
+{% include 'navbar.html' %}
+    <h1 class="header">Donasi Darah</h1>
+    <table class="center">
+        <tr>
+        <th></th>
+        <th scope="col" colspan="2"></th>
+    </tr>
+    <tr>
+        <td>
+            <form method="post" action="{% url 'pedulee:show_blood' %}">
+                {% csrf_token %}
+                {{form}}
+                <button class="button-submit" type="submit" data-bs-toggle="modal">Submit</button>
+                <button class="button-primary" type="reset">Discard</button>
+            </form>
+        </td>
+        <td>
+            <form method="post" action="{% url 'pedulee:show_blood' %}">
+                {% csrf_token %}
+            </form>
+        </td>
+    </tr>
+</table> 
+<h1> </h1>
+<h2>Ini nomor antrian kamu ya:</h2> 
+<h1> </h1>
+<h1> {{number}}</h1>
+<td>
+<a onclick="toHistory" class="button-primary" href = "{% url 'pedulee:blood_history' %}">Detailnya disini</a>
+</td>
+<script>
+    function toHistory(){
+        $.ajax({
+            url : "{% url 'pedulee:blood_history' %}",
+            type : "",
+        })
+    }
+</script>
+</body>
+</html>
+{% include 'footer.html' %}
+{%endblock content%}
