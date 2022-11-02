@@ -3,7 +3,7 @@ import json
 from multiprocessing import context
 from django.shortcuts import render
 from django.shortcuts import redirect
-from .forms import ClothForm, ExtendedUserCreationForm, VolunteerForm, MoneyForm, GroceriesForm
+from .forms import ClothForm, ExtendedUserCreationForm, VolunteerForm, BloodForm, MoneyForm, GroceriesForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
@@ -15,7 +15,7 @@ from django.core import serializers
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import ProfileForm
-from .models import Cloth, Volunteer, Money, Project, Groceries, Profile
+from .models import Cloth, Volunteer, Money, Project, Groceries, Profile, Blood
 
 # Create your views here.
 def my_render(request, page, context:dict):
@@ -381,3 +381,29 @@ class GroceriesView:
             grocery = Groceries.objects.get(id=i)
             grocery.delete()
         return HttpResponse(b"DELETE")
+
+class BloodView:
+    @staticmethod
+    @login_required(login_url="/sign-in")
+    def show_blood(request):
+        if request.method == "POST":
+            form = BloodForm(request.POST)
+            if form.is_valid():
+                blood = form.save(commit=False)
+                blood.user = request.user
+                blood.save()
+                loc = form.cleaned_data["lokasi_donor"]
+                number = Blood.objects.filter(lokasi_donor = loc).count()
+                context = {'form':form,'number':number, 'username':request.user}
+                return render(request, 'donor-darah.html',context)
+        else:
+            form = BloodForm()
+        context = {'form':form}
+        return render(request, 'donor-darah.html', context)
+
+    @staticmethod
+    @login_required(login_url="/sign-in")
+    def get_show_blood(request):
+        if request.method == "GET":
+            history_darah = Blood.objects.filter(user = request.user)
+            return HttpResponse(serializers.serialize("json",history_darah),content_type="application/json")
