@@ -1,6 +1,8 @@
 async function successAfterSubmit() {
+    var visit = '{{ visit }}';
     document.getElementById("success").innerHTML = ""
     htmlString = `\n<div class="alert alert-success" role="alert">\n
+                    ${visit}
                     \nThank you for your donation! See your donation history <a href="/history/clothes" class="alert-link">here</a>\n
                     </div>`
     document.getElementById("success").innerHTML = htmlString
