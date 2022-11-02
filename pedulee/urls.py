@@ -1,5 +1,5 @@
 from django.urls import path
-from pedulee.views import ClothesView, HistoryView, HomeViews, ProjectView, UserViews, VolunteerView, MoneyView, GroceriesView
+from pedulee.views import BloodView, ClothesView, HistoryView, HomeViews, ProjectView, UserViews, VolunteerView, MoneyView, GroceriesView
 
 app_name = 'pedulee'
 
@@ -53,7 +53,8 @@ grocery_urls = [
 ]
 
 blood_urls = [
-    path('blood/create', VolunteerView.create, name='create_blood'),
+     path('blood/create',BloodView.show_blood, name='show_blood'),
+     path('api/blood/', BloodView.get_show_blood, name='get_show_blood'),
 ]
 
 urlpatterns = [
