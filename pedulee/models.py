@@ -63,6 +63,7 @@ class Project(models.Model):
     title = models.CharField(max_length=256)
     description = models.CharField(max_length=1024)
     link = models.CharField(max_length=256)
+    image = models.CharField(max_length=256, default="/static/images/background.png")
     amount = models.BigIntegerField()
     akhir_waktu = models.DateField()
 
