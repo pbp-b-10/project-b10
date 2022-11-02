@@ -8,7 +8,7 @@
 {% endblock meta %}
   
 {% block content %}
-    {% include '_components\navbar.html' %}
+    {% include 'navbar.html' %}
     <div id="success">
         
     </div>
@@ -21,7 +21,7 @@
 
       <h1 class="header">CLOTHES DONATION</h1>
 
-      <div class="row">
+      <div class="row" style="--bs-gutter-x: 0;">
         <div class="col">
             <img src='{% static "/images/DonasiPakaian.png" %}' width="80%" style="margin: 6%"/>
         </div>
@@ -64,6 +64,6 @@
           </div>
       </div>
       <br><br>
-      {% include '_components\footer.html' %}
+      {% include 'footer.html' %}
       <script type="text/javascript" src="{% static 'js/clothes-form.js' %}"></script>
 {% endblock content %}
