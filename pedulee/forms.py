@@ -1,5 +1,5 @@
 from django import forms
-from .models import Cloth, Profile, Volunteer, Money
+from .models import Cloth, Groceries, Profile, Volunteer, Money, Groceries
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -46,4 +46,9 @@ class VolunteerForm(forms.ModelForm):
             visible.field.widget.attrs['class'] = 'form-control col'
     class Meta:
         model = Volunteer
-        fields = ['project', 'divisi']
+        fields = ['project', 'durasi', 'divisi']
+
+class GroceriesForm(forms.ModelForm):
+    class Meta:
+        model = Groceries
+        fields = ['donasi', 'sembako', 'amount', 'pmethod', 'ccnumber']
