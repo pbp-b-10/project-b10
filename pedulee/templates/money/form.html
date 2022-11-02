@@ -13,10 +13,7 @@
     <div class="container-form">
         <form method="POST">
             {% csrf_token %}
-            <table>
-                <tr>
-                    <th colspan="2" style="text-align: center;">Donor's Data</th>
-                </tr>
+            <table class="center">
                 <tr>
                     <td>
                         <div class="form-label">
@@ -96,9 +93,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <th colspan="2" style="text-align: center;">Donation Details</th>
-                </tr>
-                <tr>
                     <td>
                         <div class="form-label">
                             <label for="ccnumber"></label>Credit Card<label>*</label>
@@ -111,12 +105,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
-
-                    </td>
-                    <td>
+                    <th colspan="2">
                         <button id="button-submit" type="submit" class="submit_btn">Submit</button>
-                    </td>
+                    </th>
                 </tr>
             </table>
         </form>

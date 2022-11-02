@@ -1,12 +1,15 @@
 body {
-    font-family: 'Montserrat';
-    background-image: url("{% static 'images/background.png' %}");  
+    font-family: 'Montserrat'; 
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
 td {
     text-align: left;
+}
+.center {
+    margin-right: auto;
+    margin-left: auto;
 }
 .submit_btn {
     margin: 4% 2%;
