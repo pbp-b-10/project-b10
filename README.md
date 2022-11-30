@@ -5,7 +5,7 @@ Marietha Asnat Nauli Sitompul - 2106752413 <br />
 Rakhan Yusuf Rivesa - 2106751852 <br />
 Daffa Muhammad Faizan - 2106704156
 
-#### [🔗 Link Aplikasi Pedulee](https://pedulee.herokuapp.com/) <br />
+#### [🔗 Link Aplikasi Pedulee](https://pedulee.up.railway.app/) <br />
 
 ## CERITA APLIKASI
 Sebuah platform yang menerima donasi dalam berbagai bentuk, seperti pakaian bekas layak pakai, dana atau uang, darah, sembako, dan lain sebaginya, untuk membantu isu-isu kemanusiaan yang berkaitan dengan G20. Beberapa isu terkait di antaranya seperti Agriculture and Food Security (donasi uang dan sembako), Climate Sustainability and Energy (donasi pakaian bekas layak pakai), Global Health (donor darah), Strong, Sustainable, Balanced and Inclusive Growth (volunteering). <br />
