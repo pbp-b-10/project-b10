@@ -9,9 +9,6 @@ async function getClothes() {
         let htmlString = ''
         clothes.forEach((item) => {
           htmlString += `\n<tr>`
-          if (user === 'staff') {
-            htmlString += `<td> ${item.fields.username}`
-          }
           htmlString += `<td> ${item.fields.cloth_model} 
                           </td><td> ${item.fields.material} 
                           </td><td> ${item.fields.type}

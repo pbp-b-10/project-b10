@@ -17,7 +17,7 @@
     <thead>
       <tr style="background-color: transparent">
         {% if user.is_staff %}
-        <th>User</th>
+          <th>User</th>
         {% endif %}
         <th>Model</th>
         <th>Material</th>
@@ -35,6 +35,6 @@
   {% if user.is_staff %}
     <script type="text/javascript" src="{% static 'js/clothes-history-admin.js' %}"></script>
   {% else %}
-    <script type="text/javascript" src="{% static 'js/clothes-history-admin.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/clothes-history-user.js' %}"></script>
   {% endif %}
 {% endblock content %}
