@@ -19,7 +19,8 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pedulee.urls')),
-    path('example', include('example_app.urls'))
+    path('example', include('example_app.urls')),
+    path('auth', include('authentication.urls'))
 ]
 
 # TODO: Implement Routings Here
