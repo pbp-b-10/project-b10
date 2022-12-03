@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login as auth_login
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from pedulee.models import Profile
+from pedulee.forms import ExtendedUserCreationForm
+from django.contrib.auth.models import User
 
 @csrf_exempt
 def login(request):
@@ -27,4 +30,61 @@ def login(request):
         return JsonResponse({
           "status": False,
           "message": "Failed to Login, check your email/password."
+        }, status=401)
+
+@csrf_exempt
+def logout(request):
+    try:
+      logout(request)
+      return JsonResponse({
+              "status": True,
+              "message": "Successfully Logged Out!"
+            }, status=200)
+    except:
+      return JsonResponse({
+          "status": False,
+          "message": "Failed to Logout."
+        }, status=401)
+
+@csrf_exempt
+def register(request):
+    if request.method == "POST":
+      data = json.loads(request.body)
+
+      username = data["username"]
+      firstname = data["firstname"]
+      lastname = data["lastname"]
+      email = data["email"]
+      password1 = data["password1"]
+      phone = data["phone"]
+      birthdate = data["birthdate"]
+      address = data["address"]
+
+      user = User.objects.create_user(
+        username = username, 
+        first_name = firstname, 
+        last_name = lastname, 
+        email = email, 
+        password = password1
+      )
+
+      user.save()
+
+      profile = Profile(
+        user = user,
+        phone = phone,
+        birthdate = birthdate,
+        address = address
+      )
+      
+      profile.save()
+
+      return JsonResponse({
+              "status": True,
+              "message": "Successfully created user!"
+            }, status=200)
+    else:
+      return JsonResponse({
+          "status": False,
+          "message": "Failed to register."
         }, status=401)
