@@ -148,6 +148,11 @@ class ProjectView:
             'projects': projects,
         }
         return my_render(request, 'projects/index.html', context)
+    
+    @staticmethod
+    def show_json(request):
+        data = Project.objects.all()
+        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
 class ClothesView:
     @staticmethod

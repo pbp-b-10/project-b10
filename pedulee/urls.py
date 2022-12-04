@@ -30,6 +30,7 @@ cloth_urls = [
 ]
 
 projects_urls = [
+    path('api/projects/', ProjectView.show_json, name='show_json_projects'),
     path('projects/', ProjectView.show, name='projects'),
 ]
 
