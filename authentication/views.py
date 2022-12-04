@@ -3,8 +3,8 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from pedulee.models import Profile
-from pedulee.forms import ExtendedUserCreationForm
 from django.contrib.auth.models import User
+import json
 
 @csrf_exempt
 def login(request):
@@ -55,7 +55,7 @@ def register(request):
       firstname = data["firstname"]
       lastname = data["lastname"]
       email = data["email"]
-      password1 = data["password1"]
+      password = data["password"]
       phone = data["phone"]
       birthdate = data["birthdate"]
       address = data["address"]
@@ -65,7 +65,7 @@ def register(request):
         first_name = firstname, 
         last_name = lastname, 
         email = email, 
-        password = password1
+        password = password,
       )
 
       user.save()
