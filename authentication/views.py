@@ -58,15 +58,15 @@ def register(request):
       birthdate = request.POST.get('birthdate')
       address = request.POST.get('address')
 
-      user = User.objects.create_user(username = username, email = email, password = password)
+      User.objects.create_user(username = username, email = email, password = password)
 
-      user.save(commit=False)
-      user.first_name = firstname
-      user.last_name = lastname
-      user.save()
+      # user.save(commit=False)
+      # user.first_name = firstname
+      # user.last_name = lastname
+      # user.save()
 
       profile = Profile(
-        user = user,
+        # user = user,
         phone = phone,
         birthdate = birthdate,
         address = address
