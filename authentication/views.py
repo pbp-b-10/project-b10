@@ -49,7 +49,7 @@ def logout(request):
 @csrf_exempt
 def register(request):
     if request.method == "POST":
-      username = request.POST.get('username', False)
+      usernames = request.POST.get('username', False)
       firstname = request.POST.get('firstname', False)
       lastname = request.POST.get('lastname', False)
       email = request.POST.get('email', False)
@@ -59,7 +59,7 @@ def register(request):
       address = request.POST.get('address', False)
 
       user = User.objects.create_user(
-        username = username,
+        username = usernames,
         email = email, 
         password = password,
       )
