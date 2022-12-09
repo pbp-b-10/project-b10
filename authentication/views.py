@@ -67,12 +67,13 @@ def register(request):
       )
 
       profile = Profile(
-        user = user,
         phone = phone,
         birthdate = birthdate,
         address = address
       )
       
+      profile.save(commit=False)
+      profile.user = user
       profile.save()
 
       return JsonResponse({
