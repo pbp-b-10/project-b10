@@ -49,16 +49,14 @@ def logout(request):
 @csrf_exempt
 def register(request):
     if request.method == "POST":
-      data = json.loads(request.body)
-
-      username = data["username"]
-      firstname = data["firstname"]
-      lastname = data["lastname"]
-      email = data["email"]
-      password = data["password"]
-      phone = data["phone"]
-      birthdate = data["birthdate"]
-      address = data["address"]
+      username = request.POST["username"]
+      firstname = request.POST["firstname"]
+      lastname = request.POST["lastname"]
+      email = request.POST["email"]
+      password = request.POST["password"]
+      phone = request.POST["phone"]
+      birthdate = request.POST["birthdate"]
+      address = request.POST["address"]
 
       user = User.objects.create_user(
         username = username, 
@@ -88,5 +86,3 @@ def register(request):
           "status": False,
           "message": "Failed to register."
         }, status=401)
-
-# tes push
