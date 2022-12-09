@@ -64,6 +64,9 @@ def register(request):
         password = password,
       )
 
+      user.save(commit=False)
+      user.first_name = firstname
+      user.last_name = lastname
       user.save()
 
       profile = Profile(
