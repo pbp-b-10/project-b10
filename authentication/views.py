@@ -58,7 +58,7 @@ def register(request):
       birthdate = request.POST.get('birthdate')
       address = request.POST.get('address')
 
-      user = User.objects.update_or_create(
+      user = User.objects.create_user(
         username = username, 
         email = email, 
         password = password, 
@@ -72,7 +72,6 @@ def register(request):
         address = address
       )
       
-      profile.save(commit=False)
       profile.user = user
       profile.save()
 
