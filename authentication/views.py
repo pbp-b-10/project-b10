@@ -49,8 +49,8 @@ def logout(request):
 @csrf_exempt
 def register(request):
     if request.method == "POST":
-      username = request.POST["username"]
-      firstname = request.POST["firstname"]
+      username = request.POST['username']
+      firstname = request.POST['firstname']
       lastname = request.POST["lastname"]
       email = request.POST["email"]
       password = request.POST["password"]
