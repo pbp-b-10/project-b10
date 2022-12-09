@@ -60,7 +60,7 @@ def register(request):
 
       user = User.objects.create_user(username = username, email = email, password = password)
 
-      user.save(commit=False)
+      user.save()
       user.first_name = firstname
       user.last_name = lastname
       user.save()
