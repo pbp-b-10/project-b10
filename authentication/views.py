@@ -59,13 +59,9 @@ def register(request):
       address = request.POST.get('address', False)
 
       user = User.objects.create_user(
-        username = username, 
-        first_name = firstname, 
-        last_name = lastname, 
-        email = email, 
-        password = password,
+        username, email, password,
       )
-
+      
       user.save()
 
       profile = Profile(
