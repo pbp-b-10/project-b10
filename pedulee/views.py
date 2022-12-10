@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.core import serializers
 from django.http import HttpResponse
@@ -224,6 +224,33 @@ class ClothesView:
             cloth = Cloth.objects.get(id=i)
             cloth.delete()
         return HttpResponse(b"DELETE")
+
+    @staticmethod
+    @csrf_exempt
+    def create_flutter(request):
+        if request.method == 'POST':
+            user = request.user
+            username = request.user.get_username()
+            cloth_model = request.POST.get('model')
+            material = request.POST.get('material')
+            type = request.POST.get('tipe')
+            Cloth.objects.create(
+                user = user,
+                username = username,
+                cloth_model = cloth_model,
+                material = material,
+                type = type,
+                )
+            return JsonResponse({
+              "status": True,
+              "message": "Add cloth success"
+            }, status=200)
+        else:
+            return JsonResponse({
+              "status": False,
+              "message": "Add cloth failed"
+            }, status=401)
+
 
 class VolunteerView:
     @staticmethod
