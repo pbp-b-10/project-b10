@@ -56,7 +56,7 @@ def register(request):
       firstname = request.POST['firstname']
       lastname = request.POST['lastname']
       
-      user = User.objects.create_user(
+      user = User.objects.update(
         username = username, 
         email = email, 
         password = password,
