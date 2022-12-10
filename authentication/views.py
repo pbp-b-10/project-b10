@@ -56,10 +56,12 @@ def register(request):
       firstname = request.POST['firstname']
       lastname = request.POST['lastname']
       
-      user = User.objects.update(
+      user = User.objects.create_user(
         username = username, 
         email = email, 
         password = password,
+        first_name = firstname,
+        last_name = lastname,
       )
 
       phone = request.POST.get('phone')
