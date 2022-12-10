@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from pedulee.models import Profile
 from django.contrib.auth.models import User
+from django.contrib.auth.backends import UserModel
 import json
 
 @csrf_exempt
@@ -52,27 +53,26 @@ def register(request):
       username = request.POST['username']
       password = request.POST['password']
       email = request.POST['email']
-      firstname = request.POST.get('firstname')
-      lastname = request.POST.get('lastname')
+      firstname = request.POST['firstname']
+      lastname = request.POST['lastname']
+      
+      user = User.objects.create_user(
+        username = username, 
+        email = email, 
+        password = password,
+      )
+
       phone = request.POST.get('phone')
       birthdate = request.POST.get('birthdate')
       address = request.POST.get('address')
 
-      user = User.objects.create_user(
-        username = username, 
-        email = email, 
-        password = password, 
-        first_name = firstname, 
-        last_name = lastname
-      )
-
       profile = Profile(
+        user = user,
         phone = phone,
         birthdate = birthdate,
         address = address
       )
       
-      profile.user = user
       profile.save()
 
       return JsonResponse({
