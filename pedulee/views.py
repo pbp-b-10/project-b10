@@ -229,18 +229,24 @@ class ClothesView:
     @csrf_exempt
     def create_flutter(request):
         if request.method == 'POST':
+            data = json.loads(request.body)
             user = request.user
             username = request.user.get_username()
-            cloth_model = request.POST.get('model')
-            material = request.POST.get('material')
-            type = request.POST.get('tipe')
-            Cloth.objects.create(
+            cloth_model = data['model']
+            material = data['material']
+            type = data['tipe']
+            # material = request.POST.get('material')
+            # type = request.POST.get('tipe')
+            newCloth = Cloth.objects.create(
                 user = user,
                 username = username,
                 cloth_model = cloth_model,
                 material = material,
                 type = type,
                 )
+
+            newCloth.save()
+            
             return JsonResponse({
               "status": True,
               "message": "Add cloth success"
