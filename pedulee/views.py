@@ -231,7 +231,7 @@ class ClothesView:
         if request.method == 'POST':
             data = json.loads(request.body)
             user = request.user
-            username = request.user.get_username()
+            username = request.user.username
             cloth_model = data['model']
             material = data['material']
             type = data['tipe']
@@ -246,7 +246,7 @@ class ClothesView:
                 )
 
             newCloth.save()
-            
+
             return JsonResponse({
               "status": True,
               "message": "Add cloth success"
