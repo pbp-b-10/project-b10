@@ -260,6 +260,7 @@ class ClothesView:
 
 class VolunteerView:
     @staticmethod
+    @csrf_exempt
     @login_required(login_url="/sign-in")
     def create(request):
         form = VolunteerForm()
