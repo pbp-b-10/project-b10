@@ -260,6 +260,7 @@ class ClothesView:
 
 class VolunteerView:
     @staticmethod
+    @csrf_exempt
     @login_required(login_url="/sign-in")
     def create(request):
         form = VolunteerForm()
@@ -334,6 +335,7 @@ class MoneyView:
         return my_render(request, "money/form.html", context)
 
     @staticmethod
+    @csrf_exempt
     @login_required(login_url="/sign-in")
     def create(request):
         form = MoneyForm()
@@ -396,6 +398,7 @@ class GroceriesView:
         return HttpResponse(serializers.serialize("json", data_user), content_type="application/json")
 
     @staticmethod
+    @csrf_exempt
     @login_required(login_url="/sign-in")
     def create(request):
         form = GroceriesForm()
